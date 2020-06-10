@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <link rel="icon" type="image" href="./images/AR.ico">
+  <title>📍 Mesto</title>
+</head>
+
+<body class="page">
+  <div class="page__container">
+    <header class="header">
+      <img class="header__logo hover-style" src="images/logo.svg" alt="логотип Mesto Russia"> <!--ссылка недейсьвующая типа, ха-ха-->
+    </header>
+    <main class="content">
+
+      <section class="profile">
+        <img class="profile__photo" src="images/image.jpg">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__job">Исследователь океана</p>
+        <button class="profile__edit-button hover-style"></button>
+        <button class="profile__add-button hover-style">+</button>
+      </section>
+
+      <section class="popup"> <!--Окошко редактирования профиля ПОПАп-->
+        <form class="popup__container" name="form" method="post" action="#">
+          <button class="popup__close hover-style" type="reset"></button>
+          <div class="popup__content">
+            <p class="popup__title">Редактировать профиль</p>
+            <input class="popup__input popup__input_name" type="text" placeholder="Имя" value="Жак-Ив Кусто" required><!--Да кому нужны эти fieldset-ы-->
+            <input class="popup__input popup__input_about" type="text" placeholder="О себе" value="Исследователь океана">
+            <button class="popup__save-button hover-style" type="submit">Сохранить</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="places">
+        <article class="card">
+          <img class="card__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'>
+          <p class="card__title">Архыз<button class="card__like" type="button" aria-label="Like"></button></p>
+        </article>
+        <article class="card">
+          <img class="card__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'>
+          <p class="card__title">Челябинская область<button class="card__like" type="button" aria-label="Like"></button></p>
+        </article>
+        <article class="card">
+          <img class="card__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'>
+          <p class="card__title">Иваново<button class="card__like" type="button" aria-label="Like"></button></p>
+        </article>
+        <article class="card">
+          <img class="card__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'>
+          <p class="card__title">Камчатка<button class="card__like" type="button" aria-label="Like"></button></p>
+        </article>
+        <article class="card">
+          <img class="card__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'>
+          <p class="card__title">Холмогорский район<button class="card__like" type="button" aria-label="Like"></button></p>
+        </article>
+        <article class="card">
+          <img class="card__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'>
+          <p class="card__title">Байкал<button class="card__like" type="button" aria-label="Like"></button></p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+
+  </div>
+
+  <script src="script/index.js"></script>
+</body>
+
+</html>

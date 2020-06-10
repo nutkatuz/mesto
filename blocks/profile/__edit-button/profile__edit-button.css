@@ -1,0 +1,10 @@
+.profile__edit-button{
+    margin: 10px;
+    height: 24px;
+    width: 24px;
+    grid-area: eddb;
+    padding: 0;
+    background: url(../../../images/Edit\ Button.svg) center no-repeat;
+    box-shadow: none;
+    border: none;
+}

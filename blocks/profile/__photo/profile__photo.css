@@ -1,0 +1,13 @@
+.profile__photo{
+    margin: 0;
+    border-radius: 50%;
+    width: 120px;
+    grid-area: photo;
+}
+
+@media screen and (max-width: 882px) { /*мобильные*/
+    .profile__photo {
+        width: 120px;
+        margin: 0 auto;
+    }
+}
