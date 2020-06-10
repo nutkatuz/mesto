@@ -1,0 +1,17 @@
+.profile__job{
+    margin: 0;
+    font-size: 18px;
+    line-height: 22px;
+    grid-area: job;
+    color: #FFFFFF;
+    width: max-content;
+}
+
+@media screen and (max-width: 882px) { /*мобильные*/
+    .profile__job {
+        margin: 0 auto;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+    }
+}
