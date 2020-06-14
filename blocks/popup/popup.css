@@ -4,7 +4,6 @@
 @import url('./__input/popup__input.css');
 @import url('./__save-button/popup__save-button.css');
 @import url('./__close/popup__close.css');
-@import url('./_opened/popup_opened.css');
 
 .popup { /*это оверлэй*/
     position: fixed;

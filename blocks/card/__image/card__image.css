@@ -1,5 +1,5 @@
 .card__image {
-width: 100%;  
+width: 101%;  /*я не знаю почему там подоска в 2 пикселя появилась*/
 height: 282px;
 
     object-fit: cover;

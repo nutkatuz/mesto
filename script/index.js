@@ -1,3 +1,5 @@
+let sayHallo = function () {console.log('Приветствую хозяйку, готов к работе')}
+//sayHallo() вставляю для проверки кода
 // объявим переменные для окошка редактирования
 const popup = document.querySelector('.popup')
 const popupEditButton = document.querySelector('.profile__edit-button')
