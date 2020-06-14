@@ -4,8 +4,8 @@
     height: 30px;
     background: url(../../../images/heart.svg) center no-repeat;
     border: none;
-    padding: 0 20px;
-    grid-area: like;
     align-self: center;
+    grid-area: like;
+    
 }
 
