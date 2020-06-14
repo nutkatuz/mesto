@@ -7,10 +7,5 @@
 @import url('../blocks/places/places.css');
 @import url('../blocks/card/card.css');
 @import url('../blocks/popup/popup.css');
-
-
-.hover-style:hover {
-    opacity: .5;
-    cursor: pointer;
-    transition: opacity .4s;
-}
+@import url('../blocks/popup/_opened/popup_opened.css');
+@import url('../blocks/hover-style/hover-style.css');
