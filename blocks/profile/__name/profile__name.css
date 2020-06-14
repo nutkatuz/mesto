@@ -1,0 +1,17 @@
+.profile__name {
+    margin: 0;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 56px;    /* or 133% */
+    color: #FFFFFF;
+    grid-area: name;
+    width: max-content;
+}
+
+@media screen and (max-width: 882px) {    /*мобильные*/
+    .profile__name {
+        margin: 0 0 0 auto;
+        font-size: 27px;
+        text-align: center;
+    }
+}

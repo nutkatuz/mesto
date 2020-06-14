@@ -1,0 +1,15 @@
+@import url(./__image/card__image.css);
+@import url(./__title/card__title.css);
+@import url(./__like/card__like.css);
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    min-height: 360px; /*а нужна ли здесь миним?*/
+    overflow: hidden;/*а нужно ли?*/
+}
+
+@media screen and (max-width: 882px) { 
+    .places {
+        max-width: 90vw;
+    }
+}
