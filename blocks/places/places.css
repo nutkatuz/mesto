@@ -3,16 +3,8 @@
     grid-template-columns: repeat(auto-fill, 282px);
     grid-gap: 18px 18px;
     justify-content: center;
-    
-    width: 882px;
-    max-width: 100%;
+
+    max-width: 882px;
     min-height: 350px;
     margin: 0;
-}
-
-
-@media screen and (max-width: 882px) { /*мобильные*/
-    .places {
-        margin: 0 auto;
-    }
 }
