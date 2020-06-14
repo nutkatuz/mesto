@@ -1,9 +1,10 @@
 .card__like {
     margin: 0;
     width: 22px;
-    height: 20px;
+    height: 30px;
     background: url(../../../images/heart.svg) center no-repeat;
     border: none;
-    cursor: pointer;
-    padding: 0;
+    padding: 0 20px;
+    grid-area: like;
+    align-self: center;
 }

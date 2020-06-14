@@ -1,11 +1,21 @@
 @import url(./__image/card__image.css);
 @import url(./__title/card__title.css);
 @import url(./__like/card__like.css);
+
 .card {
+    width: 282px;
+    height: 360px; /*а нужна ли здесь миним?*/
+    display: grid;
+    
+    grid-template-areas: 'image image' 'title like';
+    grid-template-columns: 85% 15%;    
+    grid-template-rows: 282px 80px;
+
     background-color: #fff;
     border-radius: 10px;
-    min-height: 360px; /*а нужна ли здесь миним?*/
-    overflow: hidden;/*а нужно ли?*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 882px) { 

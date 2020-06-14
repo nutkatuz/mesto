@@ -5,15 +5,15 @@
 @import url('./__add-button/profile__add-button.css');
 
 .profile{
-    padding: 36px 0 47px;
-    display: grid;
-    grid-template-columns: 157px   auto 20px 1fr 150px;
-    grid-template-areas: 'photo name eddb . addb' 'photo job . . addb';
-    align-items: center;
-    gap: 0;
     width: 882px;
     max-width: 100%;
     margin: 0;
+    padding: 36px 0 47px;
+    display: grid;
+    grid-template-columns: 157px auto 20px 1fr 150px;
+    grid-template-areas: 'photo name eddb . addb' 'photo job . . addb';
+    align-items: center;
+    gap: 0;
 }
 
 @media screen and (max-width: 882px) { /*мобильные*/
