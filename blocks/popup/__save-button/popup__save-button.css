@@ -13,7 +13,7 @@
   box-shadow: none;
 }
 
-.hover-style:hover {
+.popup__save-button:hover {
   background-color: rgba(0, 0, 0, 0.8);;
   cursor: pointer;
   transition: background-color .4s;
