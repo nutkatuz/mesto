@@ -5,67 +5,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <link rel="icon" type="image" href="./images/AR.ico">
+  <link rel="icon" href="./images/ar.ico">
   <title>📍 Mesto</title>
 </head>
 
 <body class="page">
   <div class="page__container">
+
     <header class="header">
-      <img class="header__logo hover-style" src="images/logo.svg" alt="логотип Mesto Russia"> <!--ссылка недейсьвующая типа, ха-ха-->
+      <img class="header__logo hover-style" src="images/logo.svg" alt="логотип Mesto Russia">
     </header>
+
     <main class="content">
-
       <section class="profile">
-        <img class="profile__photo" src="images/image.jpg">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__job">Исследователь океана</p>
-        <button class="profile__edit-button hover-style"></button>
-        <button class="profile__add-button hover-style">+</button>
-      </section>
-
-      <section class="popup"> <!--Окошко редактирования профиля ПОПАп-->
-        <form class="popup__container" name="form" method="post" action="#">
-          <button class="popup__close hover-style" type="reset"></button>
-          <div class="popup__content">
-            <p class="popup__title">Редактировать профиль</p>
-            <input class="popup__input popup__input_name" type="text" placeholder="Имя" value="Жак-Ив Кусто" required><!--Да кому нужны эти fieldset-ы-->
-            <input class="popup__input popup__input_about" type="text" placeholder="О себе" value="Исследователь океана">
-            <button class="popup__save-button hover-style" type="submit">Сохранить</button>
-          </div>
-        </form>
+        <img class="profile__photo" src="images/image.jpg" alt="аватвар">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <p class="profile__job">Исследователь океана</p>
+        <button class="profile__edit-button hover-style" type="button"></button>
+        <button class="profile__add-button hover-style" type="button">+</button>
       </section>
 
       <section class="places">
         <article class="card">
-          <img class="card__image" src='https://i.pinimg.com/236x/81/d0/81/81d0810226679b40712a8afd6e581b26--scenic-photography-landscape-photographers.jpg?nii=t'>
-          <p class="card__title">Карачаевск</p>
-            <button class="card__like" type="button" aria-label="Like"></button>
+          <img class="card__image" src='./images/places/yakutiya.jpg' alt="Якутия">
+          <p class="card__title">Якутия</p>
+          <button class="card__like hover-style" type="button" aria-label="Лайк"></button>
         </article>
         <article class="card">
-          <img class="card__image" src='https://i.pinimg.com/236x/7c/0d/ca/7c0dca6adb64f271f75284b736c14d60.jpg'>
-          <p class="card__title">Гора Эльбрус</p>
-            <button class="card__like" type="button" aria-label="Like"></button>
+          <img class="card__image" src='./images/places/yalta.jpg' alt="Ялта">
+          <p class="card__title">Ялта</p>
+          <button class="card__like hover-style" type="button" aria-label="Лайк"></button>
         </article>
         <article class="card">
-          <img class="card__image" src='https://i.pinimg.com/236x/ea/b7/99/eab799cd12662190a0a7ab5e9ea8c2d7.jpg?nii=t'>
-          <p class="card__title">Домбай</p>
-            <button class="card__like" type="button" aria-label="Like"></button>
+          <img class="card__image" src='./images/places/aniv.jpg' alt="остров Сахалин">
+          <p class="card__title">Южно-Сахалинск</p>
+          <button class="card__like hover-style" type="button" aria-label="Лайк"></button>
         </article>
         <article class="card">
-          <img class="card__image" src='https://s3.nat-geo.ru/images/2019/5/15/05c4169c36fd4a319f53311207b000ba.2e16d0ba.fill-300x380.jpg'>
-          <p class="card__title">Гора Эльбрус</p>
-            <button class="card__like" type="button" aria-label="Like"></button>
+          <img class="card__image" src='./images/places/murmanskbarincevo.jpg' alt="Мурманск">
+          <p class="card__title">Мурманск</p>
+          <button class="card__like hover-style" type="button" aria-label="Лайк"></button>
         </article>
         <article class="card">
-          <img class="card__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'>
-          <p class="card__title">Домбай</p>
-            <button class="card__like" type="button" aria-label="Like"></button>
+          <img class="card__image" src='./images/places/dunilovoivanovskayaobl.jpg' alt="село Дунилово">
+          <p class="card__title">Дунилово</p>
+          <button class="card__like hover-style" type="button" aria-label="Лайк"></button>
         </article>
         <article class="card">
-          <img class="card__image" src='https://i.pinimg.com/236x/88/49/f9/8849f940526ee2cfe10b6c8031b99e2f.jpg'>
+          <img class="card__image" src='./images/places/zimniy.jpg' alt="зимний пейзаж">
           <p class="card__title">Карачаево-Черкессия</p>
-          <button class="card__like" type="button" aria-label="Like"></button>
+          <button class="card__like hover-style" type="button" aria-label="Лайк"></button>
         </article>
       </section>
     </main>
@@ -75,6 +64,23 @@
     </footer>
 
   </div>
+
+  <section class="popup">
+    <!--Перенесите разметку модального окна в конец страницы-->
+    <form class="popup__container" name="form" method="post" action="#">
+      <button class="popup__close hover-style" type="reset"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <input class="popup__input popup__input_name" type="text" name="text" placeholder="Имя" value="Жак-Ив Кусто"
+          required>
+        <!--Добавьте для полей ввода атрибут name - имя поля, иначе данные на сервер не уйдут-->
+        <input class="popup__input popup__input_about" type="text" name="text" placeholder="О себе"
+          value="Исследователь океана">
+        <button class="popup__save-button" type="submit">Сохранить</button>
+        <!--не хочу <input class="popup__save-button hover-style" type="submit" name="text" value="Сохранить">-->
+      </fieldset>
+    </form>
+  </section>
 
   <script src="script/index.js"></script>
 </body>

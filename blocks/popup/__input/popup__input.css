@@ -1,43 +1,41 @@
+.popup__input {
+  width: 100%;
+  height: 27.26px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  font-family: inherit;  /*инпутовские не перезаписываются ?*/
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  margin: 0 0 29px 0;
+  vertical-align: text-bottom;
+}
 
-  .popup__input { 
-    width: 100%;
-    height: 27.26px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
-    font-family: inherit; /*инпутовские не перезаписываются ???????*/
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
-    margin: 0 0 29px 0;
-    vertical-align: text-bottom;
-  }
-  
-  .popup__input:focus {
-    outline-color: yellow; /* цвет обводки — жёлтый */
-    outline-style: dashed;/* стиль линии — прерывистая */
-    outline-width: 3px; /* толщина обводки — 3px */
-   }
+.popup__input:focus {
+  outline-width: 3px;
+}
 
-   
-/* Стилизуем плейсхолдеры */
 .popup__input::-webkit-input-placeholder {
   font-size: 14px;
   font-family: inherit;
   line-height: 20px;
   color: #bcbcc4;
 }
+
 .popup__input::-moz-placeholder {
   font-size: 14px;
   font-family: inherit;
   line-height: 20px;
   color: #bcbcc4;
 }
+
 .popup__input::-ms-input-placeholder {
   font-size: 14px;
   font-family: inherit;
   line-height: 20px;
   color: #bcbcc4;
 }
+
 .popup__input::placeholder {
   font-size: 14px;
   font-family: inherit;
