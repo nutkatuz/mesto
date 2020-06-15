@@ -5,10 +5,11 @@
     grid-area: addb;
     padding: 0;
     box-shadow: none;
-    border: 1px solid #fff;
+    border: 2px solid #FFF;
     background-color: unset;
-    color: #fff;
     font-size: 40px;
+    color: #FFF;
+    border-radius: 2px;
 }
 
 @media screen and (max-width: 882px) { /*мобильные*/
