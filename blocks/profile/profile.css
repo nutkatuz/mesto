@@ -20,7 +20,7 @@
     .profile {
         margin: 0 auto;
         grid-template-columns: auto 50% min-content auto;
-        grid-template-areas: 'photo photo photo photo' '. name eddb .' '. job job .' 'addb addb addb addb';
+        grid-template-areas: 'photo photo photo' '. name eddb .' '. job .' 'addb addb addb';
         justify-content: center;
         padding: 36px 0 0;
     }
