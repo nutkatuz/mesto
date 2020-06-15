@@ -3,6 +3,7 @@
     font-size: 18px;
     line-height: 22px;
     grid-area: job;
+    align-self: baseline;
     text-overflow: ellipsis;
     max-width: 75vw;
     overflow: hidden;
