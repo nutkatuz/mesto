@@ -1,10 +1,17 @@
 .profile__edit-button{
-    margin: 10px;
+    margin: 5px;
     height: 24px;
     width: 24px;
     grid-area: eddb;
     padding: 0;
-    background: url(../../../images/Edit\ Button.svg) center no-repeat;
+    background: url(../../../images/editbutton.svg) center no-repeat;
     box-shadow: none;
     border: none;
+}
+
+@media screen and (max-width: 882px) {    /*мобильные*/
+    .profile__edit-button {
+        height: 18px;
+        width: 18px;
+    }
 }

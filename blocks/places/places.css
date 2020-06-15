@@ -1,10 +1,9 @@
 .places {
     display: grid;
     grid-template-columns: repeat(auto-fill, 282px);
-    grid-gap: 18px 18px;
+    grid-gap: 20px 18px;
     justify-content: center; /*это нужно*/
     width: 95vw;
     max-width: 882px;
-    min-height: 350px;
     margin: 0 auto; /*и это одновременно тоже нужно*/
 }
