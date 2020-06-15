@@ -7,6 +7,6 @@
 
 @media screen and (max-width: 882px) { /*мобильные*/
     .profile__photo {
-        margin: 0 auto;
+        margin: 0 auto 26px;
     }
 }

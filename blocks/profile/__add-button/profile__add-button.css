@@ -14,6 +14,7 @@
 
 @media screen and (max-width: 882px) { /*мобильные*/
     .profile__add-button {
+        max-width: 100%;
         width: 282px;
         margin: 36px auto;
     }
