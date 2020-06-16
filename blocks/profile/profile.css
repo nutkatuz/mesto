@@ -10,7 +10,7 @@
     margin: 0;
     padding: 36px 0 47px;
     display: grid;
-    grid-template-columns: 157px auto 30px 1fr 150px;
+    grid-template-columns: 157px auto 40px 1fr 150px;
     grid-template-areas: 'photo name eddb . addb' 'photo job . . addb';
     align-items: center;
 }
