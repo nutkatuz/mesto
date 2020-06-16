@@ -1,48 +1,34 @@
-//let sayHallo = function () {console.log('Приветствую хозяйку, готов к работе')} sayHallo() вставляю для проверки кода
+let popupEditButton = document.querySelector('.profile__edit-button')
+let popup = document.querySelector('.popup')
+let popupCloseButton = popup.querySelector('.popup__close')
+let form = document.querySelector('.popup__container')
+let profileName = document.querySelector('.profile__name')
+let profileJob = document.querySelector('.profile__job')
 
-// объявим переменные для окошка редактирования
-const popup = document.querySelector('.popup')
-const popupEditButton = document.querySelector('.profile__edit-button')
-const popupCloseButton = popup.querySelector('.popup__close')
-const popupSaveButton = document.querySelector('.popup__save-button')
-//const popupPlusButton = document.querySelector('.profile__add-button')
-//добавила еще пару классов, так как не хочу ид использовать принципиально. потом бы перенести их classList.add
-const nameInput = document.querySelector('.popup__input_name')
-const jobInput = document.querySelector('.popup__input_about')
-// объявим переменные для профиля
-const profileName = document.querySelector('.profile__name')
-const profileJob = document.querySelector('.profile__job')
-
-//разберемся с кнопкой с карандашом
-let openPopup = function (event) {
-    if (popup.classList.contains('popup_opened')){
-    return editNow()
-    }
-    popup.classList.toggle('popup_opened')
-}
-let editNow = function (event) {//2 функция копирует ДАННЫЕ со странички в попап
-    nameInput.value = profileName.textContent;//поля формы берут текст из страницы
-    jobInput.value = profileJob.textContent;
-}
-
-//функция сохранения формы должна срабатывать при событии submit у формы
-//Оксана, у меня здесь не форма, а кнопка. Так красивее
-let savePopup = function() {
-    event.preventDefault();//иначе на на секунду запишет, а потом срабатывает submit и перезагружает страницу
-    profileName.textContent = nameInput.value;//функция копирует ИНПУТЫ попапа на страничку 
-    profileJob.textContent = jobInput.value;
-    popup.classList.toggle('popup_opened')//Вызвать функцию, которая закрывает модальное окно, необходимо внутри функции сохранения формы
-}
-
-// разберемся с кнопкой закрыть крестиком
-let closeUnsaved = function (event) {
+let toggle = function () {
     popup.classList.toggle('popup_opened')
 }
 
-//после создания функций нужно вызвать их по имени в слушателе addEventListener
-popupEditButton.addEventListener('click', openPopup)
-popupSaveButton.addEventListener('click', savePopup) //Слушатель с кнопки "Сохранить" необходимо удалить.
-popupCloseButton.addEventListener('click', closeUnsaved)// так-то можно popup.classList.remove вместо переключения, но нам такое показал Хаз.
+let autoFill = function () {
+    form.nameInput.value = profileName.textContent;
+    form.jobInput.value = profileJob.textContent;
+}
+
+let openClose = function () {
+    autoFill ()
+    toggle ()
+}
+
+let formSubmitHandler = function (e) { 
+    e.preventDefault();
+    profileName.textContent = form.nameInput.value;
+    profileJob.textContent = form.jobInput.value;
+    toggle ()
+}
+
+popupEditButton.addEventListener('click', openClose)
+popupCloseButton.addEventListener('click', openClose)
+form.addEventListener('submit', formSubmitHandler);
 
 //В планах создать оверлэй чтобы окошко закрывалось как в Фейсбуке при нажатии на оверлей. 
 //console.log(popup__input.value)
@@ -50,3 +36,16 @@ popupCloseButton.addEventListener('click', closeUnsaved)// так-то можн�
 // const closePopup = function (event) {
 //     if (event.target !== event.currentTarget){return}
 // }
+//    
+// Данные в форму не вставляются, но должны.
+// Попробуйте внести текст в форму, не сохранить, закрыть модальное окно через кнопку закрытия.
+// При повторном открытии модального окна, там будут старые несохраненные данные вместо данных со страницы.
+// - Это была моя задумка, как черновик для пользователя.
+//const popupSaveButton = document.querySelector('.popup__save-button')
+//const nameInput = document.querySelector('.popup__input_name')
+//const jobInput = document.querySelector('.popup__input_about')
+//const popupPlusButton = document.querySelector('.profile__add-button')
+//popupSaveButton.addEventListener('click', savePopup)
+//после создания функций нужно вызвать их по имени в слушателе addEventListener
+ //Чтобы страница не перезагружалась и preventDefault() работал, иначе на секунду запишет, а потом срабатывает submit и перезагружает страницу.
+//Функция должна вызываться только при submit у формы.

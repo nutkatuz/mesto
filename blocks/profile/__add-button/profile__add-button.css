@@ -10,6 +10,7 @@
     font-size: 40px;
     color: #FFF;
     border-radius: 2px;
+    background: url(../../../images/plus.svg) center no-repeat;
 }
 
 @media screen and (max-width: 882px) { /*мобильные*/
