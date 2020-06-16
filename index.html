@@ -21,8 +21,8 @@
         <img class="profile__photo" src="images/image.jpg" alt="аватвар">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__job">Исследователь океана</p>
-        <button class="profile__edit-button hover-style" type="button"></button>
-        <button class="profile__add-button hover-style" type="button">+</button>
+        <button class="profile__edit-button hover-style" type="button" aria-label="Редактировать данные профиля"></button>
+        <button class="profile__add-button hover-style" type="button" aria-label="Добавить карточку"></button>
       </section>
 
       <section class="places">
@@ -68,13 +68,13 @@
   <section class="popup">
     <!--Перенесите разметку модального окна в конец страницы-->
     <form class="popup__container" name="form" method="post" action="#">
-      <button class="popup__close hover-style" type="button"></button>
+      <button class="popup__close hover-style" type="button" aria-label="Закрыть окно редактирования без сохранения"></button>></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <input class="popup__input popup__input_name" type="text" name="text" placeholder="Имя" value="Жак-Ив Кусто"
+        <input class="popup__input popup__input_name" type="text" name="yournameis" placeholder="Имя" value="Жак-Ив Кусто"
           required>
         <!--Добавьте для полей ввода атрибут name - имя поля, иначе данные на сервер не уйдут-->
-        <input class="popup__input popup__input_about" type="text" name="text" placeholder="О себе"
+        <input class="popup__input popup__input_about" type="text" name="itsaboutyou" placeholder="О себе"
           value="Исследователь океана">
         <button class="popup__save-button" type="submit">Сохранить</button>
         <!--не хочу <input class="popup__save-button hover-style" type="submit" name="text" value="Сохранить">-->
