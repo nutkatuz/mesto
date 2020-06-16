@@ -3,12 +3,6 @@
 .footer {
     width: 882px;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
     padding: 66px 0 60px;
-}
-
-@media screen and (max-width: 882px) { /*мобильные*/
-    .footer {
-        padding-top: 48px;
-    }
 }

@@ -3,7 +3,6 @@
 @import url(./__like/card__like.css);
 
 .card {
-    height: 360px; /*а нужна ли здесь миним?    width: 282px;*/
     display: grid;
     grid-template-areas: 'image image' 'title like';
     grid-template-columns: 85% 15%;    
