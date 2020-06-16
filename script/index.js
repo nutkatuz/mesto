@@ -3,8 +3,8 @@ const popup = document.querySelector('.popup')
 const popupCloseButton = popup.querySelector('.popup__close')
 const form = document.querySelector('.popup__container')
 const popupSaveButton = document.querySelector('.popup__save-button')
-const nameInput = document.querySelector('.popup__input_name')
-const jobInput = document.querySelector('.popup__input_about')
+//const nameInput = document.querySelector('.popup__input_name')
+//const jobInput = document.querySelector('.popup__input_about')
 //const popupPlusButton = document.querySelector('.profile__add-button')
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__job')
@@ -13,8 +13,8 @@ const profileJob = document.querySelector('.profile__job')
         popup.classList.toggle('popup_opened')
     }
     let autoFill = function (event) {
-        nameInput.value = profileName.textContent;//поля формы берут текст из страницы
-        jobInput.value = profileJob.textContent;
+        form.nameInput.value = profileName.textContent;//поля формы берут текст из страницы
+        form.jobInput.value = profileJob.textContent;
     }
 //
 
@@ -25,8 +25,8 @@ let openClose = function () {
 
 let formSubmitHandler = function (e) { //Функция должна вызываться только при submit у формы.
     e.preventDefault(); //Чтобы страница не перезагружалась и preventDefault() работал, иначе на секунду запишет, а потом срабатывает submit и перезагружает страницу.
-    profileName.textContent = nameInput.value;//функция страничке присвоит ИНПУТЫ попапа 
-    profileJob.textContent = jobInput.value;
+    profileName.textContent = form.nameInput.value;//функция страничке присвоит ИНПУТЫ попапа 
+    profileJob.textContent = form.jobInput.value;
     toggle ()
 }
 
