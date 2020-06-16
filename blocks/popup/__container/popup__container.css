@@ -12,7 +12,5 @@
 @media screen and (max-width: 500px) {
   .popup__container {
     width: calc(100% - 60px);
-margin: 30px 0 0 calc(auto - 20px);
-justify-self: start;
   }
 }
