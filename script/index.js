@@ -28,15 +28,19 @@ let formSubmitHandler = function (e) {
 
 popupEditButton.addEventListener('click', openClose)
 popupCloseButton.addEventListener('click', openClose)
-form.addEventListener('submit', formSubmitHandler);
+form.addEventListener('submit', formSubmitHandler)
 
-//В планах создать оверлэй чтобы окошко закрывалось как в Фейсбуке при нажатии на оверлей. 
-//console.log(popup__input.value)
-// const overlay = document.querySelector('.overlay')
-// const closePopup = function (event) {
-//     if (event.target !== event.currentTarget){return}
-// }
-//    
+
+
+const overlay = function (event) {
+    if (event.target != event.currentTarget) { return }
+    toggle()
+    console.log(event.target)
+    console.log(event.currentTarget)
+}
+popup.addEventListener('click', overlay)
+
+
 // Данные в форму не вставляются, но должны.
 // Попробуйте внести текст в форму, не сохранить, закрыть модальное окно через кнопку закрытия.
 // При повторном открытии модального окна, там будут старые несохраненные данные вместо данных со страницы.
