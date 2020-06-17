@@ -34,11 +34,11 @@ let otkrytieSoVstavkoyDvF = function () {
     jobInput.value = profileJob.textContent;
 }
 
-//соответственно убрала toggle () из этой
 let formSubmitHandler = function (event) { 
     event.preventDefault();
     profileName.textContent = nameInput.value;//убрала form.nameInput.value
     profileJob.textContent = jobInput.value;//убрала form.jobInput.value
+    toggle ()
 }
 
 const overlay = function (event) { 
