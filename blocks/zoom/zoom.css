@@ -1,0 +1,9 @@
+@import url('./__caption/zoom__caption.css');
+@import url('./__image/zoom__image.css');
+
+.zoom{
+    max-width: 75vw;
+    max-height: 75vh;
+    margin: auto;
+    position: relative;
+}

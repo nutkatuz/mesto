@@ -1,0 +1,6 @@
+.page__header-and-main-wrapper{
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+    max-width: 100%;
+}

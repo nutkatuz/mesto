@@ -10,85 +10,73 @@
 </head>
 
 <body class="page">
-
   <div class="page__container">
+    <div class="page__header-and-main-wrapper">
+      <header class="header">
+        <img class="header__logo hover-style" src="images/logo.svg" alt="логотип Mesto Russia">
+      </header>
 
-    <header class="header">
-      <img class="header__logo hover-style" src="images/logo.svg" alt="логотип Mesto Russia">
-    </header>
-
-    <main class="content">
-
-      <section class="profile">
-        <img class="profile__photo" src="images/image.jpg" alt="аватар">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__job">Исследователь океана</p>
-        <button class="profile__edit-button hover-style" type="button" aria-label="Редактировать данные профиля"></button>
-        <button class="profile__add-button hover-style" type="button" aria-label="Добавить карточку"></button>
-      </section>
-
-      <section class="places">
-
-        <article class="card">
-          <img class="card__image" src='./images/places/yakutiya.jpg' alt="Якутия">
-          <h3 class="card__title">Якутия</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
-        </article>
-
-        <article class="card">
-          <img class="card__image" src='./images/places/murmanskbarincevo.jpg' alt="Мурманск">
-          <h3 class="card__title">Мурманск</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
-        </article>
-
-        <article class="card">
-          <img class="card__image" src='./images/places/aniv.jpg' alt="остров Сахалин">
-          <h3 class="card__title">Южно-Сахалинск</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
-        </article>
-
-        <article class="card">
-          <img class="card__image" src='./images/places/yalta.jpg' alt="Ялта">
-          <h3 class="card__title">Ялта</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
-        </article>
-
-        <article class="card">
-          <img class="card__image" src='./images/places/dunilovoivanovskayaobl.jpg' alt="село Дунилово">
-          <h3 class="card__title">Дунилово</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
-        </article>
-
-        <article class="card">
-          <img class="card__image" src='./images/places/zimniy.jpg' alt="зимний пейзаж">
-          <h3 class="card__title">Карачаево-Черкессия</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
-        </article>
-
-      </section>
-    </main>
-
+      <main class="content">
+        <section class="profile">
+          <img class="profile__photo" src="images/image.jpg" alt="аватар">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__job">Исследователь океана</p>
+          <button class="profile__edit-button hover-style" type="button"
+            aria-label="Редактировать данные профиля"></button>
+          <button class="profile__add-button hover-style" type="button" aria-label="Добавить карточку"></button>
+        </section>
+        <section class="places">
+          <template id="card-template">
+            <article class="card">
+              <img class="card__image" src='' alt=''>
+              <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
+              <h3 class="card__title"></h3>
+              <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
+            </article>
+          </template>
+        </section>
+      </main>
+    </div>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-
   </div>
 
-  <section class="popup">
+  <section class="popup popup_profile-edit">
     <form class="popup__container" name="form">
-
-      <button class="popup__close hover-style" type="button" aria-label="Закрыть окно редактирования без сохранения"></button>
-      
+      <button class="popup__close hover-style" type="button"
+        aria-label="Закрыть окно редактирования без сохранения"></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <input class="popup__input popup__input_name" type="text" name="name-input" placeholder="Имя" value="Жак-Ив Кусто"
-          required>
+        <input class="popup__input popup__input_name" type="text" name="name-input" placeholder="Имя"
+          value="Жак-Ив Кусто" required>
         <input class="popup__input popup__input_about" type="text" name="job-input" placeholder="О себе"
           value="Исследователь океана">
         <button class="popup__save-button" type="submit">Сохранить</button>
       </fieldset>
-
     </form>
+  </section>
+
+  <section class="popup popup_new-card">
+    <form class="popup__container" name="form">
+      <button class="popup__close hover-style" type="button" aria-label="Закрыть окно без сохранения"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Новое место</h3>
+        <input class="popup__input popup__input_place-name" type="text" name="name-input" placeholder="Название"
+          value="" required>
+        <input class="popup__input popup__input_image_url" type="url" name="job-input" placeholder="Ссылка на картинку"
+          value="">
+        <button class="popup__save-button" type="submit">Сохранить</button>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="popup popup_zoom">
+    <figure class="zoom">
+      <button class="popup__close popup__close_figure hover-style" type="button" aria-label="Закрыть картинку"></button>
+      <img class="zoom__image" src="./images/heart.svg" alt="картинка">
+      <figcaption class="zoom__caption"></figcaption>
+    </figure>
   </section>
 
   <script src="script/index.js"></script>
