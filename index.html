@@ -27,42 +27,49 @@
         <button class="profile__add-button hover-style" type="button" aria-label="Добавить карточку"></button>
       </section>
 
+
       <section class="places">
 
         <article class="card">
           <img class="card__image" src='./images/places/yakutiya.jpg' alt="Якутия">
+          <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
           <h3 class="card__title">Якутия</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
+          <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
 
         <article class="card">
           <img class="card__image" src='./images/places/murmanskbarincevo.jpg' alt="Мурманск">
+          <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
           <h3 class="card__title">Мурманск</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
+          <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
 
         <article class="card">
           <img class="card__image" src='./images/places/aniv.jpg' alt="остров Сахалин">
+          <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
           <h3 class="card__title">Южно-Сахалинск</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
+          <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
 
         <article class="card">
           <img class="card__image" src='./images/places/yalta.jpg' alt="Ялта">
+          <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
           <h3 class="card__title">Ялта</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
+          <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
 
         <article class="card">
           <img class="card__image" src='./images/places/dunilovoivanovskayaobl.jpg' alt="село Дунилово">
+          <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
           <h3 class="card__title">Дунилово</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
+          <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
 
         <article class="card">
-          <img class="card__image" src='./images/places/zimniy.jpg' alt="зимний пейзаж">
+          <img class="card__image" src='./images/places/zimniy.jpg' alt="Зимний пейзаж">
+          <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
           <h3 class="card__title">Карачаево-Черкессия</h3>
-          <button class="card__like" type="button" aria-label="Лайк"></button>
+          <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
 
       </section>
@@ -74,11 +81,9 @@
 
   </div>
 
-  <section class="popup">
+  <section class="popup popup_profile-edit">
     <form class="popup__container" name="form">
-
       <button class="popup__close hover-style" type="button" aria-label="Закрыть окно редактирования без сохранения"></button>
-      
       <fieldset class="popup__content">
         <h3 class="popup__title">Редактировать профиль</h3>
         <input class="popup__input popup__input_name" type="text" name="name-input" placeholder="Имя" value="Жак-Ив Кусто"
@@ -87,7 +92,27 @@
           value="Исследователь океана">
         <button class="popup__save-button" type="submit">Сохранить</button>
       </fieldset>
+    </form>
+  </section>
+  
+  <section class="popup popup_zoom">
+    <figure class="zoom">
+      <img class="zoom__image" src='./images/places/zimniy.jpg' alt="Зимний пейзаж">
+      <figcaption class="zoom__caption">Карачаево-Черкессия</figcaption>
+    </figure>  
+  </section>
 
+  <section class="popup popup_new-card">
+    <form class="popup__container" name="form">
+      <button class="popup__close hover-style" type="button" aria-label="Закрыть окно без сохранения"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Новое место</h3>
+        <input class="popup__input popup__input_place-name" type="text" name="name-input" placeholder="Название" value=""
+          required>
+        <input class="popup__input popup__input_image_url" type="url" name="job-input" placeholder="Ссылка на картинку"
+          value="">
+        <button class="popup__save-button" type="submit">Сохранить</button>
+      </fieldset>
     </form>
   </section>
 

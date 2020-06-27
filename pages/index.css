@@ -7,5 +7,22 @@
 @import url('../blocks/places/places.css');
 @import url('../blocks/card/card.css');
 @import url('../blocks/popup/popup.css');
-@import url('../blocks/popup/_opened/popup_opened.css');
+@import url('../blocks/popup/_is-opened/popup_is-opened.css');
 @import url('../blocks/hover-style/hover-style.css');
+
+
+.zoom{
+    max-width: 75vw;
+    max-height: 75vh;
+    margin: auto;
+}
+.zoom__caption{
+    font-size: 12px;
+    line-height: 15px;
+    margin: 10px auto 0;
+}
+.zoom__image{
+    object-position: center;
+    object-fit: cover;
+}
+
