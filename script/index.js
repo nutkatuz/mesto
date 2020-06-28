@@ -3,30 +3,30 @@ let profileName = document.querySelector('.profile__name')
 let profileJob = document.querySelector('.profile__job')
 let editButton = document.querySelector('.profile__edit-button')
 //для окна редактирования профиля
-let popup = document.querySelector('.popup')
 let popupProfile = document.querySelector('.popup_profile-edit')
 let nameInput = document.querySelector('.popup__input_name')
 let jobInput = document.querySelector('.popup__input_about')
-let form = document.querySelector('.popup__container')
+let formPopupProfile = popupProfile.querySelector('.popup__container')
 let closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
 //для карточки
 let addButton = document.querySelector('.profile__add-button')
+let trashButton = document.querySelector('.card__recycle-bin')
+let heartButton = document.querySelector('.card__like')
 //для окна добавления новой карточки
 let popupNewCard = document.querySelector('.popup_new-card')
 let closeButtonOfCard = popupNewCard.querySelector('.popup__close')
-let placeNameInput = document.querySelector('.popup__input_place-name')
-let imageURLInput = document.querySelector('.popup__input_image_url')
+let placeInput = document.querySelector('.popup__input_place-name')
+let linkInput = document.querySelector('.popup__input_image_url')
+let formPopupNewCard = popupNewCard.querySelector('.popup__container')
 let closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
-//для просмотра фото (без кнопки-крестика)
-let popupZoom = document.querySelector('.popup_zoom');
-let zoomImage = document.querySelector('.zoom__image');
-let zoomTitle = document.querySelector('.zoom__caption');
+//для просмотра фото 
+let popupZoom = document.querySelector('.popup_zoom')
+let closeButtonOfZoom = popupZoom.querySelector('.popup__close')
+let zoomImage = document.querySelector('.zoom__image')
+let zoomTitle = document.querySelector('.zoom__caption')
+
 //общие
-
-
-
-
-
+let popup = document.querySelector('.popup')
 
 //открыть модальное окно для редактирования, с копированием страничных в инпуты.
 // когда окно нужно закрыть, нам не нужно копировать значения в инпуты, 
@@ -41,7 +41,7 @@ let showPopup = function () {
     jobInput.value = profileJob.textContent;
 }
 //записать введенные значения на страницу и закрыть
-let formSubmitHandler = function (event) { 
+let formSubmitHandlerProfile = function (event) { 
     event.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
@@ -57,7 +57,7 @@ closeButtonPopupProfile.addEventListener('click', function(){
     toggle(popupProfile)
 })
 editButton.addEventListener('click', showPopup)
-form.addEventListener('submit', formSubmitHandler)
+formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
 popup.addEventListener('click', overlayClick)
 
 //Сделайте так, чтобы форма открывалась нажатием на кнопку «+» и закрывалась кликом на крестик:
@@ -70,3 +70,89 @@ addButton.addEventListener('click', function() {
 closeButtonPopupNewCard.addEventListener('click', function(){
     toggle(popupNewCard)
 })
+
+
+//пусть JS загрузит 6 карточек из коробки:
+const initialCards = [
+    {
+        name: 'Мурманск',
+        link: './images/places/murmanskbarincevo.jpg'
+    },
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+
+const cardsSection = document.querySelector('.places')
+const cardTemplate = document.querySelector('#card-template')
+
+function renderCards(prop1, prop2) {
+    const card = cardTemplate.content.cloneNode(true)
+    card.querySelector('.card__title').textContent = prop1
+    card.querySelector('.card__image').src = prop2
+    card.querySelector('.card__recycle-bin').addEventListener('click', function (evt) {
+        evt.target.closest('.card').remove();
+        })
+    card.querySelector('.card__like').addEventListener('click', function (evt) {
+        evt.target.classList.toggle('card__like_active');
+        })
+//Настройте просмотр фотографий. Пусть открываются нажатием на картинку и закрываются кликом на крестик:
+card.addEventListener('click', function (event) { 
+    event.target.closest('.card__image')
+    zoomTitle.textContent = card.querySelector('.card__title').textContent
+    zoomImage.textContent = card.querySelector('.card__image').src
+    toggle (popupZoom)
+})
+card.querySelector('.card__image').addEventListener('click', () => toggle (popupZoom))
+closeButtonOfZoom.addEventListener('click', () => toggle (popupZoom))
+
+
+    cardsSection.append(card)
+}
+//он не может прочитать свойства name и link, поэтому надо через колбэк-функцию метода их вызвать
+initialCards.forEach(item => {
+    renderCards(item.name, item.link)
+})
+
+//Дайте пользователю возможность добавлять карточки:
+function addCard(item) {
+    const card = cardTemplate.content.cloneNode(true)
+    card.querySelector('.card__title').textContent = item.name
+    card.querySelector('.card__image').src = item.link
+
+    card.querySelector('.card__recycle-bin').addEventListener('click', function (evt) {
+        evt.target.closest('.card').remove();
+        })
+
+    card.querySelector('.card__like').addEventListener('click', function (evt) {
+        evt.target.classList.toggle('card__like_active');
+        })
+
+    cardsSection.prepend(card)//здесь работает. а выше - ломается кнопка сохранения
+}
+
+function formSubmitHandlerNewCard (event) { 
+    event.preventDefault();
+    let name = placeInput.value;
+    let link = linkInput.value;
+    addCard({ name, link })
+    toggle (popupNewCard)
+}
+formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)

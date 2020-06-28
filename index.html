@@ -29,14 +29,16 @@
 
 
       <section class="places">
-
+        <template id="card-template">
         <article class="card">
-          <img class="card__image" src='./images/places/yakutiya.jpg' alt="Якутия">
+          <img class="card__image" src='' alt=''>
           <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
-          <h3 class="card__title">Якутия</h3>
+          <h3 class="card__title"></h3>
           <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
-
+        </template>
+      
+<!--Надо переделать пэйдж в спэйс битвин, чтоб футер не задирался
         <article class="card">
           <img class="card__image" src='./images/places/murmanskbarincevo.jpg' alt="Мурманск">
           <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
@@ -45,9 +47,9 @@
         </article>
 
         <article class="card">
-          <img class="card__image" src='./images/places/aniv.jpg' alt="остров Сахалин">
+          <img class="card__image" src='./images/places/yakutiya.jpg' alt="Якутия">
           <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
-          <h3 class="card__title">Южно-Сахалинск</h3>
+          <h3 class="card__title">Якутия</h3>
           <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
 
@@ -71,7 +73,7 @@
           <h3 class="card__title">Карачаево-Черкессия</h3>
           <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
         </article>
-
+-->
       </section>
     </main>
 
@@ -97,8 +99,9 @@
   
   <section class="popup popup_zoom">
     <figure class="zoom">
-      <img class="zoom__image" src='./images/places/zimniy.jpg' alt="Зимний пейзаж">
-      <figcaption class="zoom__caption">Карачаево-Черкессия</figcaption>
+      <button class="popup__close hover-style" type="button" aria-label="Закрыть картинку"></button>
+      <img class="zoom__image" src='./images/places/zimniy.jpg' alt="картинка">
+      <figcaption class="zoom__caption"></figcaption>
     </figure>  
   </section>
 
