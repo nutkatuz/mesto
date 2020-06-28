@@ -22,7 +22,7 @@ let closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
 //для просмотра фото 
 let popupZoom = document.querySelector('.popup_zoom')
 let figureZoom = document.querySelector('.zoom')
-let closeButtonOfZoom = popupZoom.querySelector('.popup__close')
+let closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
 let zoomImage = document.querySelector('.zoom__image')
 let zoomTitle = document.querySelector('.zoom__caption')
 
@@ -105,7 +105,7 @@ const cardsSection = document.querySelector('.places')
 const cardTemplate = document.querySelector('#card-template')
 
 function renderCards(prop1, prop2) {
-    const card = cardTemplate.content.cloneNode(true)
+    let card = cardTemplate.content.cloneNode(true)
     card.querySelector('.card__title').textContent = prop1
     card.querySelector('.card__image').src = prop2
     card.querySelector('.card__recycle-bin').addEventListener('click', function (evt) {
@@ -114,16 +114,13 @@ function renderCards(prop1, prop2) {
     card.querySelector('.card__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('card__like_active');
         })
-//Настройте просмотр фотографий. Пусть открываются нажатием на картинку и закрываются кликом на крестик:
-card.addEventListener('click', function (event) { 
-    event.target.closest('.card__image')
-    zoomTitle.textContent = card.querySelector('.card__title').textContent
-    zoomImage.textContent = card.querySelector('.card__image').src
-    toggle (popupZoom)
-})
-card.querySelector('.card__image').addEventListener('click', () => toggle (popupZoom))
-closeButtonOfZoom.addEventListener('click', () => toggle (popupZoom))
-
+        
+    card.querySelector('.card__image').addEventListener('click', function (evt) {
+            toggle(popupZoom)
+            zoomImage.setAttribute('src', evt.target.src)
+                    // zoomTitle.textContent = card.querySelector('.card__title').textContent
+            zoomTitle.textContent = prop1
+                    })
 
     cardsSection.append(card)
 }
@@ -134,7 +131,7 @@ initialCards.forEach(item => {
 
 //Дайте пользователю возможность добавлять карточки:
 function addCard(item) {
-    const card = cardTemplate.content.cloneNode(true)
+    let card = cardTemplate.content.cloneNode(true)
     card.querySelector('.card__title').textContent = item.name
     card.querySelector('.card__image').src = item.link
 
@@ -146,14 +143,24 @@ function addCard(item) {
         evt.target.classList.toggle('card__like_active');
         })
 
-    cardsSection.prepend(card)//здесь работает. а выше - ломается кнопка сохранения
+    card.querySelector('.card__image').addEventListener('click', function (evt) {
+            toggle(popupZoom)
+            zoomImage.setAttribute('src', evt.target.src)
+                    // zoomTitle.textContent = card.querySelector('.card__title').textContent
+            zoomTitle.textContent = item.name
+                    })
+    
+    cardsSection.prepend(card)//здесь работает. а если выше слушателей, то ломается кнопка сохранения
 }
 
-function formSubmitHandlerNewCard (event) { 
-    event.preventDefault();
+function formSubmitHandlerNewCard (evt) { 
+    evt.preventDefault();
     let name = placeInput.value;
     let link = linkInput.value;
     addCard({ name, link })
     toggle (popupNewCard)
 }
 formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
+
+//Настройте просмотр фотографий. Пусть открываются нажатием на картинку и закрываются кликом на крестик:
+closeButtonPopupZoom.addEventListener('click', () => toggle(popupZoom))

@@ -4,4 +4,5 @@
     object-fit: cover;
     object-position: center;
     grid-area: image;
+    cursor: pointer;
 }
