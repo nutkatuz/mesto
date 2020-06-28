@@ -21,6 +21,7 @@ let formPopupNewCard = popupNewCard.querySelector('.popup__container')
 let closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
 //для просмотра фото 
 let popupZoom = document.querySelector('.popup_zoom')
+let figureZoom = document.querySelector('.zoom')
 let closeButtonOfZoom = popupZoom.querySelector('.popup__close')
 let zoomImage = document.querySelector('.zoom__image')
 let zoomTitle = document.querySelector('.zoom__caption')

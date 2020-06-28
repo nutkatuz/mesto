@@ -38,7 +38,7 @@
         </article>
         </template>
       
-<!--Надо переделать пэйдж в спэйс битвин, чтоб футер не задирался
+<!--Надо переделать пэйдж в спэйс битвин, чтоб футер не задирался при отсутствии карточек
         <article class="card">
           <img class="card__image" src='./images/places/murmanskbarincevo.jpg' alt="Мурманск">
           <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
@@ -96,14 +96,6 @@
       </fieldset>
     </form>
   </section>
-  
-  <section class="popup popup_zoom">
-    <figure class="zoom">
-      <button class="popup__close hover-style" type="button" aria-label="Закрыть картинку"></button>
-      <img class="zoom__image" src='./images/places/zimniy.jpg' alt="картинка">
-      <figcaption class="zoom__caption"></figcaption>
-    </figure>  
-  </section>
 
   <section class="popup popup_new-card">
     <form class="popup__container" name="form">
@@ -117,6 +109,14 @@
         <button class="popup__save-button" type="submit">Сохранить</button>
       </fieldset>
     </form>
+  </section>
+    
+  <section class="popup popup_zoom">
+    <figure class="zoom">
+        <button class="popup__close popup__close_figure hover-style" type="button" aria-label="Закрыть картинку"></button>
+        <img class="zoom__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' alt="картинка">
+      <figcaption class="zoom__caption">VVVVVVVV</figcaption>
+    </figure>  
   </section>
 
   <script src="script/index.js"></script>
