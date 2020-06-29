@@ -1,13 +1,13 @@
 //для профиля
-let profileName = document.querySelector('.profile__name')
-let profileJob = document.querySelector('.profile__job')
-let editButton = document.querySelector('.profile__edit-button')
+const profileName = document.querySelector('.profile__name')
+const profileJob = document.querySelector('.profile__job')
+const editButton = document.querySelector('.profile__edit-button')
 //для окна редактирования профиля
-let popupProfile = document.querySelector('.popup_profile-edit')
-let nameInput = document.querySelector('.popup__input_name')
-let jobInput = document.querySelector('.popup__input_about')
-let formPopupProfile = popupProfile.querySelector('.popup__container')
-let closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
+const popupProfile = document.querySelector('.popup_profile-edit')
+const nameInput = document.querySelector('.popup__input_name')
+const jobInput = document.querySelector('.popup__input_about')
+const formPopupProfile = popupProfile.querySelector('.popup__container')
+const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
 //для карточки
 let addButton = document.querySelector('.profile__add-button')
 let trashButton = document.querySelector('.card__recycle-bin')
@@ -38,14 +38,14 @@ let toggle = function (popupProfile) {
 
 let showPopup = function () {
     toggle(popupProfile)
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
+    nameInput.value = profileName.textContent
+    jobInput.value = profileJob.textContent
 }
 //записать введенные значения на страницу и закрыть
 let formSubmitHandlerProfile = function (event) { 
     event.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
+    profileName.textContent = nameInput.value
+    profileJob.textContent = jobInput.value
     toggle (popupProfile)
 }
 //закрыть без сохранения по клику НЕ на модальное окно
@@ -67,6 +67,8 @@ let showPopupNewCard = function () {
 }
 addButton.addEventListener('click', function() {
     showPopupNewCard(popupNewCard)
+    placeInput.value = ''
+    linkInput.value = ''
 })
 closeButtonPopupNewCard.addEventListener('click', function(){
     toggle(popupNewCard)
@@ -148,6 +150,7 @@ function addCard(item) {
             zoomImage.setAttribute('src', evt.target.src)
                     // zoomTitle.textContent = card.querySelector('.card__title').textContent
             zoomTitle.textContent = item.name
+            zoomImage.setAttribute('alt', item.name)
                     })
     
     cardsSection.prepend(card)//здесь работает. а если выше слушателей, то ломается кнопка сохранения
