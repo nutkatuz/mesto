@@ -90,12 +90,13 @@ function addCard(nameArg, linkArg) {
     cardTitle.textContent = nameArg
     cardImg.src = linkArg
     cardImg.setAttribute('alt', nameArg)
-    cardImg.addEventListener('click', function (evt) {
+    function showZoomPopup(evt) {
         togglePopup(popupZoom)
         zoomImage.setAttribute('src', evt.target.src)
         zoomTitle.textContent = nameArg
         zoomImage.setAttribute('alt', nameArg)
-    })
+    }
+    cardImg.addEventListener('click', showZoomPopup)
     return card
 }
 //добавляет card in html
@@ -115,17 +116,19 @@ function formSubmitHandlerNewCard(evt) {
 }
 //закрыть без сохранения по клику НЕ на модальное окно
 //если было нажато на элемент, содержащий класс .popup (что и есть оверлей), тогда вы будете вызывать togglePopup.  
-//Таким образом, из вашего кода будет понятно, на что именно следует нажать, чтобы модального окно закрылось
+//Таким образом, из вашего кода будет понятно, на что именно следует нажать, чтобы модальное окно закрылось
 const overlayClosePopupProfile = function (event) {
-    if ((event.target != event.currentTarget) && event.target.contains('.popup')) { return }
+    if (event.target.classList.contains('popup'))
     togglePopup(popupProfile)
 }
+
 const overlayClosePopupZoom = function (event) {
-    if ((event.target != event.currentTarget) && event.target.contains('.popup')) { return }
+    if (event.target.classList.contains('popup'))
     togglePopup(popupZoom)
 }
 const overlayClosePopupNewCard = function (event) {
-    if ((event.target != event.currentTarget) && event.target.contains('.popup')) { return }
+    if (event.target.classList.contains('popup'))
+    //if (event.target != event.currentTarget) { return }
     togglePopup(popupNewCard)
 }
 //Слушатели глобальные
