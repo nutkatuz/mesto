@@ -9,161 +9,118 @@ const jobInput = document.querySelector('.popup__input_about')
 const formPopupProfile = popupProfile.querySelector('.popup__container')
 const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
 //для карточки
-let addButton = document.querySelector('.profile__add-button')
-let trashButton = document.querySelector('.card__recycle-bin')
-let heartButton = document.querySelector('.card__like')
+const addButton = document.querySelector('.profile__add-button')
 //для окна добавления новой карточки
-let popupNewCard = document.querySelector('.popup_new-card')
-let closeButtonOfCard = popupNewCard.querySelector('.popup__close')
-let placeInput = document.querySelector('.popup__input_place-name')
-let linkInput = document.querySelector('.popup__input_image_url')
-let formPopupNewCard = popupNewCard.querySelector('.popup__container')
-let closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
+const popupNewCard = document.querySelector('.popup_new-card')
+const placeInput = document.querySelector('.popup__input_place-name')
+const linkInput = document.querySelector('.popup__input_image_url')
+const formPopupNewCard = popupNewCard.querySelector('.popup__container')
+const closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
 //для просмотра фото 
-let popupZoom = document.querySelector('.popup_zoom')
-let figureZoom = document.querySelector('.zoom')
-let closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
-let zoomImage = document.querySelector('.zoom__image')
-let zoomTitle = document.querySelector('.zoom__caption')
-
-//общие
-let popup = document.querySelector('.popup')
+const popupZoom = document.querySelector('.popup_zoom')
+const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
+const zoomImage = document.querySelector('.zoom__image')
+const zoomTitle = document.querySelector('.zoom__caption')
+const cardsSection = document.querySelector('.places')
+const cardTemplate = document.querySelector('#card-template')
 
 //открыть модальное окно для редактирования, с копированием страничных в инпуты.
 // когда окно нужно закрыть, нам не нужно копировать значения в инпуты, 
-// т.е. без проверки мы делаем ненужные действия. Но здесь я только лишь открываю!!
-let toggle = function (popupProfile) {
-    popupProfile.classList.toggle('popup_is-opened')
-}
-
-let showPopup = function () {
-    toggle(popupProfile)
+// т.е. без проверки мы делаем ненужные действия. Но здесь я только лишь открываю
+const togglePopup = (somepopup) => somepopup.classList.toggle('popup_is-opened')
+const showEditPopup = function () {
+    togglePopup(popupProfile)
     nameInput.value = profileName.textContent
     jobInput.value = profileJob.textContent
 }
 //записать введенные значения на страницу и закрыть
-let formSubmitHandlerProfile = function (event) { 
-    event.preventDefault();
+const formSubmitHandlerProfile = function (event) {
+    event.preventDefault()
     profileName.textContent = nameInput.value
     profileJob.textContent = jobInput.value
-    toggle (popupProfile)
+    togglePopup(popupProfile)
 }
-//закрыть без сохранения по клику НЕ на модальное окно
-let overlayClick = function (event) { 
-    if (event.target != event.currentTarget) { return } 
-    toggle(popupProfile)
-} 
-
-closeButtonPopupProfile.addEventListener('click', function(){
-    toggle(popupProfile)
-})
-editButton.addEventListener('click', showPopup)
-formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
-popup.addEventListener('click', overlayClick)
-
 //Сделайте так, чтобы форма открывалась нажатием на кнопку «+» и закрывалась кликом на крестик:
-let showPopupNewCard = function () {
-    toggle(popupNewCard)
-}
-addButton.addEventListener('click', function() {
-    showPopupNewCard(popupNewCard)
+addButton.addEventListener('click', function () {
+    togglePopup(popupNewCard)
     placeInput.value = ''
     linkInput.value = ''
 })
-closeButtonPopupNewCard.addEventListener('click', function(){
-    toggle(popupNewCard)
-})
-
-
 //пусть JS загрузит 6 карточек из коробки:
 const initialCards = [
     {
-        name: 'Мурманск',
-        link: './images/places/murmanskbarincevo.jpg'
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
     },
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
     {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+        name: 'Березники',
+        link: './images/places/zimniy.jpg'
     },
     {
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    },
+    {
+        name: 'Мурманск',
+        link: './images/places/murmanskbarincevo.jpg'
+    },
+    {
+        name: 'Якутия',
+        link: './images/places/yakutiya.jpg'
     }
 ];
-
-const cardsSection = document.querySelector('.places')
-const cardTemplate = document.querySelector('#card-template')
-
-function renderCards(prop1, prop2) {
-    let card = cardTemplate.content.cloneNode(true)
+// Для отображения изначальных карточек и создания новых должна быть использована одна функция, 
+// которая аргументом принимает название и ссылку.
+// Метод addCard должен выполнять функцию создания новой карточки и  добавления слушателей. 
+// Он должен возвращать с помощью return готовую карточку. 
+// Добавление ее в разметку должно происходить в другом месте, откуда она вызывается.
+function addCard(prop1, prop2) {
+    const card = cardTemplate.content.cloneNode(true)
     card.querySelector('.card__title').textContent = prop1
     card.querySelector('.card__image').src = prop2
-    card.querySelector('.card__recycle-bin').addEventListener('click', function (evt) {
-        evt.target.closest('.card').remove();
-        })
-    card.querySelector('.card__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('card__like_active');
-        })
-        
+    card.querySelector('.card__recycle-bin').addEventListener('click', (evt) => evt.target.closest('.card').remove())
+    card.querySelector('.card__like').addEventListener('click', (evt) => evt.target.classList.toggle('card__like_active'))
     card.querySelector('.card__image').addEventListener('click', function (evt) {
-            toggle(popupZoom)
-            zoomImage.setAttribute('src', evt.target.src)
-                    // zoomTitle.textContent = card.querySelector('.card__title').textContent
-            zoomTitle.textContent = prop1
-                    })
-
-    cardsSection.append(card)
+        togglePopup(popupZoom)
+        zoomImage.setAttribute('src', evt.target.src)
+        zoomTitle.textContent = prop1
+        zoomImage.setAttribute('alt', prop1)
+    })
+    cardsSection.prepend(card)
+    return card
 }
 //он не может прочитать свойства name и link, поэтому надо через колбэк-функцию метода их вызвать
-initialCards.forEach(item => {
-    renderCards(item.name, item.link)
-})
-
-//Дайте пользователю возможность добавлять карточки:
-function addCard(item) {
-    let card = cardTemplate.content.cloneNode(true)
-    card.querySelector('.card__title').textContent = item.name
-    card.querySelector('.card__image').src = item.link
-
-    card.querySelector('.card__recycle-bin').addEventListener('click', function (evt) {
-        evt.target.closest('.card').remove();
-        })
-
-    card.querySelector('.card__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('card__like_active');
-        })
-
-    card.querySelector('.card__image').addEventListener('click', function (evt) {
-            toggle(popupZoom)
-            zoomImage.setAttribute('src', evt.target.src)
-                    // zoomTitle.textContent = card.querySelector('.card__title').textContent
-            zoomTitle.textContent = item.name
-            zoomImage.setAttribute('alt', item.name)
-                    })
-    
-    cardsSection.prepend(card)//здесь работает. а если выше слушателей, то ломается кнопка сохранения
-}
-
-function formSubmitHandlerNewCard (evt) { 
+initialCards.forEach(item => addCard(item.name, item.link))
+//Добавление карточки в разметку должно происходить в другом месте, откуда она вызывается.
+function formSubmitHandlerNewCard(evt) {
     evt.preventDefault();
-    let name = placeInput.value;
-    let link = linkInput.value;
-    addCard({ name, link })
-    toggle (popupNewCard)
+    addCard(placeInput.value, linkInput.value)
+    togglePopup(popupNewCard)
 }
+//закрыть без сохранения по клику НЕ на модальное окно//нас уже на вебинаре научили, не удалю, моё :D ещё и добавила :D
+const overlayClosePopupProfile = function (event) {
+    if (event.target != event.currentTarget) { return }
+    togglePopup(popupProfile)
+}
+const overlayClosePopupZoom = function (event) {
+    if (event.target != event.currentTarget) { return }
+    togglePopup(popupZoom)
+}
+const overlayClosePopupNewCard = function (event) {
+    if (event.target != event.currentTarget) { return }
+    togglePopup(popupNewCard)
+}
+//Слушатели глобальные
+closeButtonPopupProfile.addEventListener('click', () => togglePopup(popupProfile))
+editButton.addEventListener('click', showEditPopup)
+formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
+popupZoom.addEventListener('click', overlayClosePopupZoom)
+popupProfile.addEventListener('click', overlayClosePopupProfile)
+popupNewCard.addEventListener('click', overlayClosePopupNewCard)
 formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
-
-//Настройте просмотр фотографий. Пусть открываются нажатием на картинку и закрываются кликом на крестик:
-closeButtonPopupZoom.addEventListener('click', () => toggle(popupZoom))
+closeButtonPopupZoom.addEventListener('click', () => togglePopup(popupZoom))
+closeButtonPopupNewCard.addEventListener('click', () => togglePopup(popupNewCard))
