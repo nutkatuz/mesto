@@ -41,11 +41,11 @@ const formSubmitHandlerProfile = function (event) {
     togglePopup(popupProfile)
 }
 //Сделайте так, чтобы форма открывалась нажатием на кнопку «+» и закрывалась кликом на крестик:
-addButton.addEventListener('click', function () {
+const showNewCardPopup = function () {
     togglePopup(popupNewCard)
     placeInput.value = ''
     linkInput.value = ''
-})
+}
 //пусть JS загрузит 6 карточек из коробки:
 const initialCards = [
     {
@@ -73,50 +73,65 @@ const initialCards = [
         link: './images/places/yakutiya.jpg'
     }
 ];
+const doLike = (evt) => evt.target.classList.toggle('card__like_active')
 // Для отображения изначальных карточек и создания новых должна быть использована одна функция, 
 // которая аргументом принимает название и ссылку.
 // Метод addCard должен выполнять функцию создания новой карточки и  добавления слушателей. 
 // Он должен возвращать с помощью return готовую карточку. 
 // Добавление ее в разметку должно происходить в другом месте, откуда она вызывается.
-function addCard(prop1, prop2) {
+function addCard(nameArg, linkArg) {
     const card = cardTemplate.content.cloneNode(true)
-    card.querySelector('.card__title').textContent = prop1
-    card.querySelector('.card__image').src = prop2
-    card.querySelector('.card__recycle-bin').addEventListener('click', (evt) => evt.target.closest('.card').remove())
-    card.querySelector('.card__like').addEventListener('click', (evt) => evt.target.classList.toggle('card__like_active'))
-    card.querySelector('.card__image').addEventListener('click', function (evt) {
+    const recycleBin = card.querySelector('.card__recycle-bin')
+    const likeBtn = card.querySelector('.card__like')
+    const cardTitle = card.querySelector('.card__title')
+    const cardImg = card.querySelector('.card__image')
+    recycleBin.addEventListener('click', (evt) => evt.target.closest('.card').remove())
+    likeBtn.addEventListener('click', doLike)
+    cardTitle.textContent = nameArg
+    cardImg.src = linkArg
+    cardImg.setAttribute('alt', nameArg)
+    cardImg.addEventListener('click', function (evt) {
         togglePopup(popupZoom)
         zoomImage.setAttribute('src', evt.target.src)
-        zoomTitle.textContent = prop1
-        zoomImage.setAttribute('alt', prop1)
+        zoomTitle.textContent = nameArg
+        zoomImage.setAttribute('alt', nameArg)
     })
-    cardsSection.prepend(card)
     return card
 }
-//он не может прочитать свойства name и link, поэтому надо через колбэк-функцию метода их вызвать
-initialCards.forEach(item => addCard(item.name, item.link))
-//Добавление карточки в разметку должно происходить в другом месте, откуда она вызывается.
+//добавляет card in html
+function renderCard(item) {
+    let card = addCard(item.name, item.link)
+    cardsSection.prepend(card)
+}
+initialCards.forEach(function(item) {//он не может прочитать свойства name и link, поэтому надо через колбэк-функцию метода их вызвать
+    addCard(item.name, item.link)
+    renderCard(item)
+})
 function formSubmitHandlerNewCard(evt) {
     evt.preventDefault();
     addCard(placeInput.value, linkInput.value)
+    renderCard()
     togglePopup(popupNewCard)
 }
-//закрыть без сохранения по клику НЕ на модальное окно//нас уже на вебинаре научили, не удалю, моё :D ещё и добавила :D
+//закрыть без сохранения по клику НЕ на модальное окно
+//если было нажато на элемент, содержащий класс .popup (что и есть оверлей), тогда вы будете вызывать togglePopup.  
+//Таким образом, из вашего кода будет понятно, на что именно следует нажать, чтобы модального окно закрылось
 const overlayClosePopupProfile = function (event) {
-    if (event.target != event.currentTarget) { return }
+    if ((event.target != event.currentTarget) && event.target.contains('.popup')) { return }
     togglePopup(popupProfile)
 }
 const overlayClosePopupZoom = function (event) {
-    if (event.target != event.currentTarget) { return }
+    if ((event.target != event.currentTarget) && event.target.contains('.popup')) { return }
     togglePopup(popupZoom)
 }
 const overlayClosePopupNewCard = function (event) {
-    if (event.target != event.currentTarget) { return }
+    if ((event.target != event.currentTarget) && event.target.contains('.popup')) { return }
     togglePopup(popupNewCard)
 }
 //Слушатели глобальные
 closeButtonPopupProfile.addEventListener('click', () => togglePopup(popupProfile))
 editButton.addEventListener('click', showEditPopup)
+addButton.addEventListener('click', showNewCardPopup)
 formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
 popupZoom.addEventListener('click', overlayClosePopupZoom)
 popupProfile.addEventListener('click', overlayClosePopupProfile)
