@@ -111,7 +111,9 @@ initialCards.forEach(function(item) {//он не может прочитать �
 function formSubmitHandlerNewCard(evt) {
     evt.preventDefault();
     addCard(placeInput.value, linkInput.value)
-    renderCard()
+    let name = placeInput.value
+    let link = linkInput.value
+    renderCard({name, link})
     togglePopup(popupNewCard)
 }
 //закрыть без сохранения по клику НЕ на модальное окно
