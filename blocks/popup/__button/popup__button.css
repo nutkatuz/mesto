@@ -1,4 +1,4 @@
-.popup__save-button {
+.popup__button {
   background: #000;
   border-radius: 2px;
   width: 100%;
@@ -14,7 +14,7 @@
   outline: none;
 }
 
-.popup__save-button:hover {
+.popup__button:hover {
   background-color: rgba(0, 0, 0, 0.8);;
   cursor: pointer;
   transition: background-color .4s;

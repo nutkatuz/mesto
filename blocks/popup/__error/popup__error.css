@@ -1,0 +1,9 @@
+.popup__error{
+    display: block;
+    width: 100%;
+    height: 35px;/* чтобы расстояние между полями не прыгало. обязательно блочный дисплей*/
+    opacity: 0;
+    color: red;
+    font-size: 12px;
+    line-height: 15px;
+}
