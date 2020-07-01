@@ -119,7 +119,7 @@ function showZoomPopup(nameArgument, linkArgument) {
     togglePopup(popupZoom)
     zoomTitle.textContent = nameArgument
     zoomImage.setAttribute('src', `${linkArgument}`)
-    zoomImage.setAttribute('alt', `Изображение ${linkArgument}`)
+    zoomImage.setAttribute('alt', `Изображение ${nameArgument}`)
 }
 
 //понятно, на что именно следует нажать, чтобы модальное окно закрылось
