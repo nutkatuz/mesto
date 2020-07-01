@@ -43,8 +43,9 @@ const formSubmitHandlerProfile = function (event) {
 //Сделайте так, чтобы форма открывалась нажатием на кнопку «+» и закрывалась кликом на крестик:
 const showNewCardPopup = function () {
     togglePopup(popupNewCard)
-    placeInput.value = ''
-    linkInput.value = ''
+    // placeInput.value = ''
+    // linkInput.value = ''
+    formPopupNewCard.reset()
 }
 //пусть JS загрузит 6 карточек из коробки:
 const initialCards = [
@@ -89,12 +90,12 @@ function addCard(nameArg, linkArg) {
     likeBtn.addEventListener('click', doLike)
     cardTitle.textContent = nameArg
     cardImg.src = linkArg
-    cardImg.setAttribute('alt', nameArg)
+    cardImg.setAttribute('alt', `Изображение ${nameArg}`)
     function showZoomPopup(evt) {
         togglePopup(popupZoom)
         zoomImage.setAttribute('src', evt.target.src)
         zoomTitle.textContent = nameArg
-        zoomImage.setAttribute('alt', nameArg)
+        zoomImage.setAttribute('alt', `Изображение ${nameArg}`)
     }
     cardImg.addEventListener('click', showZoomPopup)
     return card
