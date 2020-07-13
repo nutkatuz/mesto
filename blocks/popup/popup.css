@@ -2,11 +2,13 @@
 @import url('./__content/popup__content.css');
 @import url('./__title/popup__title.css');
 @import url('./__input/popup__input.css');
+@import url('./__input/_type_error/popup__input_type_error.css');
 @import url('./__button/popup__button.css');
 @import url('./__button/_disabled/popup__button_disabled.css');
 @import url('./__close/popup__close.css');
 @import url('./__close/_figure/popup__close_figure.css');
-
+@import url('./__error/popup__error.css');
+@import url('./__error/_visible/popup__error_visible.css');
 .popup {
   /*при закрытии
   height: 0;
@@ -23,12 +25,4 @@
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, linear .5s;
-}
-.popup__input_type_error{
-  color: red;
-  background: red;
-}
-.popup__error_visible{
-  color:   red  ;
-  background: red;
 }

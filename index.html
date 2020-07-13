@@ -50,8 +50,8 @@
         <h3 class="popup__title">Редактировать профиль</h3>
         
         <label class="form__control">
-        <input
-                class="popup__input popup__input_name" 
+        <input id="popup__input_name"
+                class="popup__input popup__input_type_error" 
                 type="text" 
                 name="name-input" 
                 placeholder="Имя"
@@ -59,11 +59,11 @@
                 required
                 minlength="2"
                 maxlength="40">
-        <span class="form__error">Необходимо заполнить данное поле</span>
+        <span class="popup__error popup__error_visible">Необходимо заполнить поле</span>
         </label>
 
         <label class="form__control">
-        <input 
+        <input id="popup__input_about"
                 class="popup__input popup__input_about" 
                 type="text" 
                 name="job-input" 
@@ -72,7 +72,7 @@
                 required
                 minlength="2"
                 maxlength="200">
-        <span class="form__error popup__input_name-error">Необходимо заполнить данное поле</span>
+        <span class="popup__error popup__error_visible">Необходимо заполнить данное поле</span>
         </label>
 
         <button class="popup__button popup__button_disabled" type="submit">Сохранить</button>
@@ -87,8 +87,8 @@
         <h3 class="popup__title">Новое место</h3>
 
         <label class="form__control">
-        <input 
-          class="popup__input popup__input_place-name" 
+        <input id="popup__input_place-name"
+          class="popup__input popup__input_place-name popup__input_type_error" 
           type="text"
           name="name-input"
           placeholder="Название"
@@ -96,18 +96,18 @@
           minlength="1"
           maxlength="30"
           required>
-        <span class="form__error">Необходимо заполнить данное поле</span>
+        <span class="popup__error popup__error_visible">Необходимо заполнить данное поле</span>
         </label>
 
         <label class="form__control">
-        <input 
+        <input id="popup__input_image_url"
           class="popup__input popup__input_image_url" 
           type="url" 
           name="job-input" 
           placeholder="Ссылка на картинку"
           value=""
           required>
-        <span class="form__error">Необходимо заполнить данное поле</span>
+        <span class="popup__error popup__error_visible">Необходимо заполнить поле</span>
         </label>
 
         <button class="popup__button popup__button_disabled" type="submit">Сохранить</button>
@@ -122,7 +122,7 @@
       <figcaption class="zoom__caption"></figcaption>
     </figure>
   </section>
-  <!--<script src="script/validate.js"></script>-->
+  <script src="script/validate.js"></script>
   <script src="script/index.js"></script>
 </body>
 
