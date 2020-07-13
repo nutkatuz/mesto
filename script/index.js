@@ -160,14 +160,17 @@ function hasPopupOpened() {
 // для всех полей ввода в формах включена лайв-валидация;
 // функция enableValidation, которая включает валидацию, принимает на вход объект параметров, а затем передаёт параметры вложенным функциям.
 // все настройки передаются при вызове
-enableValidation({//config
+const config = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-});
+    errorClass: 'popup__error_visible',
+    redSpanSelector: ".popup__error",
+    labelSelector: ".form__control"
+}
+enableValidation(config)
 
 closeButtonPopupProfile.addEventListener('click', () => togglePopup(popupProfile))
 editButton.addEventListener('click', showEditPopup)

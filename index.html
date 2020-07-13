@@ -51,7 +51,7 @@
         
         <label class="form__control">
         <input id="popup__input_name"
-                class="popup__input popup__input_type_error" 
+                class="popup__input popup__input_name" 
                 type="text" 
                 name="name-input" 
                 placeholder="Имя"
@@ -59,7 +59,7 @@
                 required
                 minlength="2"
                 maxlength="40">
-        <span class="popup__error popup__error_visible">Необходимо заполнить поле</span>
+        <span class="popup__error">Необходимо заполнить поле</span>
         </label>
 
         <label class="form__control">
@@ -72,10 +72,10 @@
                 required
                 minlength="2"
                 maxlength="200">
-        <span class="popup__error popup__error_visible">Необходимо заполнить данное поле</span>
+        <span class="popup__error">Необходимо заполнить данное поле</span>
         </label>
 
-        <button class="popup__button popup__button_disabled" type="submit">Сохранить</button>
+        <button class="popup__button" type="submit" >Сохранить</button>
       </fieldset>
     </form>
   </section>
@@ -88,7 +88,7 @@
 
         <label class="form__control">
         <input id="popup__input_place-name"
-          class="popup__input popup__input_place-name popup__input_type_error" 
+          class="popup__input popup__input_place-name" 
           type="text"
           name="name-input"
           placeholder="Название"
@@ -96,7 +96,7 @@
           minlength="1"
           maxlength="30"
           required>
-        <span class="popup__error popup__error_visible">Необходимо заполнить данное поле</span>
+        <span class="popup__error">Необходимо заполнить данное поле</span>
         </label>
 
         <label class="form__control">
@@ -107,10 +107,10 @@
           placeholder="Ссылка на картинку"
           value=""
           required>
-        <span class="popup__error popup__error_visible">Необходимо заполнить поле</span>
+        <span class="popup__error">Необходимо заполнить поле</span>
         </label>
 
-        <button class="popup__button popup__button_disabled" type="submit">Сохранить</button>
+        <button class="popup__button" type="submit" disabled>Сохранить</button>
       </fieldset>
     </form>
   </section>
