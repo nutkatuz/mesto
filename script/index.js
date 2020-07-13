@@ -1,52 +1,3 @@
-//для профиля
-const profileName = document.querySelector('.profile__name')
-const profileJob = document.querySelector('.profile__job')
-const editButton = document.querySelector('.profile__edit-button')
-//для окна редактирования профиля
-const popupProfile = document.querySelector('.popup_profile-edit')
-const nameInput = document.querySelector('.popup__input_name')
-const jobInput = document.querySelector('.popup__input_about')
-const formPopupProfile = popupProfile.querySelector('.popup__container')
-const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
-//для карточки
-const addButton = document.querySelector('.profile__add-button')
-//для окна добавления новой карточки
-const popupNewCard = document.querySelector('.popup_new-card')
-const placeInput = document.querySelector('.popup__input_place-name')
-const linkInput = document.querySelector('.popup__input_image_url')
-const formPopupNewCard = popupNewCard.querySelector('.popup__container')
-const closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
-//для просмотра фото 
-const popupZoom = document.querySelector('.popup_zoom')
-const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
-const zoomImage = document.querySelector('.zoom__image')
-const zoomTitle = document.querySelector('.zoom__caption')
-const cardsSection = document.querySelector('.places')
-const cardTemplate = document.querySelector('#card-template')
-
-//открыть модальное окно для редактирования, с копированием страничных в инпуты.
-// когда окно нужно закрыть, нам не нужно копировать значения в инпуты, 
-// т.е. без проверки мы делаем ненужные действия. Но здесь я только лишь открываю
-const togglePopup = (somepopup) => somepopup.classList.toggle('popup_is-opened')
-const showEditPopup = function () {
-    togglePopup(popupProfile)
-    nameInput.value = profileName.textContent
-    jobInput.value = profileJob.textContent
-}
-
-const formSubmitHandlerProfile = function (event) {
-    event.preventDefault()
-    profileName.textContent = nameInput.value
-    profileJob.textContent = jobInput.value
-    togglePopup(popupProfile)
-}
-
-const showNewCardPopup = function () {
-    togglePopup(popupNewCard)
-    // placeInput.value = ''
-    // linkInput.value = ''
-    formPopupNewCard.reset()
-}
 //пусть JS загрузит 6 карточек из коробки:
 const initialCards = [
     {
@@ -74,6 +25,58 @@ const initialCards = [
         link: './images/places/yakutiya.jpg'
     }
 ];
+//для профиля
+const profileName = document.querySelector('.profile__name')
+const profileJob = document.querySelector('.profile__job')
+const editButton = document.querySelector('.profile__edit-button')
+//для окна редактирования профиля
+const popupProfile = document.querySelector('.popup_profile-edit')
+const nameInput = document.querySelector('.popup__input_name')
+const jobInput = document.querySelector('.popup__input_about')
+const formPopupProfile = popupProfile.querySelector('.popup__form')
+const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
+//для карточки
+const addButton = document.querySelector('.profile__add-button')
+const cardsSection = document.querySelector('.places')
+const cardTemplate = document.querySelector('#card-template')
+//для окна добавления новой карточки
+const popupNewCard = document.querySelector('.popup_new-card')
+const placeInput = document.querySelector('.popup__input_place-name')
+const linkInput = document.querySelector('.popup__input_image_url')
+const formPopupNewCard = popupNewCard.querySelector('.popup__form')
+const closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
+//для просмотра фото 
+const popupZoom = document.querySelector('.popup_zoom')
+const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
+const zoomImage = document.querySelector('.zoom__image')
+const zoomTitle = document.querySelector('.zoom__caption')
+
+//открыть модальное окно для редактирования, с копированием страничных в инпуты.
+// когда окно нужно закрыть, нам не нужно копировать значения в инпуты, 
+// т.е. без проверки мы делаем ненужные действия. Но здесь я только лишь открываю
+const togglePopup = function (somepopup) {
+    somepopup.classList.toggle('popup_is-opened')
+    hasPopupOpened()
+}
+const showEditPopup = function () {
+    togglePopup(popupProfile)
+    nameInput.value = profileName.textContent
+    jobInput.value = profileJob.textContent
+}
+
+const formSubmitHandlerProfile = function (event) {
+    event.preventDefault()
+    profileName.textContent = nameInput.value
+    profileJob.textContent = jobInput.value
+    togglePopup(popupProfile)
+}
+
+const showNewCardPopup = function () {
+    togglePopup(popupNewCard)
+    // placeInput.value = ''
+    // linkInput.value = ''
+    formPopupNewCard.reset()
+}
 
 const doLike = (evt) => evt.target.classList.toggle('card__like_active')
 // Для отображения изначальных карточек и создания новых должна быть использована одна функция, 
@@ -101,7 +104,7 @@ function renderCard(item) {
     cardsSection.prepend(card)
 }
 
-initialCards.forEach(function(item) {//он не может прочитать свойства name и link, поэтому надо через колбэк-функцию метода их вызвать
+initialCards.forEach(function (item) {//он не может прочитать свойства name и link, поэтому надо через колбэк-функцию метода их вызвать
     addCard(item.name, item.link)
     renderCard(item)
 })
@@ -111,7 +114,7 @@ function formSubmitHandlerNewCard(evt) {
     addCard(placeInput.value, linkInput.value)
     const name = placeInput.value
     const link = linkInput.value
-    renderCard({name, link})
+    renderCard({ name, link })
     togglePopup(popupNewCard)
 }
 
@@ -126,26 +129,42 @@ function showZoomPopup(nameArgument, linkArgument) {
 const overlayClosePopupProfile = function (event) {
     //if (event.target != event.currentTarget) { return }
     if (event.target.classList.contains('popup'))
-    togglePopup(popupProfile)
+        togglePopup(popupProfile)
 }
 
 const overlayClosePopupZoom = function (event) {
     if (event.target.classList.contains('popup'))
-    togglePopup(popupZoom)
+        togglePopup(popupZoom)
 }
 
 const overlayClosePopupNewCard = function (event) {
     if (event.target.classList.contains('popup'))
-    togglePopup(popupNewCard)
+        togglePopup(popupNewCard)
+}
+
+// Дайте пользователям возможность закрывать попап нажатием на клавишу Esc.
+function closePopupEsc(event) {
+    const popup =  document.querySelector('.popup_is-opened')
+    if (event.keyCode === 27) {
+        togglePopup(popup)
+    }
+}
+// Слушатель событий добавляется при открытии модального окна и удаляется при его закрытии.
+function hasPopupOpened() {
+    if (document.querySelector('.popup_is-opened')) {//document.classList.contains('.popup_is-opened')
+        document.addEventListener('keydown', closePopupEsc);
+    } else {
+        document.removeEventListener('keydown', closePopupEsc);
+    }
 }
 
 closeButtonPopupProfile.addEventListener('click', () => togglePopup(popupProfile))
 editButton.addEventListener('click', showEditPopup)
 addButton.addEventListener('click', showNewCardPopup)
 formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
-popupZoom.addEventListener('click', overlayClosePopupZoom)
-popupProfile.addEventListener('click', overlayClosePopupProfile)
-popupNewCard.addEventListener('click', overlayClosePopupNewCard)
+popupZoom.addEventListener('mousedown', overlayClosePopupZoom)
+popupProfile.addEventListener('mousedown', overlayClosePopupProfile)
+popupNewCard.addEventListener('mousedown', overlayClosePopupNewCard)
 formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
 closeButtonPopupZoom.addEventListener('click', () => togglePopup(popupZoom))
 closeButtonPopupNewCard.addEventListener('click', () => togglePopup(popupNewCard))

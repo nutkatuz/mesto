@@ -43,30 +43,74 @@
   </div>
 
   <section class="popup popup_profile-edit">
-    <form class="popup__container" name="form">
+    <form class="popup__form" name="form-profile-edit" action="#" novalidate>
       <button class="popup__close hover-style" type="button"
         aria-label="Закрыть окно редактирования без сохранения"></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <input class="popup__input popup__input_name" type="text" name="name-input" placeholder="Имя"
-          value="Жак-Ив Кусто" required>
-        <input class="popup__input popup__input_about" type="text" name="job-input" placeholder="О себе"
-          value="Исследователь океана">
-        <button class="popup__save-button" type="submit">Сохранить</button>
+        
+        <label class="form__control">
+        <input
+                class="popup__input popup__input_name" 
+                type="text" 
+                name="name-input" 
+                placeholder="Имя"
+                value="Жак-Ив Кусто" 
+                required
+                minlength="2"
+                maxlength="40">
+        <span class="form__error">Необходимо заполнить данное поле</span>
+        </label>
+
+        <label class="form__control">
+        <input 
+                class="popup__input popup__input_about" 
+                type="text" 
+                name="job-input" 
+                placeholder="О себе"
+                value="Исследователь океана"
+                required
+                minlength="2"
+                maxlength="200">
+        <span class="form__error popup__input_name-error">Необходимо заполнить данное поле</span>
+        </label>
+
+        <button class="popup__button popup__button_disabled" type="submit">Сохранить</button>
       </fieldset>
     </form>
   </section>
 
   <section class="popup popup_new-card">
-    <form class="popup__container" name="form">
+    <form class="popup__form" name="form-new-card" action="#" novalidate>
       <button class="popup__close hover-style" type="button" aria-label="Закрыть окно без сохранения"></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Новое место</h3>
-        <input class="popup__input popup__input_place-name" type="text" name="name-input" placeholder="Название"
-          value="" required>
-        <input class="popup__input popup__input_image_url" type="url" name="job-input" placeholder="Ссылка на картинку"
-          value="">
-        <button class="popup__save-button" type="submit">Сохранить</button>
+
+        <label class="form__control">
+        <input 
+          class="popup__input popup__input_place-name" 
+          type="text"
+          name="name-input"
+          placeholder="Название"
+          value=""
+          minlength="1"
+          maxlength="30"
+          required>
+        <span class="form__error">Необходимо заполнить данное поле</span>
+        </label>
+
+        <label class="form__control">
+        <input 
+          class="popup__input popup__input_image_url" 
+          type="url" 
+          name="job-input" 
+          placeholder="Ссылка на картинку"
+          value=""
+          required>
+        <span class="form__error">Необходимо заполнить данное поле</span>
+        </label>
+
+        <button class="popup__button popup__button_disabled" type="submit">Сохранить</button>
       </fieldset>
     </form>
   </section>
@@ -74,11 +118,11 @@
   <section class="popup popup_zoom">
     <figure class="zoom">
       <button class="popup__close popup__close_figure hover-style" type="button" aria-label="Закрыть картинку"></button>
-      <img class="zoom__image" src="./images/heart.svg" alt="картинка">
+      <img class="zoom__image" src="./" alt="полноразмерная картинка">
       <figcaption class="zoom__caption"></figcaption>
     </figure>
   </section>
-
+  <!--<script src="script/validate.js"></script>-->
   <script src="script/index.js"></script>
 </body>
 
