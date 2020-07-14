@@ -71,5 +71,6 @@ submitButtonSelector: ".popup__button",
 formSelector: ".popup__form",
 inactiveButtonClass: "popup__button_disabled",
 redSpanSelector: ".popup__error",
-labelSelector: ".form__control"
+labelSelector: ".form__control",
+fieldsetSelector: '.popup__content'
 })

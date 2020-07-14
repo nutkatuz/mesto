@@ -18,42 +18,6 @@ const checkInputValidity = (inputSelector, config) => {
       hideInputError(inputSelector, config)
   }
 };
-//живая валидация
-const setEventListeners = (formSelector, config) => {
-  const inputList = Array.from(formSelector.querySelectorAll(config.inputSelector))
-  const submitButtonSelector = formSelector.querySelector(config.submitButtonSelector)
-    inputList.forEach((inputSelector) => {
-      inputSelector.addEventListener('input', () => {
-          toggleButtonState(inputList, submitButtonSelector, config)
-          checkInputValidity(inputSelector, config)
-      });
-  });
-};
-
-const firstStatePopup = (formSelector, config) => {
-  const inputList = Array.from(formSelector.querySelectorAll(config.inputSelector))
-  inputList.forEach((inputSelector) => {//не показываем ошибки, не пугаем
-    hideInputError(inputSelector, config)
-  });
-  const submitButtonSelector = formSelector.querySelector(config.submitButtonSelector)
-  submitButtonSelector.classList.remove(config.inactiveButtonClass)
-  submitButtonSelector.removeAttribute('disabled')
-};
-//-----------------------------------------------------
-function enableValidation(config) {
-  const formElements = Array.from(document.querySelectorAll(config.formSelector))
-  formElements.forEach((formSelector) => {
-    //сделать так чтоб убирался кр цвет и ошибка старая при тоггл
-    //firstStatePopup(formSelector, config)
-    ////ошибка - убирает спан только первого поля
-    // const inputSelector = somepopup.querySelector('.popup__input')
-    // hideInputError(inputSelector, config)
-      formSelector.addEventListener('submit', (event) => {
-          event.preventDefault()
-      })
-      setEventListeners(formSelector, config)
-  })
-}
 
 // кнопка отправки формы неактивна, если хотя бы одно из полей не проходит валидацию;
 function hasInvalidInput(inputList) {
@@ -72,14 +36,51 @@ function toggleButtonState(inputList, submitButtonSelector, config) {
   }
 }
 
-//config
-// enableValidation({
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   submitButtonSelector: '.popup__button',    
-//   inactiveButtonClass: 'popup__button_disabled',
-//   inputErrorClass: 'popup__input_type_error',
-//   errorClass: 'popup__error_visible',
-//   redSpanSelector: ".popup__error",
-//   labelSelector: ".form__control"
-// });
+//живая валидация
+const setEventListeners = (formSelector, config) => {
+  const inputList = Array.from(formSelector.querySelectorAll(config.inputSelector))
+  const submitButtonSelector = formSelector.querySelector(config.submitButtonSelector)
+    inputList.forEach((inputSelector) => {
+      inputSelector.addEventListener('input', () => {
+          toggleButtonState(inputList, submitButtonSelector, config)
+          checkInputValidity(inputSelector, config)
+      });
+  });
+};
+//не показываем ошибки, не пугаем:
+const resetFormState = (somepopup, config) => {
+  const inputList = Array.from(somepopup.querySelectorAll(config.inputSelector))
+  inputList.forEach((inputSelector) => {
+    hideInputError(inputSelector, config)
+  });
+};
+
+//-----------------------------------------------------
+function enableValidation(config) {
+  const inputList = Array.from(document.querySelectorAll(config.formSelector))
+  inputList.forEach((formSelector) => {
+      formSelector.addEventListener('submit', (evt) => {
+          evt.preventDefault()
+      })
+      const fieldsetList = Array.from(formSelector.querySelectorAll(config.fieldsetSelector));
+      fieldsetList.forEach((formSelector) => {
+        setEventListeners(formSelector, config);
+      })
+  })
+}
+
+// для всех полей ввода в формах включена лайв-валидация;
+// функция enableValidation, которая включает валидацию, принимает на вход объект параметров, а затем передаёт параметры вложенным функциям.
+// все настройки передаются при вызове
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+  redSpanSelector: ".popup__error",
+  labelSelector: ".form__control",
+  fieldsetSelector: ".popup__content"
+}
+enableValidation(config)
