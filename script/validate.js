@@ -29,7 +29,7 @@ function hasInvalidInput(inputList) {
 function toggleButtonState(inputList, submitButtonSelector, config) {
   if (hasInvalidInput(inputList)) {
       submitButtonSelector.classList.add(config.inactiveButtonClass)
-      submitButtonSelector.setAttribute('disabled', '')
+      submitButtonSelector.setAttribute('disabled', false)
   } else {
       submitButtonSelector.classList.remove(config.inactiveButtonClass)
       submitButtonSelector.removeAttribute('disabled')
@@ -52,6 +52,8 @@ const resetFormState = (somepopup, config) => {
   const inputList = Array.from(somepopup.querySelectorAll(config.inputSelector))
   inputList.forEach((inputSelector) => {
     hideInputError(inputSelector, config)
+  const submitButtonSelector = inputSelector.closest(config.fieldsetSelector).querySelector(config.submitButtonSelector)
+  submitButtonSelector.classList.remove(config.inactiveButtonClass)//иначе после ошибки и закрытия открывается дисаблд кнопка БЕЛАЯ!!!
   });
 };
 
