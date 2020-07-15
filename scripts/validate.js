@@ -3,7 +3,7 @@ const showInputError = (inputSelector, errorMessage, config) => {
   inputSelector.classList.add(config.inputErrorClass)
   errorElement.textContent = errorMessage
   errorElement.classList.add(config.errorClass)
-};
+}
 
 const hideInputError = (inputSelector, config) => {
   const errorElement = inputSelector.closest(config.labelSelector).querySelector(config.redSpanSelector)
@@ -17,9 +17,8 @@ const checkInputValidity = (inputSelector, config) => {
   } else {
       hideInputError(inputSelector, config)
   }
-};
+}
 
-// кнопка отправки формы неактивна, если хотя бы одно из полей не проходит валидацию;
 function hasInvalidInput(inputList) {
   return inputList.some((inputSelector) => {
       return !inputSelector.validity.valid
@@ -44,20 +43,22 @@ const setEventListeners = (formSelector, config) => {
       inputSelector.addEventListener('input', () => {
           toggleButtonState(inputList, submitButtonSelector, config)
           checkInputValidity(inputSelector, config)
-      });
-  });
-};
-//не показываем ошибки, не пугаем:
+      })
+  })
+}
+
 const resetFormState = (somepopup, config) => {
   const inputList = Array.from(somepopup.querySelectorAll(config.inputSelector))
   inputList.forEach((inputSelector) => {
     hideInputError(inputSelector, config)
   const submitButtonSelector = inputSelector.closest(config.fieldsetSelector).querySelector(config.submitButtonSelector)
-  submitButtonSelector.classList.remove(config.inactiveButtonClass)//иначе после ошибки и закрытия открывается дисаблд кнопка БЕЛАЯ!!!
+  submitButtonSelector.classList.remove(config.inactiveButtonClass) //чёрная неактивная кнопка при открытии вместо белой.
+
   });
+
 };
 
-//-----------------------------------------------------
+
 function enableValidation(config) {
   const inputList = Array.from(document.querySelectorAll(config.formSelector))
   inputList.forEach((formSelector) => {
@@ -71,9 +72,6 @@ function enableValidation(config) {
   })
 }
 
-// для всех полей ввода в формах включена лайв-валидация;
-// функция enableValidation, которая включает валидацию, принимает на вход объект параметров, а затем передаёт параметры вложенным функциям.
-// все настройки передаются при вызове
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',

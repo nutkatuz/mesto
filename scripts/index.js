@@ -1,35 +1,8 @@
-//пусть JS загрузит 6 карточек из коробки:
-const initialCards = [
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Березники',
-        link: './images/places/zimniy.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    },
-    {
-        name: 'Мурманск',
-        link: './images/places/murmanskbarincevo.jpg'
-    },
-    {
-        name: 'Якутия',
-        link: './images/places/yakutiya.jpg'
-    }
-];
 //для профиля
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__job')
 const editButton = document.querySelector('.profile__edit-button')
-//для окна редактирования профиля
+//для окна редактирования
 const popupProfile = document.querySelector('.popup_profile-edit')
 const nameInput = document.querySelector('.popup__input_name')
 const jobInput = document.querySelector('.popup__input_about')
@@ -51,14 +24,11 @@ const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
 const zoomImage = document.querySelector('.zoom__image')
 const zoomTitle = document.querySelector('.zoom__caption')
 
-//открыть модальное окно для редактирования, с копированием страничных в инпуты.
-// когда окно нужно закрыть, нам не нужно копировать значения в инпуты, 
-// т.е. без проверки мы делаем ненужные действия. Но здесь я только лишь открываю
 const togglePopup = function (somepopup) {
     somepopup.classList.toggle('popup_is-opened')
-    hasPopupOpened()
     resetFormState(somepopup, config)
 }
+
 const showEditPopup = function () {
     togglePopup(popupProfile)
     nameInput.value = profileName.textContent
@@ -74,17 +44,15 @@ const formSubmitHandlerProfile = function (event) {
 
 const showNewCardPopup = function () {
     togglePopup(popupNewCard)
-    // placeInput.value = ''
-    // linkInput.value = ''
     formPopupNewCard.reset()
+    resetFormState(popupNewCard, config)
+    //деактивирую кнопку "сохранить"
+    const submitButtonSelector = popupNewCard.querySelector('.popup__button')
+    submitButtonSelector.setAttribute('disabled', false)
 }
 
 const doLike = (evt) => evt.target.classList.toggle('card__like_active')
-// Для отображения изначальных карточек и создания новых должна быть использована одна функция, 
-// которая аргументом принимает название и ссылку.
-// Метод addCard должен выполнять функцию создания новой карточки и  добавления слушателей. 
-// Он должен возвращать с помощью return готовую карточку. 
-// Добавление ее в разметку должно происходить в другом месте, откуда она вызывается.
+
 function addCard(nameArg, linkArg) {
     const card = cardTemplate.content.cloneNode(true)
     const recycleBin = card.querySelector('.card__recycle-bin')
@@ -105,7 +73,7 @@ function renderCard(item) {
     cardsSection.prepend(card)
 }
 
-initialCards.forEach(function (item) {//он не может прочитать свойства name и link, поэтому надо через колбэк-функцию метода их вызвать
+initialCards.forEach(function (item) {
     addCard(item.name, item.link)
     renderCard(item)
 })
@@ -143,22 +111,20 @@ const overlayClosePopupNewCard = function (event) {
         togglePopup(popupNewCard)
 }
 
-// Дайте пользователям возможность закрывать попап нажатием на клавишу Esc.
 function closePopupEsc(event) {
     const popup =  document.querySelector('.popup_is-opened')
     if (event.keyCode === 27) {
         togglePopup(popup)
     }
 }
-// Слушатель событий добавляется при открытии модального окна и удаляется при его закрытии.
+
 function hasPopupOpened() {
-    if (document.querySelector('.popup_is-opened')) {//document.classList.contains('.popup_is-opened')
+    if (document.querySelector('.popup_is-opened')) {
         document.addEventListener('keydown', closePopupEsc);
     } else {
         document.removeEventListener('keydown', closePopupEsc);
     }
 }
-
 
 closeButtonPopupProfile.addEventListener('click', () => togglePopup(popupProfile))
 editButton.addEventListener('click', showEditPopup)
