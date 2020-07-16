@@ -43,7 +43,8 @@ function closePopup(somepopup) {
 }
 
 function closePopupEsc(event) {
-        if (event.keyCode !== 27) {
+    const  KEYCODE_ESC = 27 //нет магических чисел
+        if (event.keyCode !== KEYCODE_ESC) {
             return;
         }
     const openedPopup = document.querySelector('.popup_is-opened')
@@ -53,20 +54,13 @@ function closePopupEsc(event) {
 }
 
 //понятно, на что именно следует нажать, чтобы модальное окно закрылось
-const overlayClosePopupProfile = function (event) {
-    //if (event.target != event.currentTarget) { return }
-    if (event.target.classList.contains('popup'))
-        closePopup(popupProfile)
-}
-
-const overlayClosePopupZoom = function (event) {
-    if (event.target.classList.contains('popup'))
-        closePopup(popupZoom)
-}
-
-const overlayClosePopupNewCard = function (event) {
-    if (event.target.classList.contains('popup'))
-        closePopup(popupNewCard)
+function overlayClose(event) {
+    if (event.target.classList.contains('popup_is-opened')){
+    const openedPopup = document.querySelector('.popup_is-opened')
+        if (openedPopup) {
+            closePopup(openedPopup)
+        }
+    }
 }
 
 const showEditPopup = function () {
@@ -137,9 +131,9 @@ function showZoomPopup(nameArgument, linkArgument) {
 editButton.addEventListener('click', showEditPopup)
 addButton.addEventListener('click', showNewCardPopup)
 formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
-popupZoom.addEventListener('mousedown', overlayClosePopupZoom)
-popupProfile.addEventListener('mousedown', overlayClosePopupProfile)
-popupNewCard.addEventListener('mousedown', overlayClosePopupNewCard)
+popupZoom.addEventListener('mousedown', overlayClose)
+popupProfile.addEventListener('mousedown', overlayClose)
+popupNewCard.addEventListener('mousedown', overlayClose)
 formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
 closeButtonPopupProfile.addEventListener('click', () => closePopup(popupProfile))
 closeButtonPopupZoom.addEventListener('click', () => closePopup(popupZoom))
