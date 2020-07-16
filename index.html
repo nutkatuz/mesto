@@ -25,8 +25,9 @@
             aria-label="Редактировать данные профиля"></button>
           <button class="profile__add-button hover-style" type="button" aria-label="Добавить карточку"></button>
         </section>
+
         <section class="places">
-          <template id="card-template">
+          <template class="card-template">
             <article class="card">
               <img class="card__image" src='' alt=''>
               <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
@@ -35,6 +36,7 @@
             </article>
           </template>
         </section>
+        
       </main>
     </div>
     <footer class="footer">
@@ -54,7 +56,6 @@
                 type="text" 
                 name="name-input" 
                 placeholder="Имя"
-                pattern="/^.*$/"
                 autocomplete="name"
                 value="Жак-Ив Кусто" 
                 required
@@ -112,7 +113,7 @@
         <span class="popup__error"></span>
         </div>
 
-        <button class="popup__button" type="submit">Сохранить</button>
+        <button class="popup__button" type="submit" disabled>Сохранить</button>
       </fieldset>
     </form>
   </section>
@@ -124,9 +125,8 @@
       <figcaption class="zoom__caption"></figcaption>
     </figure>
   </section>
-  <script src="scripts/utils.js"></script>
-  <script src="scripts/validate.js"></script>
-  <script src="scripts/index.js"></script>
+
+  <script type="module" src="scripts/index.js"></script>
 </body>
 
 </html>
