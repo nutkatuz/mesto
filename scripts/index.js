@@ -29,6 +29,22 @@ const togglePopup = function (somepopup) {
     resetFormState(somepopup, config)
 }
 
+// const openPopup = somepopup => {
+//     somepopup.classList.add('popup_is-opened')
+//     resetFormState(somepopup, config)
+// }
+
+function closePopupEsc(event) {
+        if (event.keyCode !== 27) {
+            return;
+        }
+    const openedPopup = document.querySelector('.popup_is-opened')
+    if (openedPopup) {
+        togglePopup(openedPopup)
+    }
+}
+
+
 const showEditPopup = function () {
     togglePopup(popupProfile)
     nameInput.value = profileName.textContent
@@ -111,20 +127,6 @@ const overlayClosePopupNewCard = function (event) {
         togglePopup(popupNewCard)
 }
 
-function closePopupEsc(event) {
-    const popup =  document.querySelector('.popup_is-opened')
-    if (event.keyCode === 27) {
-        togglePopup(popup)
-    }
-}
-
-function hasPopupOpened() {
-    if (document.querySelector('.popup_is-opened')) {
-        document.addEventListener('keydown', closePopupEsc);
-    } else {
-        document.removeEventListener('keydown', closePopupEsc);
-    }
-}
 
 closeButtonPopupProfile.addEventListener('click', () => togglePopup(popupProfile))
 editButton.addEventListener('click', showEditPopup)
@@ -136,3 +138,4 @@ popupNewCard.addEventListener('mousedown', overlayClosePopupNewCard)
 formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
 closeButtonPopupZoom.addEventListener('click', () => togglePopup(popupZoom))
 closeButtonPopupNewCard.addEventListener('click', () => togglePopup(popupNewCard))
+document.addEventListener('keydown', closePopupEsc)
