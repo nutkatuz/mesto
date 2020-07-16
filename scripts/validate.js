@@ -53,11 +53,8 @@ const resetFormState = (somepopup, config) => {
     hideInputError(inputSelector, config)
   const submitButtonSelector = inputSelector.closest(config.fieldsetSelector).querySelector(config.submitButtonSelector)
   submitButtonSelector.classList.remove(config.inactiveButtonClass) //чёрная неактивная кнопка при открытии вместо белой.
-
-  });
-
-};
-
+  })
+}
 
 function enableValidation(config) {
   const inputList = Array.from(document.querySelectorAll(config.formSelector))
@@ -83,4 +80,5 @@ const config = {
   labelSelector: ".form__control",
   fieldsetSelector: ".popup__content"
 }
+
 enableValidation(config)

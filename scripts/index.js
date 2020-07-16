@@ -24,15 +24,27 @@ const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
 const zoomImage = document.querySelector('.zoom__image')
 const zoomTitle = document.querySelector('.zoom__caption')
 
-const togglePopup = function (somepopup) {
-    somepopup.classList.toggle('popup_is-opened')
+// а если бы ревьюер болел за меня, переживал бы о качестве моего проекта, 
+// хороший ревьюер никогда бы не стал просто хвалить, хороший ревьюер бы 
+// нашел кучу ошибок и занёс бы их в "можно лучше". но раз кнопки оценки качества ревью теперь нет, 
+// то можно принимать все работы с первого раза. так что ли? 
+// toggle не подходит для этой работы. при закрытии окна с неправильными данными, точнее пока оно гаснет,
+// можно заметить, как кнопка "сохранить" меняет свое состояние с белой на черную. потом гаснет окончательно.
+// и еще когда быстро клацаешь по оверлею это же окно мигает, оно же не закрывается полностью,
+// у меня отсрочка, то есть когда окно гаснет, оно ещё открыто на странице, и тогл применяется на оверлее окна.
+// const togglePopup = function (somepopup) {
+//     somepopup.classList.toggle('popup_is-opened')
+//     resetFormState(somepopup, config)
+// } - убрала.
+
+function openPopup(somepopup) {
+    somepopup.classList.add('popup_is-opened')
     resetFormState(somepopup, config)
 }
 
-// const openPopup = somepopup => {
-//     somepopup.classList.add('popup_is-opened')
-//     resetFormState(somepopup, config)
-// }
+function closePopup(somepopup) {
+    somepopup.classList.remove('popup_is-opened')
+}
 
 function closePopupEsc(event) {
         if (event.keyCode !== 27) {
@@ -40,13 +52,29 @@ function closePopupEsc(event) {
         }
     const openedPopup = document.querySelector('.popup_is-opened')
     if (openedPopup) {
-        togglePopup(openedPopup)
+        closePopup(openedPopup)
     }
 }
 
+//понятно, на что именно следует нажать, чтобы модальное окно закрылось
+const overlayClosePopupProfile = function (event) {
+    //if (event.target != event.currentTarget) { return }
+    if (event.target.classList.contains('popup'))
+        closePopup(popupProfile)
+}
+
+const overlayClosePopupZoom = function (event) {
+    if (event.target.classList.contains('popup'))
+        closePopup(popupZoom)
+}
+
+const overlayClosePopupNewCard = function (event) {
+    if (event.target.classList.contains('popup'))
+        closePopup(popupNewCard)
+}
 
 const showEditPopup = function () {
-    togglePopup(popupProfile)
+    openPopup(popupProfile)
     nameInput.value = profileName.textContent
     jobInput.value = profileJob.textContent
 }
@@ -55,11 +83,11 @@ const formSubmitHandlerProfile = function (event) {
     event.preventDefault()
     profileName.textContent = nameInput.value
     profileJob.textContent = jobInput.value
-    togglePopup(popupProfile)
+    closePopup(popupProfile)
 }
 
 const showNewCardPopup = function () {
-    togglePopup(popupNewCard)
+    openPopup(popupNewCard)
     formPopupNewCard.reset()
     resetFormState(popupNewCard, config)
     //деактивирую кнопку "сохранить"
@@ -100,35 +128,16 @@ function formSubmitHandlerNewCard(evt) {
     const name = placeInput.value
     const link = linkInput.value
     renderCard({ name, link })
-    togglePopup(popupNewCard)
+    closePopup(popupNewCard)
 }
 
 function showZoomPopup(nameArgument, linkArgument) {
-    togglePopup(popupZoom)
+    openPopup(popupZoom)
     zoomTitle.textContent = nameArgument
     zoomImage.setAttribute('src', `${linkArgument}`)
     zoomImage.setAttribute('alt', `Изображение ${nameArgument}`)
 }
 
-//понятно, на что именно следует нажать, чтобы модальное окно закрылось
-const overlayClosePopupProfile = function (event) {
-    //if (event.target != event.currentTarget) { return }
-    if (event.target.classList.contains('popup'))
-        togglePopup(popupProfile)
-}
-
-const overlayClosePopupZoom = function (event) {
-    if (event.target.classList.contains('popup'))
-        togglePopup(popupZoom)
-}
-
-const overlayClosePopupNewCard = function (event) {
-    if (event.target.classList.contains('popup'))
-        togglePopup(popupNewCard)
-}
-
-
-closeButtonPopupProfile.addEventListener('click', () => togglePopup(popupProfile))
 editButton.addEventListener('click', showEditPopup)
 addButton.addEventListener('click', showNewCardPopup)
 formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
@@ -136,6 +145,7 @@ popupZoom.addEventListener('mousedown', overlayClosePopupZoom)
 popupProfile.addEventListener('mousedown', overlayClosePopupProfile)
 popupNewCard.addEventListener('mousedown', overlayClosePopupNewCard)
 formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
-closeButtonPopupZoom.addEventListener('click', () => togglePopup(popupZoom))
-closeButtonPopupNewCard.addEventListener('click', () => togglePopup(popupNewCard))
+closeButtonPopupProfile.addEventListener('click', () => closePopup(popupProfile))
+closeButtonPopupZoom.addEventListener('click', () => closePopup(popupZoom))
+closeButtonPopupNewCard.addEventListener('click', () => closePopup(popupNewCard))
 document.addEventListener('keydown', closePopupEsc)
