@@ -1,3 +1,15 @@
+const config = {
+  formSelector: '.popup__window',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+  redSpanSelector: ".popup__error",
+  labelSelector: ".popup__label",
+  fieldsetSelector: ".popup__content"
+}
+
 const showInputError = (inputSelector, errorMessage, config) => {
   const errorElement = inputSelector.closest(config.labelSelector).querySelector(config.redSpanSelector)
   inputSelector.classList.add(config.inputErrorClass)
@@ -18,6 +30,9 @@ const checkInputValidity = (inputSelector, config) => {
       hideInputError(inputSelector, config)
   }
 }
+
+
+
 
 function hasInvalidInput(inputList) {
   return inputList.some((inputSelector) => {
@@ -51,8 +66,9 @@ const resetFormState = (somepopup, config) => {
   const inputList = Array.from(somepopup.querySelectorAll(config.inputSelector))
   inputList.forEach((inputSelector) => {
     hideInputError(inputSelector, config)
-  const submitButtonSelector = inputSelector.closest(config.fieldsetSelector).querySelector(config.submitButtonSelector)
-  submitButtonSelector.classList.remove(config.inactiveButtonClass) //чёрная неактивная кнопка при открытии вместо белой.
+//  const submitButtonSelector = inputSelector.closest(config.fieldsetSelector).querySelector(config.submitButtonSelector)
+//  submitButtonSelector.classList.remove(config.inactiveButtonClass) 
+//чёрная неактивная кнопка при открытии после ошибки вместо белой. - специально делала, чтоб красиво смотрелась при открытии
   })
 }
 
@@ -67,18 +83,6 @@ function enableValidation(config) {
         setEventListeners(formSelector, config);
       })
   })
-}
-
-const config = {
-  formSelector: '.popup__window',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-  redSpanSelector: ".popup__error",
-  labelSelector: ".popup__label",
-  fieldsetSelector: ".popup__content"
 }
 
 enableValidation(config)

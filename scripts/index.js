@@ -24,14 +24,6 @@ const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
 const zoomImage = document.querySelector('.zoom__image')
 const zoomTitle = document.querySelector('.zoom__caption')
 
-// toggle не подходит для этой работы. при закрытии окна с неправильными данными, точнее пока оно гаснет,
-// можно заметить, как кнопка "сохранить" меняет свое состояние с белой на черную. потом гаснет окончательно.
-// и еще когда быстро клацаешь по оверлею это же окно мигает, оно же не закрывается полностью,
-// у меня отсрочка, то есть когда окно гаснет, оно ещё открыто на странице, и тогл применяется на оверлее окна.
-// const togglePopup = function (somepopup) {
-//     somepopup.classList.toggle('popup_is-opened')
-//     resetFormState(somepopup, config)
-// } - убрала.
 
 function openPopup(somepopup) {
     somepopup.classList.add('popup_is-opened')
@@ -69,6 +61,17 @@ const showEditPopup = function () {
     openPopup(popupProfile)
     nameInput.value = profileName.textContent
     jobInput.value = profileJob.textContent
+    //кнопку "сохранить" делаю чёрной при каждом открытии
+    const submitButtonSelector = popupProfile.querySelector('.popup__button')
+    submitButtonSelector.classList.remove(config.inactiveButtonClass)
+}
+
+const showNewCardPopup = function () {
+    openPopup(popupNewCard)
+    formPopupNewCard.reset()
+    //кнопку "сохранить" делаю белой при каждом открытии
+    const submitButtonSelector = popupNewCard.querySelector('.popup__button')
+    submitButtonSelector.classList.add(config.inactiveButtonClass)
 }
 
 const formSubmitHandlerProfile = function (event) {
@@ -78,13 +81,13 @@ const formSubmitHandlerProfile = function (event) {
     closePopup(popupProfile)
 }
 
-const showNewCardPopup = function () {
-    openPopup(popupNewCard)
-    formPopupNewCard.reset()
-    resetFormState(popupNewCard, config)
-    //деактивирую кнопку "сохранить"
-    const submitButtonSelector = popupNewCard.querySelector('.popup__button')
-    submitButtonSelector.setAttribute('disabled', false)
+function formSubmitHandlerNewCard(evt) {
+    evt.preventDefault();
+    addCard(placeInput.value, linkInput.value)
+    const name = placeInput.value
+    const link = linkInput.value
+    renderCard({ name, link })
+    closePopup(popupNewCard)
 }
 
 const doLike = (evt) => evt.target.classList.toggle('card__like_active')
@@ -113,15 +116,6 @@ initialCards.forEach(function (item) {
     addCard(item.name, item.link)
     renderCard(item)
 })
-
-function formSubmitHandlerNewCard(evt) {
-    evt.preventDefault();
-    addCard(placeInput.value, linkInput.value)
-    const name = placeInput.value
-    const link = linkInput.value
-    renderCard({ name, link })
-    closePopup(popupNewCard)
-}
 
 function showZoomPopup(nameArgument, linkArgument) {
     openPopup(popupZoom)
