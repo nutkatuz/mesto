@@ -54,7 +54,8 @@
                 type="text" 
                 name="name-input" 
                 placeholder="Имя"
-                autocomplete="off"
+                pattern="/^.*$/"
+                autocomplete="name"
                 value="Жак-Ив Кусто" 
                 required
                 minlength="2"
@@ -102,7 +103,8 @@
         <div class="popup__label">
         <input
           class="popup__input popup__input_image_url" 
-          type="url" 
+          type="url"
+          inputmode="url" 
           name="job-input"
           placeholder="Ссылка на картинку"
           value=""

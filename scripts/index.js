@@ -36,10 +36,12 @@ const zoomTitle = document.querySelector('.zoom__caption')
 function openPopup(somepopup) {
     somepopup.classList.add('popup_is-opened')
     resetFormState(somepopup, config)
+    document.addEventListener('keyup', closePopupEsc)
 }
 
 function closePopup(somepopup) {
     somepopup.classList.remove('popup_is-opened')
+    document.removeEventListener('keyup', closePopupEsc)
 }
 
 function closePopupEsc(event) {
@@ -138,4 +140,3 @@ formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
 closeButtonPopupProfile.addEventListener('click', () => closePopup(popupProfile))
 closeButtonPopupZoom.addEventListener('click', () => closePopup(popupZoom))
 closeButtonPopupNewCard.addEventListener('click', () => closePopup(popupNewCard))
-document.addEventListener('keydown', closePopupEsc)
