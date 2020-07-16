@@ -70,14 +70,14 @@ function enableValidation(config) {
 }
 
 const config = {
-  formSelector: '.popup__form',
+  formSelector: '.popup__window',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible',
   redSpanSelector: ".popup__error",
-  labelSelector: ".form__control",
+  labelSelector: ".popup__label",
   fieldsetSelector: ".popup__content"
 }
 

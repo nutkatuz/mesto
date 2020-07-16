@@ -43,36 +43,37 @@
   </div>
 
   <section class="popup popup_profile-edit">
-    <form class="popup__form" name="form-profile-edit" action="#" novalidate>
+    <form class="popup__window" name="form-profile-edit" action="#" novalidate>
       <button class="popup__close hover-style" type="button"
         aria-label="Закрыть окно редактирования без сохранения"></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Редактировать профиль</h3>
         
-        <label class="form__control">
-        <input
-                class="popup__input popup__input_name" 
+        <div class="popup__label">
+        <input class="popup__input popup__input_name" 
                 type="text" 
                 name="name-input" 
                 placeholder="Имя"
+                autocomplete="off"
                 value="Жак-Ив Кусто" 
                 required
                 minlength="2"
                 maxlength="40">
-        <span class="popup__error">Необходимо заполнить поле</span>
-        </label>
+        <span class="popup__error"></span>
+        </div>
 
-        <label class="form__control">
+        <div class="popup__label">
         <input class="popup__input popup__input_about" 
                 type="text" 
-                name="job-input" 
+                name="job-input"
+                autocomplete="off"
                 placeholder="О себе"
                 value="Исследователь океана"
                 required
                 minlength="2"
                 maxlength="200">
-        <span class="popup__error">Необходимо заполнить данное поле</span>
-        </label>
+        <span class="popup__error"></span>
+        </div>
 
         <button class="popup__button" type="submit">Сохранить</button>
       </fieldset>
@@ -80,34 +81,34 @@
   </section>
 
   <section class="popup popup_new-card">
-    <form class="popup__form" name="form-new-card" action="#" novalidate>
+    <form class="popup__window" name="form-new-card" action="#" novalidate>
       <button class="popup__close hover-style" type="button" aria-label="Закрыть окно без сохранения"></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Новое место</h3>
+        <div class="popup__label">
+          <input
+            class="popup__input popup__input_place-name" 
+            type="text"
+            name="name-input"
+            autocomplete="off"
+            placeholder="Название"
+            value=""
+            minlength="1"
+            maxlength="30"
+            required>
+          <span class="popup__error"></span>
+        </div>
 
-        <label class="form__control">
-        <input id="popup__input_place-name"
-          class="popup__input popup__input_place-name" 
-          type="text"
-          name="name-input"
-          placeholder="Название"
-          value=""
-          minlength="1"
-          maxlength="30"
-          required>
-        <span class="popup__error">Необходимо заполнить данное поле</span>
-        </label>
-
-        <label class="form__control">
-        <input id="popup__input_image_url"
+        <div class="popup__label">
+        <input
           class="popup__input popup__input_image_url" 
           type="url" 
-          name="job-input" 
+          name="job-input"
           placeholder="Ссылка на картинку"
           value=""
           required>
-        <span class="popup__error">Необходимо заполнить поле</span>
-        </label>
+        <span class="popup__error"></span>
+        </div>
 
         <button class="popup__button" type="submit">Сохранить</button>
       </fieldset>
