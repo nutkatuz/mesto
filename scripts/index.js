@@ -1,3 +1,8 @@
+// // import { Card } from './Card.js'
+// import { FormValidator } from './FormValidator.js'
+// // import { open, popupPhoto, close } from 
+// import {initialCards} from './utils.js';
+
 //для профиля
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__job')
@@ -11,7 +16,7 @@ const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
 //для карточки
 const addButton = document.querySelector('.profile__add-button')
 const cardsSection = document.querySelector('.places')
-const cardTemplate = document.querySelector('#card-template')
+const cardTemplate = document.querySelector('.card-template')
 //для окна добавления новой карточки
 const popupNewCard = document.querySelector('.popup_new-card')
 const placeInput = document.querySelector('.popup__input_place-name')
@@ -37,7 +42,7 @@ function closePopup(somepopup) {
 }
 
 function closePopupEsc(event) {
-    const  KEYCODE_ESC = 27 //нет магических чисел
+    const KEYCODE_ESC = 27 //нет магических чисел
         if (event.keyCode !== KEYCODE_ESC) {
             return;
         }
@@ -61,7 +66,6 @@ const showEditPopup = function () {
     openPopup(popupProfile)
     nameInput.value = profileName.textContent
     jobInput.value = profileJob.textContent
-    //кнопку "сохранить" делаю чёрной при каждом открытии
     const submitButtonSelector = popupProfile.querySelector('.popup__button')
     submitButtonSelector.classList.remove(config.inactiveButtonClass)
 }
@@ -83,46 +87,118 @@ const formSubmitHandlerProfile = function (event) {
 
 function formSubmitHandlerNewCard(evt) {
     evt.preventDefault();
-    addCard(placeInput.value, linkInput.value)
-    const name = placeInput.value
-    const link = linkInput.value
-    renderCard({ name, link })
+    addNewCard(placeInput.value, linkInput.value)
+    // const name = placeInput.value
+    // const link = linkInput.value
+    // renderCard({ name, link })
     closePopup(popupNewCard)
 }
 
-const doLike = (evt) => evt.target.classList.toggle('card__like_active')
+class Card {
+    // принимает в конструктор её данные и селектор её template-элемента;
+    constructor(item, cardSelector) {
+        this._name = item.name;
+        this._link = item.link;
+        this._cardSelector = cardSelector;
+    }
+// содержит приватные методы, которые работают с разметкой, 
+    _getTemplate() {
+          const card = document
+        //.querySelector('.card-template')
+          .querySelector(this._cardSelector)
+          .content
+          .querySelector('.card')
+          .cloneNode(true);
+          return card;
+      }
 
-function addCard(nameArg, linkArg) {
-    const card = cardTemplate.content.cloneNode(true)
-    const recycleBin = card.querySelector('.card__recycle-bin')
-    const likeBtn = card.querySelector('.card__like')
-    const cardTitle = card.querySelector('.card__title')
-    const cardImg = card.querySelector('.card__image')
-    cardTitle.textContent = nameArg
-    cardImg.src = linkArg
-    cardImg.setAttribute('alt', `Изображение ${nameArg}`)
-    cardImg.addEventListener('click', () => showZoomPopup(nameArg, linkArg))
-    recycleBin.addEventListener('click', (evt) => evt.target.closest('.card').remove())
-    likeBtn.addEventListener('click', doLike)
-    return card
+// содержит приватные методы, которые устанавливают слушателей событий;
+    _setEventListener(){
+        this._card.querySelector('.card__image').addEventListener('click', () => {
+            this._showZoomPopup()
+        })
+        this._card.querySelector('.card__recycle-bin').addEventListener('click', () => {
+            this._delCard()
+        })
+        this._card.querySelector('.card__like').addEventListener('click', () => {
+            this._doLike()
+        })
+        
+    }
+// содержит приватные методы для каждого обработчика;
+    _doLike () {
+        this._card
+        .querySelector('.card__like')
+        .classList.toggle('card__like_active')
+    }
+    _delCard() {
+        this._card
+        .closest('.card').remove()
+    }
+    _showZoomPopup() {
+        openPopup(popupZoom)
+        zoomTitle.textContent = this._name
+        zoomImage.setAttribute('src', `${this._link}`)
+        zoomImage.setAttribute('alt', `Изображение ${this._name}`)
+    }
+
+// содержит 1 публичный метод, который возвращает наполненный элемент карточки.
+    generateCard() {
+        this._card = this._getTemplate();
+        this._setEventListener();
+        this._card.querySelector('.card__title').textContent = this._name
+        this._card.querySelector('.card__image').src = this._link
+        this._card.querySelector('.card__image').setAttribute('alt', `Не удалось загрузить изображение "${this._name}"`)
+        
+        return this._card;
+    }
 }
 
-function renderCard(item) {
-    const card = addCard(item.name, item.link)
-    cardsSection.prepend(card)
-}
+initialCards.forEach((item)  => {
+    const card = new Card(item, '.card-template')
+    // запишем карточку в переменную
+    const cardElement = card.generateCard();
+    // ну и потом уже вставляешь её в разметку..
+    cardsSection.prepend(cardElement)
+});
 
-initialCards.forEach(function (item) {
-    addCard(item.name, item.link)
-    renderCard(item)
-})
-
-function showZoomPopup(nameArgument, linkArgument) {
-    openPopup(popupZoom)
-    zoomTitle.textContent = nameArgument
-    zoomImage.setAttribute('src', `${linkArgument}`)
-    zoomImage.setAttribute('alt', `Изображение ${nameArgument}`)
+function addNewCard () {
+    // const item = {
+    //     name: placeInput.value,
+    //     link: linkInput.value
+    // }
+    const name = placeInput.value
+    const link = linkInput.value
+    const card = new Card({name, link}, '.card-template')
+    // запишем карточку в переменную
+    const cardElement = card.generateCard();
+    // ну и потом уже вставляешь её в разметку..
+    cardsSection.prepend(cardElement)
 }
+// function addCard(nameArg, linkArg) {
+//     const card = cardTemplate.content.cloneNode(true)
+//     const recycleBin = card.querySelector('.card__recycle-bin')
+//     const likeBtn = card.querySelector('.card__like')
+//     const cardTitle = card.querySelector('.card__title')
+//     const cardImg = card.querySelector('.card__image')
+//     cardTitle.textContent = nameArg
+//     cardImg.src = linkArg
+//     cardImg.setAttribute('alt', `Не удалось загрузить изображение "${nameArg}"`)
+//     cardImg.addEventListener('click', () => showZoomPopup(nameArg, linkArg))
+//     recycleBin.addEventListener('click', (evt) => evt.target.closest('.card').remove())
+//     likeBtn.addEventListener('click', doLike)
+//     return card
+// }
+
+// function renderCard(item) {
+//     const card = addCard(item.name, item.link)
+//     cardsSection.prepend(card)
+// }
+
+// initialCards.forEach(function (item) {
+//     addCard(item.name, item.link)
+//     renderCard(item)
+// })
 
 editButton.addEventListener('click', showEditPopup)
 addButton.addEventListener('click', showNewCardPopup)

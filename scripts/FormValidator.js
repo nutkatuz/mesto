@@ -31,9 +31,6 @@ const checkInputValidity = (inputSelector, config) => {
   }
 }
 
-
-
-
 function hasInvalidInput(inputList) {
   return inputList.some((inputSelector) => {
       return !inputSelector.validity.valid
@@ -68,7 +65,7 @@ const resetFormState = (somepopup, config) => {
     hideInputError(inputSelector, config)
 //  const submitButtonSelector = inputSelector.closest(config.fieldsetSelector).querySelector(config.submitButtonSelector)
 //  submitButtonSelector.classList.remove(config.inactiveButtonClass) 
-//чёрная неактивная кнопка при открытии после ошибки вместо белой. - специально делала, чтоб красиво смотрелась при открытии
+//чёрная неактивная кнопка при открытии после ошибки вместо белой.
   })
 }
 
