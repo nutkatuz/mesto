@@ -40,12 +40,12 @@ const config = {
     redSpanSelector: '.popup__error',
     labelSelector: '.popup__label',
     fieldsetSelector: '.popup__content'
-  }
-  
-  // Создайте класс FormValidator, который настраивает валидацию полей формы:
-  // принимает в конструктор объект настроек с селекторами и классами формы;
-  // принимает вторым параметром элемент той формы, которая валидируется;
-  class FormValidator {
+}
+
+// Создайте класс FormValidator, который настраивает валидацию полей формы:
+// принимает в конструктор объект настроек с селекторами и классами формы;
+// принимает вторым параметром элемент той формы, которая валидируется;
+class FormValidator {
     constructor(config, form) {
         this._form = form;
         this._inputSelector = config.inputSelector;
@@ -57,28 +57,28 @@ const config = {
         this._labelSelector = config.labelSelector;
         this._fieldsetSelector = config.fieldsetSelector;
     }
-  
-  // имеет приватные методы, которые обрабатывают форму:
-    _showInputError (inputSelector, errorMessage) {
-      const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
-      inputSelector.classList.add(this._inputErrorClass)
-      errorElement.textContent = errorMessage
-      errorElement.classList.add(this._errorClass)
+
+    // имеет приватные методы, которые обрабатывают форму:
+    _showInputError(inputSelector, errorMessage) {
+        const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
+        inputSelector.classList.add(this._inputErrorClass)
+        errorElement.textContent = errorMessage
+        errorElement.classList.add(this._errorClass)
     }
-    _hideInputError (inputSelector) {
-      const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
-      inputSelector.classList.remove(this._inputErrorClass)
-      errorElement.classList.remove(this._errorClass)
+    _hideInputError(inputSelector) {
+        const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
+        inputSelector.classList.remove(this._inputErrorClass)
+        errorElement.classList.remove(this._errorClass)
     }
 
-    _checkInputValidity (inputSelector) { //проверяют валидность поля
-        if(!inputSelector.validity.valid) {
-          this._showInputError(inputSelector, inputSelector.validationMessage);
+    _checkInputValidity(inputSelector) { //проверяют валидность поля
+        if (!inputSelector.validity.valid) {
+            this._showInputError(inputSelector, inputSelector.validationMessage);
         } else {
-          this._hideInputError(inputSelector)
+            this._hideInputError(inputSelector)
         }
     }
-    _toggleButtonState() { 
+    _toggleButtonState() {
         this._buttonElement = this._form.querySelector(this._submitButtonSelector);
         if (hasInvalidInput(this._inputList)) {
             this._buttonElement.classList.add(this._inactiveButtonClass)
@@ -90,58 +90,53 @@ const config = {
     }
     _hasInvalidInput() {
         this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-      return this._inputList.some((inputSelector) => {
-          return !inputSelector.validity.valid
-      })
+        return this._inputList.some((inputSelector) => {
+            return !inputSelector.validity.valid
+        })
     }
-    resetFormState () {
-      this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
-      this._inputList.forEach((inputSelector) => {
-        this._hideInputError(inputSelector)
-      })
+    resetFormState() {
+        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
+        this._inputList.forEach((inputSelector) => {
+            this._hideInputError(inputSelector)
+        })
     }
-    _setEventListeners () {
-      const _inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
-      const submitButtonSelector = this._form.querySelector(this._submitButtonSelector)
-     // this._toggleButtonState(_inputList, submitButtonSelector)
-      this._inputList.forEach((inputSelector) => {
-          inputSelector.addEventListener('input', () => {
-            this._checkInputValidity(inputSelector)
-            this._toggleButtonState()
-          })
-      })
+    _setEventListeners() {
+        const _inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
+        const submitButtonSelector = this._form.querySelector(this._submitButtonSelector)
+        // this._toggleButtonState(_inputList, submitButtonSelector)
+        this._inputList.forEach((inputSelector) => {
+            inputSelector.addEventListener('input', () => {
+                this._checkInputValidity(inputSelector)
+                this._toggleButtonState()
+            })
+        })
     }
-  // имеет один публичный метод enableValidation, который включает валидацию формы.
+    // имеет один публичный метод enableValidation, который включает валидацию формы.
     enableValidation() {
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault()
         })
         this._setEventListeners()
     }
-        // enableValidation() {
-        // const inputList = Array.from(document.querySelectorAll(this._formSelector))
-        // inputList.forEach((formSelector) => {
-        //     formSelector.addEventListener('submit', (evt) => {
-        //         evt.preventDefault()
-        //     })
-        //     const fieldsetList = Array.from(formSelector.querySelectorAll(this._fieldsetSelector));
-        //     fieldsetList.forEach((formSelector) => {
-        //     setEventListeners(formSelector);
-        //     })
-        // })
-        // }
-  }
-    // Для каждой проверяемой формы создайте экземпляр класса FormValidator.
-    const profileValidation = new FormValidator(config, formPopupProfile)
-    const cardValidation = new FormValidator(config, formPopupNewCard)
+    // enableValidation() {
+    // const inputList = Array.from(document.querySelectorAll(this._formSelector))
+    // inputList.forEach((formSelector) => {
+    //     formSelector.addEventListener('submit', (evt) => {
+    //         evt.preventDefault()
+    //     })
+    //     const fieldsetList = Array.from(formSelector.querySelectorAll(this._fieldsetSelector));
+    //     fieldsetList.forEach((formSelector) => {
+    //     setEventListeners(formSelector);
+    //     })
+    // })
+    // }
+}
+// Для каждой проверяемой формы создайте экземпляр класса FormValidator.
+const profileValidation = new FormValidator(config, formPopupProfile)
+const cardValidation = new FormValidator(config, formPopupNewCard)
 
 
-
-
-  //--------------------------------
-
-
-
+//--------------------------------
 function openPopup(somepopup) {
     somepopup.classList.add('popup_is-opened')
     profileValidation.resetFormState()
@@ -155,9 +150,9 @@ function closePopup(somepopup) {
 
 function closePopupEsc(event) {
     const KEYCODE_ESC = 27 //нет магических чисел
-        if (event.keyCode !== KEYCODE_ESC) {
-            return;
-        }
+    if (event.keyCode !== KEYCODE_ESC) {
+        return;
+    }
     const openedPopup = document.querySelector('.popup_is-opened')
     if (openedPopup) {
         closePopup(openedPopup)
@@ -166,8 +161,8 @@ function closePopupEsc(event) {
 
 //понятно, на что именно следует нажать, чтобы модальное окно закрылось
 function overlayClose(event) {
-    if (event.target.classList.contains('popup_is-opened')){
-    const openedPopup = document.querySelector('.popup_is-opened')
+    if (event.target.classList.contains('popup_is-opened')) {
+        const openedPopup = document.querySelector('.popup_is-opened')
         if (openedPopup) {
             closePopup(openedPopup)
         }
@@ -213,19 +208,19 @@ class Card {
         this._link = item.link;
         this._cardSelector = cardSelector;
     }
-// содержит приватные методы, которые работают с разметкой, 
+    // содержит приватные методы, которые работают с разметкой, 
     _getTemplate() {
-          const card = document
-        //.querySelector('.card-template')
-          .querySelector(this._cardSelector)
-          .content
-          .querySelector('.card')
-          .cloneNode(true);
-          return card;
-      }
+        const card = document
+            //.querySelector('.card-template')
+            .querySelector(this._cardSelector)
+            .content
+            .querySelector('.card')
+            .cloneNode(true);
+        return card;
+    }
 
-// содержит приватные методы, которые устанавливают слушателей событий;
-    _setEventListener(){
+    // содержит приватные методы, которые устанавливают слушателей событий;
+    _setEventListener() {
         this._card.querySelector('.card__image').addEventListener('click', () => {
             this._showZoomPopup()
         })
@@ -236,15 +231,15 @@ class Card {
             this._doLike()
         })
     }
-// содержит приватные методы для каждого обработчика;
-    _doLike () {
+    // содержит приватные методы для каждого обработчика;
+    _doLike() {
         this._card
-        .querySelector('.card__like')
-        .classList.toggle('card__like_active')
+            .querySelector('.card__like')
+            .classList.toggle('card__like_active')
     }
     _delCard() {
         this._card
-        .closest('.card').remove()
+            .closest('.card').remove()
     }
     _showZoomPopup() {
         openPopup(popupZoom)
@@ -253,32 +248,32 @@ class Card {
         zoomImage.setAttribute('alt', `Изображение ${this._name}`)
     }
 
-// содержит 1 публичный метод, который возвращает наполненный элемент карточки.
+    // содержит 1 публичный метод, который возвращает наполненный элемент карточки.
     generateCard() {
         this._card = this._getTemplate();
         this._setEventListener();
         this._card.querySelector('.card__title').textContent = this._name
         this._card.querySelector('.card__image').src = this._link
         this._card.querySelector('.card__image').setAttribute('alt', `Не удалось загрузить изображение "${this._name}"`)
-        
+
         return this._card;
     }
 }
 
-initialCards.forEach((item)  => {
+initialCards.forEach((item) => {
     const card = new Card(item, '.card-template')     // запишем карточку в переменную
     const cardElement = card.generateCard()    // ну и потом уже вставляешь её в разметку..
     cardsSection.prepend(cardElement)
 });
 
-function addNewCard () {
+function addNewCard() {
     // const item = {
     //     name: placeInput.value,
     //     link: linkInput.value
     // }
     const name = placeInput.value
     const link = linkInput.value
-    const card = new Card({name, link}, '.card-template')
+    const card = new Card({ name, link }, '.card-template')
     // запишем карточку в переменную
     const cardElement = card.generateCard();
     // ну и потом уже вставляешь её в разметку..
