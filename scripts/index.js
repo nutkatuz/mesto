@@ -7,7 +7,7 @@
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__job')
 const editButton = document.querySelector('.profile__edit-button')
-//для окна редактирования
+//для окна профиля
 const popupProfile = document.querySelector('.popup_profile-edit')
 const nameInput = document.querySelector('.popup__input_name')
 const jobInput = document.querySelector('.popup__input_about')
@@ -17,7 +17,7 @@ const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
 const addButton = document.querySelector('.profile__add-button')
 const cardsSection = document.querySelector('.places')
 const cardTemplate = document.querySelector('.card-template')
-//для окна добавления новой карточки
+//для окна карточки
 const popupNewCard = document.querySelector('.popup_new-card')
 const placeInput = document.querySelector('.popup__input_place-name')
 const linkInput = document.querySelector('.popup__input_image_url')
@@ -30,9 +30,121 @@ const zoomImage = document.querySelector('.zoom__image')
 const zoomTitle = document.querySelector('.zoom__caption')
 
 
+const config = {
+    formSelector: '.popup__window',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible',
+    redSpanSelector: '.popup__error',
+    labelSelector: '.popup__label',
+    fieldsetSelector: '.popup__content'
+  }
+  
+  // Создайте класс FormValidator, который настраивает валидацию полей формы:
+  // принимает в конструктор объект настроек с селекторами и классами формы;
+  // принимает вторым параметром элемент той формы, которая валидируется;
+  class FormValidator {
+    constructor(config, form) {
+        this._form = form;
+        this._inputSelector = config.inputSelector;
+        this._submitButtonSelector = config.submitButtonSelector;
+        this._inactiveButtonClass = config.inactiveButtonClass;
+        this._inputErrorClass = config.inputErrorClass;
+        this._errorClass = config.errorClass;
+        this._redSpanSelector = config.redSpanSelector;
+        this._labelSelector = config.labelSelector;
+        this._fieldsetSelector = config.fieldsetSelector;
+    }
+  
+  // имеет приватные методы, которые обрабатывают форму:
+    _showInputError (inputSelector, errorMessage) {
+      const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
+      inputSelector.classList.add(this._inputErrorClass)
+      errorElement.textContent = errorMessage
+      errorElement.classList.add(this._errorClass)
+    }
+    _hideInputError (inputSelector) {
+      const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
+      inputSelector.classList.remove(this._inputErrorClass)
+      errorElement.classList.remove(this._errorClass)
+    }
+
+    _checkInputValidity (inputSelector) { //проверяют валидность поля
+        if(!inputSelector.validity.valid) {
+          this._showInputError(inputSelector, inputSelector.validationMessage);
+        } else {
+          this._hideInputError(inputSelector)
+        }
+    }
+    _toggleButtonState() { 
+        this._buttonElement = this._form.querySelector(this._submitButtonSelector);
+        if (hasInvalidInput(this._inputList)) {
+            this._buttonElement.classList.add(this._inactiveButtonClass)
+            this._buttonElement.setAttribute('disabled', false)
+        } else {
+            this._buttonElement.classList.remove(this._inactiveButtonClass)
+            this._buttonElement.removeAttribute('disabled')
+        }
+    }
+    _hasInvalidInput() {
+        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+      return this._inputList.some((inputSelector) => {
+          return !inputSelector.validity.valid
+      })
+    }
+    resetFormState () {
+      this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
+      this._inputList.forEach((inputSelector) => {
+        this._hideInputError(inputSelector)
+      })
+    }
+    _setEventListeners () {
+      const _inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
+      const submitButtonSelector = this._form.querySelector(this._submitButtonSelector)
+     // this._toggleButtonState(_inputList, submitButtonSelector)
+      this._inputList.forEach((inputSelector) => {
+          inputSelector.addEventListener('input', () => {
+            this._checkInputValidity(inputSelector)
+            this._toggleButtonState()
+          })
+      })
+    }
+  // имеет один публичный метод enableValidation, который включает валидацию формы.
+    enableValidation() {
+        this._form.addEventListener('submit', (evt) => {
+            evt.preventDefault()
+        })
+        this._setEventListeners()
+    }
+        // enableValidation() {
+        // const inputList = Array.from(document.querySelectorAll(this._formSelector))
+        // inputList.forEach((formSelector) => {
+        //     formSelector.addEventListener('submit', (evt) => {
+        //         evt.preventDefault()
+        //     })
+        //     const fieldsetList = Array.from(formSelector.querySelectorAll(this._fieldsetSelector));
+        //     fieldsetList.forEach((formSelector) => {
+        //     setEventListeners(formSelector);
+        //     })
+        // })
+        // }
+  }
+    // Для каждой проверяемой формы создайте экземпляр класса FormValidator.
+    const profileValidation = new FormValidator(config, formPopupProfile)
+    const cardValidation = new FormValidator(config, formPopupNewCard)
+
+
+
+
+  //--------------------------------
+
+
+
 function openPopup(somepopup) {
     somepopup.classList.add('popup_is-opened')
-    resetFormState(somepopup, config)
+    profileValidation.resetFormState()
     document.addEventListener('keyup', closePopupEsc)
 }
 
@@ -123,7 +235,6 @@ class Card {
         this._card.querySelector('.card__like').addEventListener('click', () => {
             this._doLike()
         })
-        
     }
 // содержит приватные методы для каждого обработчика;
     _doLike () {
@@ -155,10 +266,8 @@ class Card {
 }
 
 initialCards.forEach((item)  => {
-    const card = new Card(item, '.card-template')
-    // запишем карточку в переменную
-    const cardElement = card.generateCard();
-    // ну и потом уже вставляешь её в разметку..
+    const card = new Card(item, '.card-template')     // запишем карточку в переменную
+    const cardElement = card.generateCard()    // ну и потом уже вставляешь её в разметку..
     cardsSection.prepend(cardElement)
 });
 
