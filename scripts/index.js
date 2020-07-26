@@ -80,7 +80,7 @@ class FormValidator {
     }
     _toggleButtonState() {
         this._buttonElement = this._form.querySelector(this._submitButtonSelector);
-        if (hasInvalidInput(this._inputList)) {
+        if (this._hasInvalidInput(this._inputList)) {
             this._buttonElement.classList.add(this._inactiveButtonClass)
             this._buttonElement.setAttribute('disabled', false)
         } else {
@@ -140,13 +140,16 @@ const cardValidation = new FormValidator(config, formPopupNewCard)
 //--------------------------------
 function openPopup(somepopup) {
     somepopup.classList.add('popup_is-opened')
-    profileValidation.resetFormState()
+    cardValidation.enableValidation()
+    profileValidation.enableValidation()
     document.addEventListener('keyup', closePopupEsc)
 }
 
 function closePopup(somepopup) {
     somepopup.classList.remove('popup_is-opened')
     document.removeEventListener('keyup', closePopupEsc)
+    cardValidation.resetFormState()
+    profileValidation.resetFormState()
 }
 
 function closePopupEsc(event) {
