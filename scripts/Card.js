@@ -1,3 +1,5 @@
+import { openPopup } from './utils.js'
+
 export class Card {
     // принимает в конструктор её данные и селектор её template-элемента;
     constructor(item, cardSelector) {
@@ -56,3 +58,7 @@ export class Card {
         return this._card;
     }
 }
+
+export const popupZoom = document.querySelector('.popup_zoom')
+const zoomImage = document.querySelector('.zoom__image')
+const zoomTitle = document.querySelector('.zoom__caption')

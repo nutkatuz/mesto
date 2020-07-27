@@ -1,10 +1,7 @@
-// // import { Card } from './Card.js'
-// import { FormValidator } from './FormValidator.js'
-// // import { open, popupPhoto, close } from 
-// import {initialCards} from './utils.js';
-import { initialCards, config} from './utils.js'
-import { Card } from './Card.js'
+import { initialCards, config, openPopup, closePopup } from './utils.js'
+import { Card, popupZoom } from './Card.js'
 import { FormValidator } from './FormValidator.js'
+
 
 //для профиля
 const profileName = document.querySelector('.profile__name')
@@ -19,7 +16,7 @@ const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
 //для карточки
 const addButton = document.querySelector('.profile__add-button')
 const cardsSection = document.querySelector('.places')
-const cardTemplate = document.querySelector('.card-template')
+// const cardTemplate = document.querySelector('.card-template')
 //для окна карточки
 const popupNewCard = document.querySelector('.popup_new-card')
 const placeInput = document.querySelector('.popup__input_place-name')
@@ -27,46 +24,15 @@ const linkInput = document.querySelector('.popup__input_image_url')
 const formPopupNewCard = popupNewCard.querySelector('.popup__window')
 const closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
 //для просмотра фото 
-const popupZoom = document.querySelector('.popup_zoom')
 const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
-const zoomImage = document.querySelector('.zoom__image')
-const zoomTitle = document.querySelector('.zoom__caption')
 
-
-// Создайте класс FormValidator, который настраивает валидацию полей формы:
-// принимает в конструктор объект настроек с селекторами и классами формы;
-// принимает вторым параметром элемент той формы, которая валидируется;
 
 // Для каждой проверяемой формы создайте экземпляр класса FormValidator.
 const profileValidation = new FormValidator(config, formPopupProfile)
 const cardValidation = new FormValidator(config, formPopupNewCard)
 
-
-//--------------------------------
-function openPopup(somepopup) {
-    somepopup.classList.add('popup_is-opened')
-    cardValidation.enableValidation()
-    profileValidation.enableValidation()
-    document.addEventListener('keyup', closePopupEsc)
-}
-
-function closePopup(somepopup) {
-    somepopup.classList.remove('popup_is-opened')
-    document.removeEventListener('keyup', closePopupEsc)
-    cardValidation.resetFormState()
-    profileValidation.resetFormState()
-}
-
-function closePopupEsc(event) {
-    const KEYCODE_ESC = 27 //нет магических чисел
-    if (event.keyCode !== KEYCODE_ESC) {
-        return;
-    }
-    const openedPopup = document.querySelector('.popup_is-opened')
-    if (openedPopup) {
-        closePopup(openedPopup)
-    }
-}
+cardValidation.enableValidation()
+profileValidation.enableValidation()
 
 //понятно, на что именно следует нажать, чтобы модальное окно закрылось
 function overlayClose(event) {
@@ -84,6 +50,7 @@ const showEditPopup = function () {
     jobInput.value = profileJob.textContent
     const submitButtonSelector = popupProfile.querySelector('.popup__button')
     submitButtonSelector.classList.remove(config.inactiveButtonClass)
+    profileValidation.resetFormState()
 }
 
 const showNewCardPopup = function () {
@@ -92,6 +59,7 @@ const showNewCardPopup = function () {
     //кнопку "сохранить" делаю белой при каждом открытии
     const submitButtonSelector = popupNewCard.querySelector('.popup__button')
     submitButtonSelector.classList.add(config.inactiveButtonClass)
+    cardValidation.resetFormState()
 }
 
 const formSubmitHandlerProfile = function (event) {
@@ -117,6 +85,9 @@ initialCards.forEach((item) => {
     const cardElement = card.generateCard()    // ну и потом уже вставляешь её в разметку..
     cardsSection.prepend(cardElement)
 });
+
+
+
 
 function addNewCard() {
     // const item = {

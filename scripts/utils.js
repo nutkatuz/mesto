@@ -25,7 +25,6 @@ export const initialCards = [
     }
 ]
 
-
 export const config = {
     formSelector: '.popup__window',
     inputSelector: '.popup__input',
@@ -36,4 +35,26 @@ export const config = {
     redSpanSelector: '.popup__error',
     labelSelector: '.popup__label',
     fieldsetSelector: '.popup__content'
+}
+
+
+export function openPopup(somepopup) {
+    somepopup.classList.add('popup_is-opened')
+    document.addEventListener('keyup', closePopupEsc)
+}
+
+export function closePopup(somepopup) {
+    somepopup.classList.remove('popup_is-opened')
+    document.removeEventListener('keyup', closePopupEsc)
+}
+
+export function closePopupEsc(event) {
+    const KEYCODE_ESC = 27 //нет магических чисел
+    if (event.keyCode !== KEYCODE_ESC) {
+        return;
+    }
+    const openedPopup = document.querySelector('.popup_is-opened')
+    if (openedPopup) {
+        closePopup(openedPopup)
+    }
 }
