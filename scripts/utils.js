@@ -25,7 +25,7 @@ export const initialCards = [
     }
 ]
 
-export const config = {
+export const config = { //объект настроек с селекторами и классами формы
     formSelector: '.popup__window',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
@@ -37,18 +37,17 @@ export const config = {
     fieldsetSelector: '.popup__content'
 }
 
-
-export function openPopup(somepopup) {
+export const openPopup = function (somepopup) {
     somepopup.classList.add('popup_is-opened')
     document.addEventListener('keyup', closePopupEsc)
 }
 
-export function closePopup(somepopup) {
+export const closePopup = function (somepopup) {
     somepopup.classList.remove('popup_is-opened')
     document.removeEventListener('keyup', closePopupEsc)
 }
 
-export function closePopupEsc(event) {
+export function closePopupEsc (event) {
     const KEYCODE_ESC = 27 //нет магических чисел
     if (event.keyCode !== KEYCODE_ESC) {
         return;
