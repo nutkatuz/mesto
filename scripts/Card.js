@@ -4,10 +4,10 @@ const zoomImage = document.querySelector('.zoom__image')
 const zoomTitle = document.querySelector('.zoom__caption')
 
 export class Card {
-    constructor(item, cardSelector) { // принимает в конструктор её данные и селектор её template-элемента;
+    constructor(item, cardTemplateSelector) { // принимает в конструктор её данные и селектор её template-элемента;
         this._name = item.name
         this._link = item.link
-        this._cardSelector = cardSelector
+        this._cardSelector = cardTemplateSelector
     }
 
     _getTemplate() {

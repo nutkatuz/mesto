@@ -21,6 +21,7 @@ const linkInput = document.querySelector('.popup__input_image_url')
 const formPopupNewCard = popupNewCard.querySelector('.popup__window')
 const closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
 const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
+const cardTemplateSelector = '.card-template'
 
 
 const profileValidation = new FormValidator(config, formPopupProfile)
@@ -30,7 +31,7 @@ cardValidation.enableValidation()
 profileValidation.enableValidation()
 
 initialCards.forEach((item) => {
-    const card = new Card(item, '.card-template')
+    const card = new Card(item, cardTemplateSelector)
     const cardElement = card.generateCard()
     cardsSection.prepend(cardElement)
 })
@@ -38,7 +39,7 @@ initialCards.forEach((item) => {
 const addNewCard = function () {
     const name = placeInput.value
     const link = linkInput.value
-    const card = new Card({ name, link }, '.card-template')
+    const card = new Card({ name, link }, cardTemplateSelector)
     const cardElement = card.generateCard();
     cardsSection.prepend(cardElement)
 }
