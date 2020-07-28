@@ -1,4 +1,4 @@
-import { initialCards, config, openPopup, closePopup, configCard } from './utils.js'
+import { initialCards, configCard, config, openPopup, closePopup } from './utils.js'
 import { Card, popupZoom } from './Card.js'
 import { FormValidator } from './FormValidator.js'
 
@@ -23,7 +23,6 @@ const closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
 const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
 const cardTemplateSelector = '.card-template'
 
-
 const profileValidation = new FormValidator(config, profilePopupForm)
 const cardValidation = new FormValidator(config, newCardPopupForm)
 
@@ -39,7 +38,7 @@ const cardsRender = function (item) {
 const firstCardsSectionAutoFill = function () {
     initialCards.forEach((item) => {
     const cardElement = cardsRender(item)
-    cardsSection.append(cardElement) // ревьюер, я тебя люблю! спасибо за замечание!
+    cardsSection.append(cardElement)
     })
 }
 firstCardsSectionAutoFill()

@@ -25,6 +25,11 @@ export const initialCards = [
     }
 ]
 
+export const configCard = {
+    zoomImageSelector: '.zoom__image',
+    zoomTitleSelector: '.zoom__caption'
+}
+
 export const config = { //объект настроек с селекторами и классами формы
     formSelector: '.popup__window',
     inputSelector: '.popup__input',
@@ -56,14 +61,4 @@ export function closePopupEsc (event) {
     if (openedPopup) {
         closePopup(openedPopup)
     }
-}
-    // Константы, относящиеся к размeтке окна большого фото лучше не определять в классе Card, 
-    // чтобы не делать его зависимы от конкретной размeтки, 
-    // чтобы методы этого класса можно было использовать в любом проекте при любой размeтке. 
-    // Селекторы элементов окна большого фото лучше передавать в параметр конструктора класса Card 
-    // как свойства объекта-конфига для окна большого фото. 
-    // Этот объекта-конфиг можно определить в index.js
-export const configCard = { //объект настроек с селекторами и классами Card
-    zoomImageSelector: '.zoom__image',
-    zoomTitleSelector: '.zoom__caption'
 }
