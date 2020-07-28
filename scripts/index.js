@@ -30,25 +30,24 @@ const cardValidation = new FormValidator(config, newCardPopupForm)
 cardValidation.enableValidation()
 profileValidation.enableValidation()
 
-// Определение const card и const cardElement при рендере точно такое же, как в функции addNewCard. 
-// Нужно устранить дублирование кода - создать функцию, включающую эти два определения и возвращающую cardElement, 
-// и вызывать её с нужными параметрами при рендере карточек при загрузке страницы и в  функции addNewCard.
-        function cardsRender(item) {
-            const card = new Card(item, cardTemplateSelector, configCard)
-            const cardElement = card.generateCard()
-            cardsSection.prepend(cardElement)
-        }
+const cardsRender = function (item) {
+    const card = new Card(item, cardTemplateSelector, configCard)
+    const cardElement = card.generateCard()
+    return cardElement
+}
 
+const firstCardsSectionAutoFill = function () {
     initialCards.forEach((item) => {
-        cardsRender (item)
+    const cardElement = cardsRender(item)
+    cardsSection.append(cardElement) // ревьюер, я тебя люблю! спасибо за замечание!
     })
-
+}
+firstCardsSectionAutoFill()
 
 const addNewCard = function () {
     const name = placeInput.value
     const link = linkInput.value
-    const card = new Card({ name, link }, cardTemplateSelector)
-    const cardElement = card.generateCard();
+    const cardElement = cardsRender({ name, link })
     cardsSection.prepend(cardElement)
 }
 

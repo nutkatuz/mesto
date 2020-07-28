@@ -1,4 +1,4 @@
-import { openPopup, configCard } from './utils.js'
+import { openPopup } from './utils.js' //его надо будет перенести в класс Popup
 export const popupZoom = document.querySelector('.popup_zoom')
 
 export class Card {
@@ -10,20 +10,13 @@ export class Card {
         this._zoomTitle = document.querySelector(configCard.zoomTitleSelector)
     }
 
-    _showZoomPopup() {
-        openPopup(popupZoom)
-        this._zoomImage.setAttribute('src', `${this._link}`)
-        this._zoomImage.setAttribute('alt', `Изображение ${this._name}`)
-        this._zoomTitle.textContent = this._name
-    }
-    
     _getTemplate() {
         const card = document
             .querySelector(this._cardSelector)
             .content
             .querySelector('.card')
             .cloneNode(true)
-        return card;
+        return card
     }
 
     _setEventListener() {
@@ -39,9 +32,14 @@ export class Card {
     _delCard() {
         this._card.closest('.card').remove()
     }
-
-
-
+    
+    _showZoomPopup() {
+        openPopup(popupZoom)
+        this._zoomImage.setAttribute('src', `${this._link}`)
+        this._zoomImage.setAttribute('alt', `Изображение ${this._name}`)
+        this._zoomTitle.textContent = this._name
+    }
+    
     generateCard() {
         this._card = this._getTemplate()
         this._setEventListener()
