@@ -1,15 +1,22 @@
-import { openPopup } from './utils.js'
+import { openPopup, configCard } from './utils.js'
 export const popupZoom = document.querySelector('.popup_zoom')
-const zoomImage = document.querySelector('.zoom__image')
-const zoomTitle = document.querySelector('.zoom__caption')
 
 export class Card {
-    constructor(item, cardTemplateSelector) { // принимает в конструктор её данные и селектор её template-элемента;
+    constructor(item, cardTemplateSelector, configCard) { // принимает в конструктор её данные и селектор её template-элемента;
         this._name = item.name
         this._link = item.link
         this._cardSelector = cardTemplateSelector
+        this._zoomImage = document.querySelector(configCard.zoomImageSelector)
+        this._zoomTitle = document.querySelector(configCard.zoomTitleSelector)
     }
 
+    _showZoomPopup() {
+        openPopup(popupZoom)
+        this._zoomImage.setAttribute('src', `${this._link}`)
+        this._zoomImage.setAttribute('alt', `Изображение ${this._name}`)
+        this._zoomTitle.textContent = this._name
+    }
+    
     _getTemplate() {
         const card = document
             .querySelector(this._cardSelector)
@@ -33,12 +40,7 @@ export class Card {
         this._card.closest('.card').remove()
     }
 
-    _showZoomPopup() {
-        openPopup(popupZoom)
-        zoomTitle.textContent = this._name
-        zoomImage.setAttribute('src', `${this._link}`)
-        zoomImage.setAttribute('alt', `Изображение ${this._name}`)
-    }
+
 
     generateCard() {
         this._card = this._getTemplate()

@@ -1,4 +1,4 @@
-import { initialCards, config, openPopup, closePopup } from './utils.js'
+import { initialCards, config, openPopup, closePopup, configCard } from './utils.js'
 import { Card, popupZoom } from './Card.js'
 import { FormValidator } from './FormValidator.js'
 
@@ -9,7 +9,7 @@ const editButton = document.querySelector('.profile__edit-button')
 const popupProfile = document.querySelector('.popup_profile-edit')
 const nameInput = document.querySelector('.popup__input_name')
 const jobInput = document.querySelector('.popup__input_about')
-const formPopupProfile = popupProfile.querySelector('.popup__window')
+const profilePopupForm = popupProfile.querySelector('.popup__window')
 const closeButtonPopupProfile = popupProfile.querySelector('.popup__close')
 
 const addButton = document.querySelector('.profile__add-button')
@@ -18,23 +18,31 @@ const cardsSection = document.querySelector('.places')
 const popupNewCard = document.querySelector('.popup_new-card')
 const placeInput = document.querySelector('.popup__input_place-name')
 const linkInput = document.querySelector('.popup__input_image_url')
-const formPopupNewCard = popupNewCard.querySelector('.popup__window')
+const newCardPopupForm = popupNewCard.querySelector('.popup__window')
 const closeButtonPopupNewCard = popupNewCard.querySelector('.popup__close')
 const closeButtonPopupZoom = popupZoom.querySelector('.popup__close')
 const cardTemplateSelector = '.card-template'
 
 
-const profileValidation = new FormValidator(config, formPopupProfile)
-const cardValidation = new FormValidator(config, formPopupNewCard)
+const profileValidation = new FormValidator(config, profilePopupForm)
+const cardValidation = new FormValidator(config, newCardPopupForm)
 
 cardValidation.enableValidation()
 profileValidation.enableValidation()
 
-initialCards.forEach((item) => {
-    const card = new Card(item, cardTemplateSelector)
-    const cardElement = card.generateCard()
-    cardsSection.prepend(cardElement)
-})
+// Определение const card и const cardElement при рендере точно такое же, как в функции addNewCard. 
+// Нужно устранить дублирование кода - создать функцию, включающую эти два определения и возвращающую cardElement, 
+// и вызывать её с нужными параметрами при рендере карточек при загрузке страницы и в  функции addNewCard.
+        function cardsRender(item) {
+            const card = new Card(item, cardTemplateSelector, configCard)
+            const cardElement = card.generateCard()
+            cardsSection.prepend(cardElement)
+        }
+
+    initialCards.forEach((item) => {
+        cardsRender (item)
+    })
+
 
 const addNewCard = function () {
     const name = placeInput.value
@@ -55,7 +63,7 @@ const showEditPopup = function () {
 
 const showNewCardPopup = function () {
     openPopup(popupNewCard)
-    formPopupNewCard.reset()
+    newCardPopupForm.reset()
     const submitButtonSelector = popupNewCard.querySelector('.popup__button')
     submitButtonSelector.classList.add(config.inactiveButtonClass)
     cardValidation.resetFormState()
@@ -85,8 +93,9 @@ const overlayClose = function (evt) {
 
 editButton.addEventListener('click', showEditPopup)
 addButton.addEventListener('click', showNewCardPopup)
-formPopupProfile.addEventListener('submit', formSubmitHandlerProfile)
-formPopupNewCard.addEventListener('submit', formSubmitHandlerNewCard)
+profilePopupForm.addEventListener('submit', formSubmitHandlerProfile)
+newCardPopupForm.addEventListener('submit', formSubmitHandlerNewCard)
+
 popupZoom.addEventListener('mousedown', overlayClose)
 popupProfile.addEventListener('mousedown', overlayClose)
 popupNewCard.addEventListener('mousedown', overlayClose)
