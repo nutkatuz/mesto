@@ -1,5 +1,4 @@
-import { openPopup } from './utils.js' //его надо будет перенести в класс Popup
-export const popupZoom = document.querySelector('.popup_zoom')
+import { openPopup, popupZoom } from './Popups.js'
 
 export class Card {
     constructor(item, cardTemplateSelector, configCard) { // принимает в конструктор её данные и селектор её template-элемента;

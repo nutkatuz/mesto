@@ -22,7 +22,7 @@ export const initialCards = [
     {
         name: 'Камчатка',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    }
+    }, // висячая запятая
 ]
 
 export const configCard = {
@@ -40,25 +40,4 @@ export const config = { //объект настроек с селекторам�
     redSpanSelector: '.popup__error',
     labelSelector: '.popup__label',
     fieldsetSelector: '.popup__content'
-}
-
-export const openPopup = function (somepopup) {
-    somepopup.classList.add('popup_is-opened')
-    document.addEventListener('keyup', closePopupEsc)
-}
-
-export const closePopup = function (somepopup) {
-    somepopup.classList.remove('popup_is-opened')
-    document.removeEventListener('keyup', closePopupEsc)
-}
-
-export function closePopupEsc (event) {
-    const KEYCODE_ESC = 27 //нет магических чисел
-    if (event.keyCode !== KEYCODE_ESC) {
-        return;
-    }
-    const openedPopup = document.querySelector('.popup_is-opened')
-    if (openedPopup) {
-        closePopup(openedPopup)
-    }
 }
