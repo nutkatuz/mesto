@@ -31,7 +31,7 @@ export const configCard = {
 }
 
 export const config = { //объект настроек с селекторами и классами формы
-    formSelector: '.popup__window',
+    // formSelector: '.popup__window',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',

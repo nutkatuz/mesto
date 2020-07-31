@@ -22,8 +22,8 @@ const cardTemplateSelector = '.card-template'
 const profileValidation = new FormValidator(config, profilePopupForm)
 const cardValidation = new FormValidator(config, newCardPopupForm)
 
-cardValidation.enableValidation()
 profileValidation.enableValidation()
+cardValidation.enableValidation()
 
 const cardsRender = function (item) {
     const card = new Card(item, cardTemplateSelector, configCard)

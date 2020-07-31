@@ -1,25 +1,25 @@
 export class FormValidator {
     constructor(config, form) {
         this._form = form
-        this._inputSelector = config.inputSelector
-        this._submitButtonSelector = config.submitButtonSelector
-        this._inactiveButtonClass = config.inactiveButtonClass
-        this._inputErrorClass = config.inputErrorClass
-        this._errorClass = config.errorClass
-        this._redSpanSelector = config.redSpanSelector
-        this._labelSelector = config.labelSelector
-        this._fieldsetSelector = config.fieldsetSelector
+        this._inputSelector = config.inputSelector                  //   .popup__input
+        this._submitButtonSelector = config.submitButtonSelector    //  .popup__button
+        this._inactiveButtonClass = config.inactiveButtonClass      //  popup__button_disabled
+        this._inputErrorClass = config.inputErrorClass              //  popup__input_type_error
+        this._errorClass = config.errorClass                        //  popup__error_visible
+        this._errorElement = config.redSpanSelector                 //  .popup__error
+        this._labelSelector = config.labelSelector                  //  .popup__label
+        this._fieldsetSelector = config.fieldsetSelector            //  .popup__content
     }
 
     _showInputError(inputSelector, errorMessage) {
-        const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
+        const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._errorElement)
         inputSelector.classList.add(this._inputErrorClass)
         errorElement.textContent = errorMessage
         errorElement.classList.add(this._errorClass)
     }
 
     _hideInputError(inputSelector) {
-        const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._redSpanSelector)
+        const errorElement = inputSelector.closest(this._labelSelector).querySelector(this._errorElement)
         inputSelector.classList.remove(this._inputErrorClass)
         errorElement.classList.remove(this._errorClass)
     }
