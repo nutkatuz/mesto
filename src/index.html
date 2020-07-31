@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
+  <!-- <link rel="icon" href="images/ar.ico"> -->
+  <title>📍 Mesto</title>
+</head>
+
+<body class="page">
+  <div class="page__container">
+    <div class="page__header-and-main-wrapper">
+      <header class="header">
+        <img class="header__logo hover-style" src="images/logo.svg" alt="логотип Mesto Russia">
+      </header>
+
+      <main class="content">
+        <section class="profile">
+          <img class="profile__photo" src="images/image.jpg" alt="аватар">
+          <h1 class="profile__name"></h1>
+          <p class="profile__job"></p>
+          <button class="profile__edit-button hover-style" type="button"
+            aria-label="Редактировать данные профиля"></button>
+          <button class="profile__add-button hover-style" type="button" aria-label="Добавить карточку"></button>
+        </section>
+
+        <section class="places">
+          <template class="card-template">
+            <article class="card">
+              <img class="card__image" src='#' alt=''>
+              <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
+              <h3 class="card__title"></h3>
+              <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
+            </article>
+          </template>
+        </section>
+        
+      </main>
+    </div>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+  </div>
+
+  <section class="popup popup_profile-edit">
+    <form class="popup__form" name="form-profile-edit" action="#" novalidate>
+      <button class="popup__close hover-style" type="button"
+        aria-label="Закрыть окно редактирования без сохранения"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        
+        <div class="popup__label">
+        <input class="popup__input popup__input_name" 
+                type="text" 
+                  name="firstInp"
+                  value="null" 
+                placeholder="Имя"
+                autocomplete="name"
+                required
+                minlength="2"
+                maxlength="40">
+        <span class="popup__error"></span>
+        </div>
+
+        <div class="popup__label">
+        <input class="popup__input popup__input_about" 
+                type="text" 
+                  name="secondInp"
+                  value="null"
+                autocomplete="off"
+                placeholder="О себе"
+                required
+                minlength="2"
+                maxlength="200">
+        <span class="popup__error"></span>
+        </div>
+
+        <button class="popup__button" type="submit">Сохранить</button>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="popup popup_new-card">
+    <form class="popup__form" name="form-new-card" action="#" novalidate>
+      <button class="popup__close hover-style" type="button" aria-label="Закрыть окно без сохранения"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Новое место</h3>
+        <div class="popup__label">
+
+          <input class="popup__input popup__input_place-name" 
+              name="name"
+              value=""
+            tabindex=2
+            autocomplete="off"
+            placeholder="Название"
+            type="text"
+            autofocus
+            minlength="1"
+            maxlength="30"
+            required>
+          <span class="popup__error"></span>
+        </div>
+
+        <div class="popup__label">
+        <input class="popup__input popup__input_image_url" 
+          type="url"
+          inputmode="url" 
+            name="link"
+            value=""
+          tabindex=1
+          placeholder="Ссылка на картинку"
+          required>
+        <span class="popup__error"></span>
+        </div>
+
+        <button class="popup__button" type="submit" disabled>Сохранить</button>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="popup popup_zoom">
+    <figure class="zoom">
+      <button class="popup__close popup__close_figure hover-style" type="button" aria-label="Закрыть картинку"></button>
+      <img class="zoom__image" src="#" alt="полноразмерная картинка">
+      <figcaption class="zoom__caption"></figcaption>
+    </figure>
+  </section>
+
+  <!-- <script type="module" src="./pages/index.js"></script> -->
+</body>
+
+</html>
