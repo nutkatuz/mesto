@@ -1,11 +1,11 @@
 export const initialCards = [
     {
         name: 'Якутия',
-        link: './images/places/yakutiya.jpg'
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     },
     {
         name: 'Мурманск',
-        link: './images/places/murmanskbarincevo.jpg'
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     },
     {
         name: 'Байкал',
@@ -13,7 +13,7 @@ export const initialCards = [
     },
     {
         name: 'Березники',
-        link: './images/places/zimniy.jpg'
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     },
     {
         name: 'Архыз',
@@ -39,5 +39,5 @@ export const config = { //объект настроек с селекторам�
     errorClass: 'popup__error_visible',
     redSpanSelector: '.popup__error',
     labelSelector: '.popup__label',
-    fieldsetSelector: '.popup__content'
+    fieldsetSelector: '.popup__content',
 }

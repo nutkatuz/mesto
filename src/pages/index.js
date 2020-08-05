@@ -1,7 +1,7 @@
-import { openPopup, closePopup, popupProfile, popupNewCard } from './Popups.js'
-import { initialCards, configCard, config } from './utils.js'
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
+import { openPopup, closePopup, popupProfile, popupNewCard } from '../components/Popup.js'
+import { initialCards, configCard, config } from '../utils/constants.js'
+import { Card } from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js'
 
 const addButton = document.querySelector('.profile__add-button')
 const cardsSection = document.querySelector('.places')
@@ -18,31 +18,48 @@ const placeInput = document.querySelector('.popup__input_place-name')
 const linkInput = document.querySelector('.popup__input_image_url')
 const newCardPopupForm = popupNewCard.querySelector('.popup__window')
 const cardTemplateSelector = '.card-template'
+const containerSelector = '.places'
 
 const profileValidation = new FormValidator(config, profilePopupForm)
-const cardValidation = new FormValidator(config, newCardPopupForm)
-
 profileValidation.enableValidation()
-cardValidation.enableValidation()
 
-const cardsRender = function (item) {
+const cardValidation = new FormValidator(config, newCardPopupForm)
+cardValidation.enableValidation()
+//
+// Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
+const renderer = function (item) {
     const card = new Card(item, cardTemplateSelector, configCard)
     const cardElement = card.generateCard()
     return cardElement
 }
 
-const firstCardsSectionAutoFill = function () {
+const renderAllItems = function () {
     initialCards.forEach((item) => {
-    const cardElement = cardsRender(item)
+    const cardElement = renderer(item)
     cardsSection.append(cardElement)
     })
 }
-firstCardsSectionAutoFill()
+renderAllItems()
+// const cardList = new Section({
+//     data: initialCards,
+//     renderer: (item) => {
+//       const card = item.isOwner
+//         ? new UserCard(item, '.card-template_type_user')
+//         : new DefaultCard(item, '.card-template_type_default');
+  
+//       const cardElement = card.generateCard();
+  
+//       cardList.setItem(cardElement);
+//       },
+//     },
+//     cardListSection
+//   );
+//cardList.renderItems();
 
-const addNewCard = function () {
+const addItem = function () {
     const name = placeInput.value
     const link = linkInput.value
-    const cardElement = cardsRender({ name, link })
+    const cardElement = renderer({ name, link })
     cardsSection.prepend(cardElement)
 }
 
@@ -73,7 +90,7 @@ const formSubmitHandlerProfile = function (evt) {
 
 const formSubmitHandlerNewCard = function (evt) {
     evt.preventDefault();
-    addNewCard(placeInput.value, linkInput.value)
+    addItem(placeInput.value, linkInput.value)
     closePopup(popupNewCard)
 }
 

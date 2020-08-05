@@ -1,7 +1,11 @@
-import { openPopup, popupZoom } from './Popups.js'
-
+import { openPopup, popupZoom } from './Popup.js'
+// Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. 
+// Эта функция должна открывать попап с картинкой при клике на карточку.
 export class Card {
-    constructor(item, cardTemplateSelector, configCard) { // принимает в конструктор её данные и селектор её template-элемента;
+    constructor(item, cardTemplateSelector, configCard) {
+// const { name, link } = item
+// this._name = name
+// this._link = link
         this._name = item.name
         this._link = item.link
         this._cardSelector = cardTemplateSelector

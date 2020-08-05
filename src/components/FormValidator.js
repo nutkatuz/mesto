@@ -1,6 +1,7 @@
 export class FormValidator {
     constructor(config, form) {
         this._form = form
+        
         this._inputSelector = config.inputSelector                  //   .popup__input
         this._submitButtonSelector = config.submitButtonSelector    //  .popup__button
         this._inactiveButtonClass = config.inactiveButtonClass      //  popup__button_disabled
@@ -9,6 +10,8 @@ export class FormValidator {
         this._errorElement = config.redSpanSelector                 //  .popup__error
         this._labelSelector = config.labelSelector                  //  .popup__label
         this._fieldsetSelector = config.fieldsetSelector            //  .popup__content
+        
+        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
     }
 
     _showInputError(inputSelector, errorMessage) {
@@ -44,23 +47,20 @@ export class FormValidator {
     }
 
     _hasInvalidInput() {
-        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
         return this._inputList.some((inputSelector) => {
             return !inputSelector.validity.valid
         })
     }
 
     resetFormState() {
-        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
         this._inputList.forEach((inputSelector) => {
             this._hideInputError(inputSelector)
         })
     }
 
     _setEventListeners() {
-        const _inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
         const submitButtonSelector = this._form.querySelector(this._submitButtonSelector)
-        this._toggleButtonState(_inputList, submitButtonSelector)
+        this._toggleButtonState(this._inputList, submitButtonSelector)
         this._inputList.forEach((inputSelector) => {
             inputSelector.addEventListener('input', () => {
                 this._checkInputValidity(inputSelector)
