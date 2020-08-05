@@ -33,7 +33,7 @@ module.exports = {
         loader: 'html-loader',
       },
       {
-        test: /\.(png|svg|jpg|gif|woff2|ttf)$/,
+        test: /\.(png|svg|jpg|gif|woff2|ttf|otf|woff)$/,
         loader: 'file-loader',
       },
     ]

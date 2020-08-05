@@ -1,3 +1,4 @@
+import './index.css';
 import { openPopup, closePopup, popupProfile, popupNewCard } from '../components/Popup.js'
 import { initialCards, configCard, config } from '../utils/constants.js'
 import { Card } from '../components/Card.js'
