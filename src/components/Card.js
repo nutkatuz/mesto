@@ -1,11 +1,6 @@
-import { openPopup, popupZoom } from './Popup.js'
-// Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. 
-// Эта функция должна открывать попап с картинкой при клике на карточку.
-export class Card {
+export default class Card {//создать клон
     constructor(item, cardTemplateSelector, configCard) {
-// const { name, link } = item
-// this._name = name
-// this._link = link
+        // this._handleCardClick = handleCardClick;
         this._name = item.name
         this._link = item.link
         this._cardSelector = cardTemplateSelector
@@ -23,21 +18,25 @@ export class Card {
     }
 
     _setEventListener() {
-        this._card.querySelector('.card__image').addEventListener('click', () => this._showZoomPopup())
-        this._card.querySelector('.card__recycle-bin').addEventListener('click', () => this._delCard())
-        this._card.querySelector('.card__like').addEventListener('click', () => this._doLike())
+        this._card.querySelector('.card__image').addEventListener('click', () => this._handleCardClick())
+        this._card.querySelector('.card__recycle-bin').addEventListener('click', () => this._clear())
+        this._card.querySelector('.card__like').addEventListener('click', () => this._like())
     }
 
-    _doLike() {
+    _like() {
         this._card.querySelector('.card__like').classList.toggle('card__like_active')
     }
 
-    _delCard() {
+    _clear() {
         this._card.closest('.card').remove()
     }
-    
-    _showZoomPopup() {
-        openPopup(popupZoom)
+// Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. 
+// Эта функция должна открывать попап с картинкой при клике на карточку.
+    _handleCardClick() {
+        const popupZoom = document.querySelector('.popup_zoom');
+        popupZoom.classList.add('popup_is-opened')
+        // document.addEventListener('keyup', closePopupByEscOrOverlay)
+
         this._zoomImage.setAttribute('src', `${this._link}`)
         this._zoomImage.setAttribute('alt', `Изображение ${this._name}`)
         this._zoomTitle.textContent = this._name

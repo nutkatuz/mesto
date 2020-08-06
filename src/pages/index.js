@@ -1,8 +1,10 @@
-import './index.css';
-import { openPopup, closePopup, popupProfile, popupNewCard } from '../components/Popup.js'
-import { initialCards, configCard, config } from '../utils/constants.js'
-import { Card } from '../components/Card.js'
-import { FormValidator } from '../components/FormValidator.js'
+// import './index.css';
+import { popupProfile, popupNewCard } from '../components/Popup.js';
+import { initialCards, configCard, config } from '../utils/constants.js';
+import Card from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 
 const addButton = document.querySelector('.profile__add-button')
 const cardsSection = document.querySelector('.places')
@@ -27,46 +29,44 @@ profileValidation.enableValidation()
 const cardValidation = new FormValidator(config, newCardPopupForm)
 cardValidation.enableValidation()
 //
-// Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
-const renderer = function (item) {
+// const renderAllItems = function () {
+//     initialCards.forEach((item) => {
+//     const cardElement = renderer(item)
+//     cardsSection.append(cardElement)
+//     })
+// }
+// renderAllItems()
+const cardList = new Section({
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, cardTemplateSelector, configCard);
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement)
+      },
+    },
+    containerSelector
+  );
+  cardList.renderItems();
+
+const addItem = function (item) {
     const card = new Card(item, cardTemplateSelector, configCard)
     const cardElement = card.generateCard()
     return cardElement
 }
-
-const renderAllItems = function () {
-    initialCards.forEach((item) => {
-    const cardElement = renderer(item)
-    cardsSection.append(cardElement)
-    })
-}
-renderAllItems()
-// const cardList = new Section({
-//     data: initialCards,
-//     renderer: (item) => {
-//       const card = item.isOwner
-//         ? new UserCard(item, '.card-template_type_user')
-//         : new DefaultCard(item, '.card-template_type_default');
-  
-//       const cardElement = card.generateCard();
-  
-//       cardList.setItem(cardElement);
-//       },
-//     },
-//     cardListSection
-//   );
-//cardList.renderItems();
-
-const addItem = function () {
+// Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
+const renderer = function () {
     const name = placeInput.value
     const link = linkInput.value
-    const cardElement = renderer({ name, link })
+    const cardElement = addItem({ name, link })
     cardsSection.prepend(cardElement)
 }
 
 //
 const showEditPopup = function () {
-    openPopup(popupProfile)
+    const popup = new Popup ('.popup_profile-edit')
+    popup.open()
+    popup.setEventListeners()
+
     nameInput.value = profileName.textContent
     jobInput.value = profileJob.textContent
     const submitButtonSelector = popupProfile.querySelector('.popup__button')
@@ -75,7 +75,10 @@ const showEditPopup = function () {
 }
 
 const showNewCardPopup = function () {
-    openPopup(popupNewCard)
+    const popup = new Popup ('.popup_new-card')
+    popup.open()
+    popup.setEventListeners()
+
     newCardPopupForm.reset()
     const submitButtonSelector = popupNewCard.querySelector('.popup__button')
     submitButtonSelector.classList.add(config.inactiveButtonClass)
@@ -86,13 +89,19 @@ const formSubmitHandlerProfile = function (evt) {
     evt.preventDefault()
     profileName.textContent = nameInput.value
     profileJob.textContent = jobInput.value
-    closePopup(popupProfile)
+    
+    const popup = new Popup ('.popup_profile-edit')
+    popup.close()
+    // closePopup(popupProfile)
 }
 
 const formSubmitHandlerNewCard = function (evt) {
     evt.preventDefault();
-    addItem(placeInput.value, linkInput.value)
-    closePopup(popupNewCard)
+    renderer(placeInput.value, linkInput.value)
+
+    const popup = new Popup ('.popup_new-card')
+    popup.close()
+    // closePopup(popupNewCard)
 }
 
 editButton.addEventListener('click', showEditPopup)
