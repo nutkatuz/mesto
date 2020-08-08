@@ -27,9 +27,10 @@ export const initialCards = [
     },
 ]
 
-export const configCard = {
-    zoomImageSelector: '.zoom__image',
-    zoomTitleSelector: '.zoom__caption'
+export const configCard = {//убрала !
+    zoomImageSelector: '.zoom__image', 
+    zoomTitleSelector: '.zoom__caption',
+    
 }
 
 export const config = { //объект настроек с селекторами и классами формы

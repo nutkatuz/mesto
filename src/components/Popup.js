@@ -1,9 +1,9 @@
-export const popupProfile = document.querySelector('.popup_profile-edit')
-export const popupNewCard = document.querySelector('.popup_new-card')
 // Создайте класс Popup, который отвечает за открытие и закрытие попапа. Этот класс:
 export default class Popup {
-    constructor(popupSelector) {// Принимает в конструктор единственный параметр — селектор попапа.
-        this._popup = document.querySelector(popupSelector)
+    constructor(popupSelector) {
+// Принимает в конструктор единственный параметр — селектор попапа.
+        this._popupSelector = popupSelector;
+        this._popup = document.querySelector(this._popupSelector);
     }
 // Содержит приватный метод _handleEscClose, который содержит логику закрытия попапа клавишей Esc.
     _handleEscOverlayClose(e) {
@@ -14,7 +14,6 @@ export default class Popup {
             }
         }
     }
-    
 // Содержит публичный метод setEventListeners, который добавляет слушатель клика иконке закрытия попапа.
     setEventListeners() {
         this._popup.querySelector('.popup__close').addEventListener('click', () => this.close())
@@ -23,10 +22,9 @@ export default class Popup {
     
 // Содержит публичные методы open и close, которые отвечают за открытие и закрытие попапа.
     open() {
-        this._popup.classList.add('popup_is-opened')
+        this._popup.classList.add('popup_is-opened')//Cannot read property 'classList' of null
         document.addEventListener('keyup', this._handleEscOverlayClose)
     }
-
     close() {
         this._popup.classList.remove('popup_is-opened')
         document.removeEventListener('keyup', this._handleEscOverlayClose)
