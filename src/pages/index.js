@@ -32,18 +32,6 @@ profileValidation.enableValidation()
 
 const cardValidation = new FormValidator(config, newCardPopupForm)
 cardValidation.enableValidation()
-//
-
-//Свяжите класс Card c PopupWithImage
-// const handleCardClick =function(popupSel){
-//     popup = document.querySelector(popupSel)
-//     popup.classList.add('popup_is-opened')
-//     // document.addEventListener('keyup', closePopupByEscOrOverlay)
-// document.querySelector('.zoom__image').setAttribute('src', `${this._link}`)
-// document.querySelector('.zoom__image').setAttribute('alt', `Изображение ${this._name}`)
-// document.querySelector('.zoom__caption').textContent = this._name
-// }
-const popupZoomDOM = document.querySelector('.popup__zoom')
 
 const cardList = new Section({
     items: initialCards,
@@ -51,33 +39,36 @@ const cardList = new Section({
         const card = new Card({
             data: item,
             handleCardClick: () => {//Эта функция должна открывать PopupWithImage при клике на карточку
-                const popupZoom = new PopupWithImage('.popup__zoom')//стало
+                const popupZoom = new PopupWithImage(configCard.popupSelector, configCard)
                 popupZoom.open(item);
+                popupZoom.setEventListeners(item);
             }
         },
-            cardTemplateSelector,
-            // configCard
+            cardTemplateSelector
         );
         const cardElement = card.generateCard();
         cardList.addItem(cardElement)
     }
 },
     containerSelector);
-cardList.renderItems();// до этого момента правильно
+cardList.renderItems();
 
 const addItem = function (item) {
     const card = new Card({
         data: item,
-        handleCardClick: (popupZoom) => {//Эта функция должна открывать PopupWithImage при клике на карточку
-            popupZoom.open(item);//было
+        handleCardClick: () => {//Эта функция должна открывать PopupWithImage при клике на карточку
+            const popupZoom = new PopupWithImage(configCard.popupSelector, configCard)
+            popupZoom.open(item);
+            popupZoom.setEventListeners(item);
         }
     },
-        cardTemplateSelector,
-        // configCard
+        cardTemplateSelector
     );
     const cardElement = card.generateCard()
     return cardElement
-}
+}// до этого момента правильно
+
+
 
 // Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
 const renderer = function () {
@@ -134,3 +125,5 @@ editButton.addEventListener('click', showEditPopup)
 addButton.addEventListener('click', showNewCardPopup)
 profilePopupForm.addEventListener('submit', formSubmitHandlerProfile)
 newCardPopupForm.addEventListener('submit', formSubmitHandlerNewCard)
+// profileName.textContent = nameInput.value
+// profileJob.textContent = jobInput.value
