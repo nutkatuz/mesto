@@ -33,7 +33,8 @@ export default class PopupWithForm extends Popup {
         this._popup.querySelector('.popup__window').addEventListener('submit', formSubmitHandler)
     }
 // Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться.
-    // close() {//мне это не надо вроде
+//мне это не надо вроде
+    // close() {     
     //     this._popup.classList.remove('popup_is-opened')
     //     document.removeEventListener('keyup', this._handleEscOverlayClose)
     // }
