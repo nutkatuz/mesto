@@ -12,7 +12,9 @@ export default class Card {//создать клон
             .content
             .querySelector('.card')
             .cloneNode(true)
-        return card;
+        this._card = card;
+        return this._card;
+        
     }
 
     _setEventListener() {

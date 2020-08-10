@@ -4,7 +4,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-// import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 const addButton = document.querySelector('.profile__add-button')
 const cardsSection = document.querySelector('.places')
@@ -68,8 +68,6 @@ const addItem = function (item) {
     return cardElement
 }// до этого момента правильно
 
-
-
 // Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
 const renderer = function () {
     const name = placeInput.value
@@ -77,7 +75,6 @@ const renderer = function () {
     const cardElement = addItem({ name, link })
     cardsSection.prepend(cardElement)
 }
-
 //
 const showEditPopup = function () {
     const popup = new Popup('.popup_profile-edit')
@@ -90,18 +87,6 @@ const showEditPopup = function () {
     submitButtonSelector.classList.remove(config.inactiveButtonClass)
     profileValidation.resetFormState()
 }
-
-const showNewCardPopup = function () {
-    const popup = new Popup('.popup_new-card')
-    popup.open()
-    popup.setEventListeners()
-
-    newCardPopupForm.reset()
-    const submitButtonSelector = popupNewCard.querySelector('.popup__button')
-    submitButtonSelector.classList.add(config.inactiveButtonClass)
-    cardValidation.resetFormState()
-}
-
 const formSubmitHandlerProfile = function (evt) {
     evt.preventDefault()
     profileName.textContent = nameInput.value
@@ -112,18 +97,59 @@ const formSubmitHandlerProfile = function (evt) {
     // closePopup(popupProfile)
 }
 
-const formSubmitHandlerNewCard = function (evt) {
-    evt.preventDefault();
-    renderer(placeInput.value, linkInput.value)
+// делаем попап добавления карточки 
+const newCardPopup = new PopupWithForm ('.popup_new-card',
+    {handleFormSubmit: (item) => {
+        const card = new Card({
+        data: item,
+        handleCardClick: () => {//Эта функция должна открывать PopupWithImage при клике на карточку
+            const popupZoom = new PopupWithImage(configCard.popupSelector, configCard)
+            popupZoom.open(item);
+            popupZoom.setEventListeners(item);
+        }
+    },
+        cardTemplateSelector
+    );
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement)
+    newCardPopup.close()
+    }
+})
 
-    const popup = new Popup('.popup_new-card')
-    popup.close()
-    // closePopup(popupNewCard)
+// const submitButtonSelector = newCardPopup.querySelector('.popup__button')
+// submitButtonSelector.classList.add(config.inactiveButtonClass)
+const showNewCardPopup = function () {
+    // const popnewCardPopupup = new PopupWithForm ('.popup_new-card')
+    newCardPopup.open()
+    newCardPopup.setEventListeners()
+    newCardPopupForm.reset()
+    cardValidation.resetFormState()
 }
 
-editButton.addEventListener('click', showEditPopup)
-addButton.addEventListener('click', showNewCardPopup)
-profilePopupForm.addEventListener('submit', formSubmitHandlerProfile)
-newCardPopupForm.addEventListener('submit', formSubmitHandlerNewCard)
+
+// const showNewCardPopup = function () {
+//     const popup = new Popup('.popup_new-card')
+//     popup.open()
+//     popup.setEventListeners()
+//     newCardPopupForm.reset()
+//     const submitButtonSelector = popupNewCard.querySelector('.popup__button')
+//     submitButtonSelector.classList.add(config.inactiveButtonClass)
+//     cardValidation.resetFormState()
+// }//было
+// const formSubmitHandlerNewCard = function (evt) {
+//     evt.preventDefault();
+//     renderer(placeInput.value, linkInput.value)
+
+//     const popup = new Popup('.popup_new-card')
+//     popup.close()
+//     // closePopup(popupNewCard)
+// }
+
+editButton.addEventListener('click', () => showEditPopup())
+
+addButton.addEventListener('click', () => showNewCardPopup())
+
+// profilePopupForm.addEventListener('submit', formSubmitHandlerProfile)
+// newCardPopupForm.addEventListener('submit', formSubmitHandlerNewCard)
 // profileName.textContent = nameInput.value
 // profileJob.textContent = jobInput.value

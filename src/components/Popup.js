@@ -1,3 +1,4 @@
+import { config } from '../utils/constants.js';
 // Создайте класс Popup, который отвечает за открытие и закрытие попапа. Этот класс:
 export default class Popup {
     constructor(popupSelector) {
@@ -6,9 +7,9 @@ export default class Popup {
         this._popup = document.querySelector(this._popupSelector);
     }
 // Содержит приватный метод _handleEscClose, который содержит логику закрытия попапа клавишей Esc.
-    _handleEscOverlayClose(e) {
+    _handleEscOverlayClose = (e) => {
         if (e.target.classList.contains('popup_is-opened') || (e.key == 'Escape')) {
-            const openedPopup = document.querySelector('.popup_is-opened')
+            const openedPopup = document.querySelector('.popup_is-opened') //this.close
             if (openedPopup) {
                 openedPopup.classList.remove('popup_is-opened')
             }
@@ -24,6 +25,9 @@ export default class Popup {
     open() {
         this._popup.classList.add('popup_is-opened')//Cannot read property 'classList' of null
         document.addEventListener('keyup', this._handleEscOverlayClose)
+        //добавила
+        const submitButtonSelector = this._popup.querySelector('.popup__button')
+        submitButtonSelector.classList.add(config.inactiveButtonClass)
     }
     close() {
         this._popup.classList.remove('popup_is-opened')
