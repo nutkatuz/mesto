@@ -1,19 +1,20 @@
 // Класс UserInfo отвечает за управление отображением информации о пользователе на странице. Этот класс:
-// Принимает в конструктор объект с селекторами двух элементов: 
-// элемента имени пользователя и элемента информации о себе.
-export default class UserInfo {
-    constructor({ profileName, profileStatus }) {
-        this._profileName = document.querySelector(profileName);
-        this._profileJob = document.querySelector(profileStatus);
+export default class UserInfo { // Принимает в конструктор объект с селекторами двух элементов: 
+    constructor({   // элемента имени пользователя и элемента информации о себе.
+        profileNameSelector,
+        profileJobSelector
+    }) { 
+        this._profileName = document.querySelector(profileNameSelector);
+        this._profileJob = document.querySelector(profileJobSelector);
     }
+    // публичный метод getUserInfo пригодится когда данные пользователя нужно будет подставить в форму при открытии.
+    getUserInfo() {
+        this._profileValues = {};
+        this._profileValues.nameInput = this._profileName.textContent;//со страницы в инпут
+        this._profileValues.jobInput = this._profileJob.textContent;
 
-    getUserInfo() {// Содержит публичный метод getUserInfo, который возвращает объект с данными пользователя. 
-        this._editChange = {};
-        this._editChange.nameInput = this._profileName.textContent;
-        this._editChange.jobInput = this._profileJob.textContent;
-
-        return this._editChange
-    }// Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
+        return this._profileValues // возвращает объект с новыми данными пользователя. 
+    }
 
     // Содержит публичный метод setUserInfo, который принимает новые данные пользователя и добавляет их на страницу.
     setUserInfo(data) {

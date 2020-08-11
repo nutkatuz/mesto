@@ -1,5 +1,6 @@
-//import murmanskbarincevo from './images/places/murmanskbarincevo.jpg';
 
+//Привет! Задайте данные здесь!
+//1.//import murmanskbarincevo from './images/places/murmanskbarincevo.jpg';
 export const initialCards = [
     {
         name: 'Якутия',
@@ -27,12 +28,7 @@ export const initialCards = [
     },
 ]
 
-export const configCard = {//убрала !
-    zoomImageSelector: '.zoom__image', 
-    zoomTitleSelector: '.zoom__caption',
-    popupSelector: '.popup_zoom'
-}
-
+//2.
 export const config = { //объект настроек с селекторами и классами формы
     // formSelector: '.popup__window',
     inputSelector: '.popup__input',
@@ -43,4 +39,10 @@ export const config = { //объект настроек с селекторам�
     redSpanSelector: '.popup__error',
     labelSelector: '.popup__label',
     fieldsetSelector: '.popup__content',
+}
+
+export const configCard = {//убрала !
+    zoomImageSelector: '.zoom__image',
+    zoomTitleSelector: '.zoom__caption',
+    popupSelector: '.popup_zoom'
 }

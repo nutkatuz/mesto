@@ -1,36 +1,41 @@
-import { config } from '../utils/constants.js';
 // Создайте класс Popup, который отвечает за открытие и закрытие попапа. Этот класс:
 export default class Popup {
-    constructor(popupSelector) {
-// Принимает в конструктор единственный параметр — селектор попапа.
-        this._popupSelector = popupSelector;
-        this._popup = document.querySelector(this._popupSelector);
+    // Принимает в конструктор единственный параметр — селектор попапа.
+    constructor(popup) {
+        this._popup = popup;
     }
-// Содержит приватный метод _handleEscClose, который содержит логику закрытия попапа клавишей Esc.
-    _handleEscOverlayClose = (e) => {
-        if (e.target.classList.contains('popup_is-opened') || (e.key == 'Escape')) {
-            const openedPopup = document.querySelector('.popup_is-opened') //this.close
-            if (openedPopup) {
-                openedPopup.classList.remove('popup_is-opened')
-            }
+    // Содержит приватный метод _handleEscClose, который содержит логику закрытия попапа клавишей Esc.
+    _closeEscHandler = (evt) => {
+        if (evt.key === 'Escape') {
+            this.close()
         }
     }
-// Содержит публичный метод setEventListeners, который добавляет слушатель клика иконке закрытия попапа.
-    setEventListeners() {
-        this._popup.querySelector('.popup__close').addEventListener('click', () => this.close())
-        this._popup.addEventListener('mousedown', this._handleEscOverlayClose)
+    _closeButtonHandler = () => {
+        this.close()
     }
-    
-// Содержит публичные методы open и close, которые отвечают за открытие и закрытие попапа.
+    _closeOverlayHandler = (evt) => {
+        if (evt.target.classList.contains('popup')) {
+            this.close()
+        }
+    }
+    // Содержит публичный метод setEventListeners, который добавляет слушатель клика иконке закрытия попапа.
+    setEventListeners() {
+        this._popup.querySelector('.popup__close').addEventListener('click', this._closeButtonHandler)
+        this._popup.addEventListener('click', this._closeOverlayHandler);
+        document.addEventListener('keydown', this._closeEscHandler);
+    }
+    removeEventListeners() {
+        this._popup.querySelector('.popup__close').removeEventListener('click', this._closeButtonHandler)
+        this._popup.removeEventListener('click', this._closeOverlayHandler);
+        document.removeEventListener('keydown', this._closeEscHandler);
+    }
+    // Содержит публичные методы open и close, которые отвечают за открытие и закрытие попапа.
     open() {
-        this._popup.classList.add('popup_is-opened')//Cannot read property 'classList' of null
-        document.addEventListener('keyup', this._handleEscOverlayClose)
-        //добавила
-        const submitButtonSelector = this._popup.querySelector('.popup__button')
-        submitButtonSelector.classList.add(config.inactiveButtonClass)
+        this._popup.classList.add('popup_is-opened') //Cannot read property 'classList' of null
+        this.setEventListeners();
     }
     close() {
         this._popup.classList.remove('popup_is-opened')
-        document.removeEventListener('keyup', this._handleEscOverlayClose)
+        this.removeEventListeners()
     }
 }
