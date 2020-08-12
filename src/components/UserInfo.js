@@ -8,17 +8,16 @@ export default class UserInfo { // Принимает в конструктор 
         this._profileJob = document.querySelector(profileJobSelector);
     }
     // публичный метод getUserInfo пригодится когда данные пользователя нужно будет подставить в форму при открытии.
-    getUserInfo() {
-        this._profileValues = {};
-        this._profileValues.nameInput = this._profileName.textContent;//со страницы в инпут
-        this._profileValues.jobInput = this._profileJob.textContent;
-
-        return this._profileValues // возвращает объект с новыми данными пользователя. 
+    getUserInfo = () => {
+        this._object = {};
+        this._object.name = this._profileName.textContent;//со страницы в инпут
+        this._object.job = this._profileJob.textContent;
+        return this._object // возвращает объект с новыми данными пользователя. 
     }
 
     // Содержит публичный метод setUserInfo, который принимает новые данные пользователя и добавляет их на страницу.
-    setUserInfo(data) {
-        this._profileName.textContent = data.name;
-        this._profileJob.textContent = data.job;
+    setUserInfo(item) {// это get наоборот
+        this._profileName.textContent = item.name;
+        this._profileJob.textContent = item.job;
     }
 }

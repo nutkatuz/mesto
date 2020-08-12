@@ -41,7 +41,7 @@ const cardValidation = new FormValidator(config, newCardPopupForm)
 cardValidation.enableValidation()
 
 const userInfo = new UserInfo( //объявление
-    {
+    {//указываем те же поля что и в конструкторе 
         profileNameSelector: '.profile__name',
         profileJobSelector: '.profile__job'
     }
@@ -57,9 +57,8 @@ const popupWithFormEdit = new PopupWithForm(popupProfile, {
 });
 
 const showEditPopup = () => {
-    const userData = userInfo.getUserInfo()
-    nameInput.value = userData.nameInput
-    jobInput.value = userData.jobInput
+    nameInput.value = (userInfo.getUserInfo()).name
+    jobInput.value = (userInfo.getUserInfo()).job
 
     // const submitButton = popupProfile.querySelector('.popup__button')
     // profileValidation.toggleButtonState(false, submitButton);

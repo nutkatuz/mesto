@@ -7,39 +7,38 @@ export default class PopupWithForm extends Popup {
     }
     // Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
     _getInputValues() {
-        this._inputList = this._popup.querySelectorAll('.popup__input')
-        this._formValues = {}
-        this._inputList.forEach((input) => {
-            this._inputValues[input.name] = input.value;
-            
+        this._object = {};
+        this._inputList = this._popup.querySelectorAll('.popup__input');
+        this._inputList.forEach((item) => {
+          this._object[item.name] = item.value;
         });
-        return this._formValues; // возвращает объект {input.name: input.value}
-        console.log(this._formValues)
-    }
+        return this._object;
+    } // возвращает объект {input.name: input.value}
 
     open() {
         this.setEventListeners()
         super.open()
+        // this._popup.querySelector('.popup__window').reset()
     }
     // Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться.
     close() {
+        // this._popup.querySelector('.popup__window').reset()//некрасиво при закрытии скидывать
+        this._removeEventListeners()
         super.close()
-        this._popup.querySelector('.popup__window').reset()
-        this.removeEventListeners()
     }
     // Перезаписывает родительский метод setEventListeners, 
     setEventListeners() { // кт должен не только добавлять обработчик клика иконке закрытия,
         super.setEventListeners()
         // но и добавлять обработчик сабмита формы.
-        this._popup.querySelector('.popup__window').addEventListener('submit', this._submitHandler)
+        this._popup.querySelector('.popup__window').addEventListener('submit', this._formSubmit)
     }
 
-    removeEventListeners() {
+    _removeEventListeners() {
         super.removeEventListeners()
-        this._popup.querySelector('.popup__window').removeEventListener('submit', this._submitHandler)
+        this._popup.querySelector('.popup__window').removeEventListener('submit', this._formSubmit)
     }
 
-    _submitHandler = (event) => {
+    _formSubmit = (event) => {
         event.preventDefault()
         const data = this._getInputValues() //собрали данные из инпутов
         this._handleSubmit(data) //.передали их в колбэк сабмита формы

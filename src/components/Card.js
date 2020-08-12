@@ -36,9 +36,8 @@ export default class Card { //создать клон
     }
 
     generateCard() {
-        this._card = this._getTemplate()
+        this._getTemplate()
         this._setEventListeners()
-
         const image = this._card.querySelector('.card__image')
         image.src = this._link
         image.setAttribute('alt', `Не удалось загрузить изображение "${this._name}"`)
