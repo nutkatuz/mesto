@@ -1,8 +1,8 @@
-// Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. 
+// Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick.
 export default class Card { //создать клон
     constructor({
         data,
-        handleCardClick
+        handleCardClick//классы нужно связать друг с другом, делайте это передаваемой в конструктор функцией-колбэком.
     }, cardTemplateSelector) {
         this._name = data.name //не итем, а дейта! 
         this._link = data.link

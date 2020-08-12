@@ -9,20 +9,20 @@ export default class PopupWithForm extends Popup {
     _getInputValues() {
         this._object = {};
         this._inputList = this._popup.querySelectorAll('.popup__input');
-        this._inputList.forEach((item) => {
-          this._object[item.name] = item.value;
-        });
+        this._inputList.forEach((input) => {
+          this._object[input.name] = input.value; 
+        });// возвращает объект {input.name: input.value} из имён инпутов и значений инпутов
         return this._object;
-    } // возвращает объект {input.name: input.value}
+    } 
 
     open() {
         this.setEventListeners()
         super.open()
-        // this._popup.querySelector('.popup__window').reset()
+        this._popup.querySelector('.popup__window').reset()
     }
     // Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться.
     close() {
-        // this._popup.querySelector('.popup__window').reset()//некрасиво при закрытии скидывать
+        // this._popup.querySelector('.popup__window').reset()//некрасиво при закрытии скидывать, их видно когда гаснет окно
         this._removeEventListeners()
         super.close()
     }

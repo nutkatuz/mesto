@@ -38,9 +38,6 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    host: 'http://127.0.0.1:5500/src/'
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html'

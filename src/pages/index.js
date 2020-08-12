@@ -1,21 +1,17 @@
 import {
     initialCards,
-    configCard,
     config
 } from '../utils/constants.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
-import Popup from '../components/Popup.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
-
+//  devServer: {
+//     host: 'http://127.0.0.1:5500/src/'
+//   }, 
 const addButton = document.querySelector('.profile__add-button')
-
-
-const profileName = document.querySelector('.profile__name')
-const profileJob = document.querySelector('.profile__job')
 const editButton = document.querySelector('.profile__edit-button')
 
 const nameInput = document.querySelector('.popup__input_name')
@@ -25,8 +21,6 @@ const popupProfile = document.querySelector('.popup_profile-edit')
 const profilePopupForm = popupProfile.querySelector('.popup__window')
 
 const popupZoom = document.querySelector('.popup_zoom')
-const placeInput = document.querySelector('.popup__input_place-name')
-const linkInput = document.querySelector('.popup__input_image_url')
 
 const popupNewCard = document.querySelector('.popup_new-card')
 const newCardPopupForm = popupNewCard.querySelector('.popup__window')
@@ -59,11 +53,7 @@ const popupWithFormEdit = new PopupWithForm(popupProfile, {
 const showEditPopup = () => {
     nameInput.value = (userInfo.getUserInfo()).name
     jobInput.value = (userInfo.getUserInfo()).job
-
-    // const submitButton = popupProfile.querySelector('.popup__button')
-    // profileValidation.toggleButtonState(false, submitButton);
-    // profileValidation.clearError(popupProfile);
-
+    profileValidation.resetFormState(popupProfile);
     popupWithFormEdit.open()
 }
 editButton.addEventListener('click', () => showEditPopup())
@@ -101,13 +91,7 @@ section.renderItems()
 
 
 const showNewCardPopup = () => {
-
-    // const submitButton = popupNewCard.querySelector('.popup__button')
-    // cardValidation.toggleButtonState(true, submitButton);
-    // cardValidation.clearError(popupNewCard);
-
+    cardValidation.resetFormState(popupNewCard);
     popupWithFormAdd.open();
 }
 addButton.addEventListener('click', () => showNewCardPopup())
-
-
