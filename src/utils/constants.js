@@ -1,16 +1,16 @@
 //Привет! Задайте данные здесь!
 
 1.
-// import murmanskbarincevo from './images/places/murmanskbarincevo.jpg';
+// import murmanskbarincevo from './images/places/murmanskbarincevo.jpg'; murmanskbarincevo
 export const initialCards = [
     {
         name: 'Якутия',
         link: 'https://cs8.pikabu.ru/post_img/2016/08/06/9/1470497053165232138.jpg'
     },
-    // {
-    //     name: 'Мурманск',
-    //     link: murmanskbarincevo
-    // },//https://static.wixstatic.com/media/cd203f_d29c0159138b43b4a47fd0199a83f49c~mv2_d_2560_1708_s_2.jpg
+    {
+        name: 'Мурманск',
+        link: 'https://static.wixstatic.com/media/cd203f_d29c0159138b43b4a47fd0199a83f49c~mv2_d_2560_1708_s_2.jpg'
+    },//
     {
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
