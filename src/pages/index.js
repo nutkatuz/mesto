@@ -58,7 +58,8 @@ const jobInput = document.querySelector('.popup__input_about')
 const showEditPopup = () => {
     profileValidation.resetFormState(popupProfile);
     popupWithFormEdit.open()
-    
+    popupWithFormEdit.setEventListeners()
+
     const user = userInfo.getUserInfo();
     nameInput.value = user.name;
     jobInput.value = user.job;  
@@ -93,6 +94,7 @@ section.renderItems();//запускаем колбэк
 const showNewCardPopup = () => {
     cardValidation.resetFormState(popupNewCard);
     popupWithFormAdd.open();
+    popupWithFormAdd.setEventListeners()
     popupWithFormAdd.disableBtn(popupNewCard);
 };
 

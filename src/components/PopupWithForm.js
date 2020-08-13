@@ -18,17 +18,16 @@ export default class PopupWithForm extends Popup {
     setEventListeners() {
         super.setEventListeners()
         this._popup.querySelector('.popup__form').addEventListener('submit', this._formSubmit)
-        // super.close()
     }
 
     _formSubmit = (event) => {
         event.preventDefault()
         this._handleSubmit( this._getInputValues() ) 
+        // super.close() // при дабл-клике на сохранить форма срабатывает 2p и сохраняет 2 шт, но так кнопка остается активной
     }
 
     open() {
         this._popup.querySelector('.popup__form').reset()
-        this.setEventListeners()
         super.open()
     }
 
@@ -40,7 +39,7 @@ export default class PopupWithForm extends Popup {
 
     ableBtn(popup){
         const submitButton = popup.querySelector('.popup__button')
-        submitButton.classList.remove('popup__button')
+        submitButton.classList.remove('popup__button_disabled')
         submitButton.removeAttribute('disabled')
     }
 }
@@ -50,5 +49,3 @@ export default class PopupWithForm extends Popup {
 // _formSubmit если поставить в обработчик, то 2 шт карточек одинаковых выводит.
 // ресетим формы при открытии - сбрасываем значения полей
 // при первом открытии нужно чтобы кнпка была активной в первом и неактивной во втором
-
-// при дабл-клике на сохранить форма срабатывает и сохраняет 2 шт
