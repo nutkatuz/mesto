@@ -1,37 +1,56 @@
 //Привет! Задайте данные здесь!
 
-1.
-// import murmanskbarincevo from './images/places/murmanskbarincevo.jpg'; murmanskbarincevo
+import russiaImage from '../images/places/08s.jpg';
+import eltonImage from '../images/places/elton.jpg';
+import exhibitionImage from '../images/places/exhibition.jpg';
+import kamchatkaImage from '../images/places/kamchatka.jpg';
+import marsImage from '../images/places/mars.jpg';
+import murmanskImage from '../images/places/murmansk.jpg';
+import murmanskbarincevoImage from '../images/places/murmanskbarincevo.jpg';
+import platoImage from '../images/places/plato.jpg';
+import vkamchatkaImage from '../images/places/vkamchatka.jpg';
+
 export const initialCards = [
     {
-        name: 'Якутия',
-        link: 'https://cs8.pikabu.ru/post_img/2016/08/06/9/1470497053165232138.jpg'
-    },
-    {
-        name: 'Мурманск',
-        link: 'https://static.wixstatic.com/media/cd203f_d29c0159138b43b4a47fd0199a83f49c~mv2_d_2560_1708_s_2.jpg'
-    },//
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+        name: 'Россия',
+        link: russiaImage
     },
     {
         name: 'Озеро Эльтон',
-        link: 'https://russia.travel/upload/resize/376791/1280_1280/948138.jpg'
+        link: eltonImage
+    },
+    {
+        name: 'Якутия',
+        link: exhibitionImage
+    },
+    {
+        name: 'Камчатка',
+        link: kamchatkaImage
     },
     {
         name: 'Марсианское озеро',
-        link: 'https://russia.travel/upload/uf/2af/2af7df5f319d0c0877e8aa0d0d0d8f79.jpg'
+        link: marsImage
+    },
+    {
+        name: 'Байкал',
+        link: murmanskImage
+    },
+    {
+        name: 'Баринцево море',
+        link: murmanskbarincevoImage
     },
     {
         name: 'Плато Караби-Яйла',
-        link: 'https://russia.travel/upload/resize/376793/1280_1280/948142.jpg'
+        link: platoImage
+    },
+    {
+        name: 'Вулканы камчатки',
+        link: vkamchatkaImage
     },
 ]
 
-//2.
-export const config = { //объект настроек с селекторами и классами формы
-    // formSelector: '.popup__window',
+//2. Заполните объект настроек с селекторами и классами форм
+export const config = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
@@ -41,4 +60,10 @@ export const config = { //объект настроек с селекторам�
     labelSelector: '.popup__label',
     fieldsetSelector: '.popup__content',
 }
-// Спасибо!
+
+//3. Введите селекторы поля имени и профессии на странице
+export const profileNameSelector = '.profile__name'
+export const profileJobSelector = '.profile__job'
+
+// 4. Селектор контейнера для карточек
+export const containerSelector = '.places'

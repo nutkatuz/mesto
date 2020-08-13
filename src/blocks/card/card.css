@@ -15,3 +15,6 @@
     position: relative;
     color: #000;
 }
+.card:hover .card__recycle-bin{
+    display:block;
+}

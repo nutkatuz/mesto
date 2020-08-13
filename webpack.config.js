@@ -16,6 +16,11 @@ module.exports = {
         exclude: '/node_modules/'
       },
       {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
+      {
         test: /\.css$/,
         loader: [
           MiniCssExtractPlugin.loader,
@@ -33,7 +38,11 @@ module.exports = {
         loader: 'html-loader',
       },
       {
-        test: /\.(png|svg|jpg|gif|woff2|ttf|otf|woff)$/,
+        test: /\.(png|svg|jpg|gif)$/,
+        loader: 'file-loader',
+      },
+      {
+        test: /\.(woff2|ttf|otf|woff)$/,
         loader: 'file-loader',
       }
     ]

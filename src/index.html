@@ -19,8 +19,8 @@
       <main class="content">
         <section class="profile">
           <img class="profile__photo" src="images/image.jpg" alt="аватар">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__job">Исследователь океана</p>
+          <h1 class="profile__name"></h1>
+          <p class="profile__job"></p>
           <button class="profile__edit-button hover-style" type="button"
             aria-label="Редактировать данные профиля"></button>
           <button class="profile__add-button hover-style" type="button" aria-label="Добавить карточку"></button>
@@ -45,7 +45,7 @@
   </div>
 
   <section class="popup popup_profile-edit">
-    <form class="popup__window" name="form-profile-edit" action="#" novalidate>
+    <form class="popup__form" name="form-profile-edit" action="#" novalidate>
       <button class="popup__close hover-style" type="button"
         aria-label="Закрыть окно редактирования без сохранения"></button>
       <fieldset class="popup__content">
@@ -54,10 +54,10 @@
         <div class="popup__label">
         <input class="popup__input popup__input_name" 
                 type="text" 
-                name="name"
+                  name="firstInp"
+                  value="null" 
                 placeholder="Имя"
                 autocomplete="name"
-                value="Жак-Ив Кусто" 
                 required
                 minlength="2"
                 maxlength="40">
@@ -67,10 +67,10 @@
         <div class="popup__label">
         <input class="popup__input popup__input_about" 
                 type="text" 
-                name="job"
+                  name="secondInp"
+                  value="null"
                 autocomplete="off"
                 placeholder="О себе"
-                value="Исследователь океана"
                 required
                 minlength="2"
                 maxlength="200">
@@ -83,18 +83,20 @@
   </section>
 
   <section class="popup popup_new-card">
-    <form class="popup__window" name="form-new-card" action="#" novalidate>
+    <form class="popup__form" name="form-new-card" action="#" novalidate>
       <button class="popup__close hover-style" type="button" aria-label="Закрыть окно без сохранения"></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Новое место</h3>
         <div class="popup__label">
-          <input
-            class="popup__input popup__input_place-name" 
-            type="text"
-            name="name"
+
+          <input class="popup__input popup__input_place-name" 
+              name="name"
+              value=""
+            tabindex=2
             autocomplete="off"
             placeholder="Название"
-            value=""
+            type="text"
+            autofocus
             minlength="1"
             maxlength="30"
             required>
@@ -102,13 +104,13 @@
         </div>
 
         <div class="popup__label">
-        <input
-          class="popup__input popup__input_image_url" 
+        <input class="popup__input popup__input_image_url" 
           type="url"
           inputmode="url" 
-          name="link"
+            name="link"
+            value=""
+          tabindex=1
           placeholder="Ссылка на картинку"
-          value=""
           required>
         <span class="popup__error"></span>
         </div>
