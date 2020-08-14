@@ -12,6 +12,9 @@ export default class PopupWithImage extends Popup {
     this._popup.querySelector('.zoom__caption').textContent = data.name;
     super.open();
   }
+  setEventListeners() {
+    super.setEventListeners()
+  }
 }
 
 

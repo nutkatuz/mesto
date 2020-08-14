@@ -58,13 +58,10 @@ const showEditPopup = () => {
     profileValidation.resetFormState(popupProfile);
     profileValidation.ableBtn(popupProfile);
     popupWithFormEdit.open();
-    popupWithFormEdit.setEventListeners();
-
     const user = userInfo.getUserInfo();
     nameInput.value = user.name;
     jobInput.value = user.job;  
     //   popupWithFormEdit.open() почему-то значения из разметки
-
 }
 editButton.addEventListener('click', () => showEditPopup())
 
@@ -93,7 +90,10 @@ const showNewCardPopup = () => {
     cardValidation.resetFormState(popupNewCard);
     cardValidation.disableBtn(popupNewCard);
     popupWithFormAdd.open();
-    popupWithFormAdd.setEventListeners();
+
 };
 
 addButton.addEventListener('click', () => showNewCardPopup());
+popupWithFormAdd.setEventListeners();
+popupWithFormEdit.setEventListeners();
+popupWithImage.setEventListeners();
