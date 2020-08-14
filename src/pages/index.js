@@ -49,7 +49,6 @@ const popupWithImage = new PopupWithImage(popupZoom)
 const popupWithFormEdit = new PopupWithForm(popupProfile, {
     handleSubmit: (item) => {
         userInfo.setUserInfo(item);
-        popupWithFormEdit.close();
     }
 });
 
@@ -57,14 +56,15 @@ const nameInput = document.querySelector('.popup__input_name')
 const jobInput = document.querySelector('.popup__input_about')
 const showEditPopup = () => {
     profileValidation.resetFormState(popupProfile);
-    popupWithFormEdit.open()
-    popupWithFormEdit.setEventListeners()
+    profileValidation.ableBtn(popupProfile);
+    popupWithFormEdit.open();
+    popupWithFormEdit.setEventListeners();
 
     const user = userInfo.getUserInfo();
     nameInput.value = user.name;
     jobInput.value = user.job;  
     //   popupWithFormEdit.open() почему-то значения из разметки
-    popupWithFormEdit.ableBtn(popupProfile)
+
 }
 editButton.addEventListener('click', () => showEditPopup())
 
@@ -75,7 +75,6 @@ const popupWithFormAdd = new PopupWithForm(
         const card = new Card({ data: item, handleCardClick: () => {popupWithImage.open(item)} }, cardTemplateSelector);
         const myCard = card.generateCard();
         section.addItem(myCard);
-        popupWithFormAdd.close();
     }
 });
 
@@ -85,7 +84,6 @@ const section = new Section({
         const card = new Card({ data: item, handleCardClick: () => {popupWithImage.open(item)} }, cardTemplateSelector);
         const myCard = card.generateCard();
         section.addItems(myCard);
-        popupWithFormAdd.close();
     }
 }, containerSelector);
 section.renderItems();//запускаем колбэк
@@ -93,9 +91,9 @@ section.renderItems();//запускаем колбэк
 
 const showNewCardPopup = () => {
     cardValidation.resetFormState(popupNewCard);
+    cardValidation.disableBtn(popupNewCard);
     popupWithFormAdd.open();
-    popupWithFormAdd.setEventListeners()
-    popupWithFormAdd.disableBtn(popupNewCard);
+    popupWithFormAdd.setEventListeners();
 };
 
 addButton.addEventListener('click', () => showNewCardPopup());

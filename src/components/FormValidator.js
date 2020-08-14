@@ -1,7 +1,6 @@
 export default class FormValidator {
     constructor(config, form) {
         this._form = form
-
         this._inputSelector = config.inputSelector //   .popup__input
         this._submitButtonSelector = config.submitButtonSelector //  .popup__button
         this._inactiveButtonClass = config.inactiveButtonClass //  popup__button_disabled
@@ -10,7 +9,7 @@ export default class FormValidator {
         this._errorElement = config.redSpanSelector //  .popup__error
         this._labelSelector = config.labelSelector //  .popup__label
         this._fieldsetSelector = config.fieldsetSelector //  .popup__content
-
+        this._buttonElement = this._form.querySelector(this._submitButtonSelector)
         this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector))
     }
 
@@ -36,7 +35,6 @@ export default class FormValidator {
     }
 
     _toggleButtonState() {
-        this._buttonElement = this._form.querySelector(this._submitButtonSelector)
         if (this._hasInvalidInput(this._inputList)) {
             this._buttonElement.classList.add(this._inactiveButtonClass)
             this._buttonElement.setAttribute('disabled', false)
@@ -59,9 +57,7 @@ export default class FormValidator {
     }
 
     _setEventListeners() {
-        const submitButtonSelector = this._form.querySelector(this._submitButtonSelector)
-        this._toggleButtonState(this._inputList, submitButtonSelector)
-
+        this._toggleButtonState(this._inputList, this._buttonElement)
         this._inputList.forEach((item) => {
             item.addEventListener('input', () => {
                 this._checkInputValidity(item)
@@ -72,5 +68,13 @@ export default class FormValidator {
 
     enableValidation() {
         this._setEventListeners()
+    }
+    ableBtn(popup) {
+        this._buttonElement.classList.remove('popup__button_disabled')
+        this._buttonElement.removeAttribute('disabled')
+    }
+    disableBtn(popup) {
+        this._buttonElement.classList.add('popup__button_disabled')
+        this._buttonElement.setAttribute('disabled', false)
     }
 }

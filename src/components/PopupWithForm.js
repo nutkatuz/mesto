@@ -13,7 +13,7 @@ export default class PopupWithForm extends Popup {
         this._object[input.name] = input.value; 
         });
         return this._object;
-    } 
+    }
 
     setEventListeners() {
         super.setEventListeners()
@@ -23,24 +23,12 @@ export default class PopupWithForm extends Popup {
     _formSubmit = (event) => {
         event.preventDefault()
         this._handleSubmit( this._getInputValues() ) 
-        // super.close() // при дабл-клике на сохранить форма срабатывает 2p и сохраняет 2 шт, но так кнопка остается активной
+        this.close() // при дабл-клике на сохранить форма срабатывает 2p и сохраняет 2 шт, так кнопка остается активной
     }
 
     open() {
         this._popup.querySelector('.popup__form').reset()
         super.open()
-    }
-
-    disableBtn(popup){
-        const submitButton = popup.querySelector('.popup__button')
-        submitButton.classList.add('popup__button_disabled')
-        submitButton.setAttribute('disabled', false)
-    }
-
-    ableBtn(popup){
-        const submitButton = popup.querySelector('.popup__button')
-        submitButton.classList.remove('popup__button_disabled')
-        submitButton.removeAttribute('disabled')
     }
 }
 
