@@ -65,5 +65,13 @@ export const config = {
 export const profileNameSelector = '.profile__name'
 export const profileJobSelector = '.profile__job'
 
-// 4. Селектор контейнера для карточек
+// 4. Заполнить селекторы
 export const containerSelector = '.places'
+
+export const addButton = document.querySelector('.profile__add-button')
+export const editButton = document.querySelector('.profile__edit-button')
+export const popupProfile = document.querySelector('.popup_profile-edit')
+export const popupZoom = document.querySelector('.popup_zoom')
+export const popupNewCard = document.querySelector('.popup_new-card')
+
+export const cardTemplateSelector = '.card-template'

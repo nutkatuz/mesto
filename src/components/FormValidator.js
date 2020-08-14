@@ -78,3 +78,4 @@ export default class FormValidator {
         this._buttonElement.setAttribute('disabled', false)
     }
 }
+//Функции, отвечающие на переключение состояния кнопки, должны находиться в классе валидации.
