@@ -4,13 +4,22 @@
 @import url('../blocks/header/header.css');
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/profile/profile.css');
-@import url('../blocks/places/places.css');
+@import url('../blocks/gallery/gallery.css');
 @import url('../blocks/card/card.css');
+@import url('../blocks/zoom/zoom.css');
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/_is-opened/popup_is-opened.css');
 @import url('../blocks/hover-style/hover-style.css');
-@import url('../blocks/zoom/zoom.css');
-/* 
-*{
+
+/* *{
     outline: 1px solid red;
+} */
+/* 
+@keyframes pulseheart {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.5);
+    }
 } */

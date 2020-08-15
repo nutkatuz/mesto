@@ -5,4 +5,5 @@
     object-position: center;
     grid-area: image;
     cursor: pointer;
+    transition: transform .5s ease-in-out;
 }

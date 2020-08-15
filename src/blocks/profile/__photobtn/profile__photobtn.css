@@ -1,0 +1,26 @@
+.profile__photobtn {
+    width: 120px;
+    height: 120px;
+    margin: 0;
+    padding: 0;
+    grid-area: photo;
+    position: relative;
+    background-color:#000;
+    background-position: center;
+    background-size: cover;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.profile__photobtn:hover .profile__photobtn-overlay {
+    opacity: 1;
+}
+
+@media screen and (max-width: 882px) {    /*мобильные*/
+    .profile__photobtn {
+        margin: 0 auto 26px;
+    }
+}
