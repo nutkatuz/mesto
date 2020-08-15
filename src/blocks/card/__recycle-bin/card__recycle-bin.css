@@ -1,5 +1,4 @@
 .card__recycle-bin {
-    display:none;
     margin: 0;
     padding: 0;
     background: url(../../../images/trash.svg) center no-repeat;
@@ -12,4 +11,6 @@
     height: 24px;
     width: 24px;
     outline: none;
+    opacity: 0;
+    transition: opacity .5s;
 }

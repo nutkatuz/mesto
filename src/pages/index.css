@@ -14,3 +14,12 @@
 *{
     outline: 1px solid red;
 } */
+
+@keyframes pulseheart {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.25);
+    }
+}

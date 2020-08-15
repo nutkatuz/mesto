@@ -19,17 +19,16 @@ import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
 
+const newCardPopupForm = popupNewCard.querySelector('.popup__form')
+const profilePopupForm = popupProfile.querySelector('.popup__form')
+const nameInput = document.querySelector('.popup__input_name')
+const jobInput = document.querySelector('.popup__input_about')
 
 //убрала из разметки. надоело что там лишние данные
 const i = document.querySelector(profileNameSelector)
 i.textContent = 'Жак-Ив Кусто'
 const ii = document.querySelector(profileJobSelector)
 ii.textContent = 'Исследователь океана'
-
-const newCardPopupForm = popupNewCard.querySelector('.popup__form')
-const profilePopupForm = popupProfile.querySelector('.popup__form')
-const nameInput = document.querySelector('.popup__input_name')
-const jobInput = document.querySelector('.popup__input_about')
 
 const profileValidation = new FormValidator(config, profilePopupForm);
 profileValidation.enableValidation();
@@ -55,11 +54,10 @@ const popupWithFormEdit = new PopupWithForm(popupProfile, {
 const showEditPopup = () => {
     profileValidation.resetFormState(popupProfile);
     profileValidation.ableBtn(popupProfile);
-    popupWithFormEdit.open();
+    popupWithFormEdit.open();// вначале ресетить форму надо
     const user = userInfo.getUserInfo();
     nameInput.value = user.name;
-    jobInput.value = user.job;
-    //   popupWithFormEdit.open() почему-то значения из разметки
+    jobInput.value = user.job;    //а потом уже  значения из разметки.
 }
 
 const popupWithFormAdd = new PopupWithForm(

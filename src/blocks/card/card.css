@@ -14,7 +14,17 @@
     overflow: hidden;
     position: relative;
     color: #000;
+    transition: box-shadow .5s;
 }
+
+.card:hover {
+    box-shadow: 0 0 20px #4E52B0;
+}
+
 .card:hover .card__recycle-bin{
-    display:block;
+    opacity: 1;
+}
+
+.card:hover .card__image{
+    transform: scale(1.05);
 }
