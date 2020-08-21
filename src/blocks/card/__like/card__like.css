@@ -1,11 +1,12 @@
 .card__like{
-    margin: 0;
+    margin: 0 35px 0 0 ;
     padding: 0;
     height: 24px;
     width: 24px;
     background: url(../../../images/heart.svg) center no-repeat;
     border: none;
-    align-self: center;
+    align-self: end;
+    justify-self: center;
     grid-area: like;
     background-color: transparent;
     outline: none;

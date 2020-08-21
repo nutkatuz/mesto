@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="images/ar.ico">
   <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <!-- <link rel="icon" href="images/ar.ico"> -->
   <title>📍 Mesto</title>
@@ -18,7 +19,12 @@
 
       <main class="content">
         <section class="profile">
-          <img class="profile__photo" src="images/image.jpg" alt="аватар">
+        
+          <button class="profile__photo" type="button" aria-label="Обновить фото профиля">
+            <div class="profile__photobtn"></div>
+          </button>
+          
+        
           <h1 class="profile__name"></h1>
           <p class="profile__job"></p>
           <button class="profile__edit-button hover-style" type="button"
@@ -33,6 +39,7 @@
               <button class="card__recycle-bin hover-style" type="button" aria-label="Удалить"></button>
               <h3 class="card__title"></h3>
               <button class="card__like hover-style" type="button" aria-label="Лайкнуть"></button>
+              <p class="card__like-count">5</p>
             </article>
           </template>
         </section>
@@ -77,14 +84,16 @@
         <span class="popup__error"></span>
         </div>
 
-        <button class="popup__button" type="submit">Сохранить</button>
+        <button class="popup__button" type="submit"
+        aria-label="Сохранить изменения">Сохранить</button>
       </fieldset>
     </form>
   </section>
 
   <section class="popup popup_new-card">
     <form class="popup__form" name="form-new-card" action="#" novalidate>
-      <button class="popup__close hover-style" type="button" aria-label="Закрыть окно без сохранения"></button>
+      <button class="popup__close hover-style" type="button" 
+      aria-label="Закрыть окно без сохранения"></button>
       <fieldset class="popup__content">
         <h3 class="popup__title">Новое место</h3>
         <div class="popup__label">
@@ -96,7 +105,6 @@
             autocomplete="off"
             placeholder="Название"
             type="text"
-            autofocus
             minlength="1"
             maxlength="30"
             required>
@@ -115,19 +123,55 @@
         <span class="popup__error"></span>
         </div>
 
-        <button class="popup__button" type="submit" disabled>Сохранить</button>
+        <button class="popup__button" type="submit" disabled
+        aria-label="Сохранить новую карточку">Создать</button>
       </fieldset>
     </form>
   </section>
 
   <section class="popup popup_zoom">
     <figure class="zoom">
-      <button class="popup__close popup__close_figure hover-style" type="button" aria-label="Закрыть картинку"></button>
+      <button class="popup__close popup__close_figure hover-style" type="button" 
+      aria-label="Закрыть картинку"></button>
       <img class="zoom__image" src="#" alt="полноразмерная картинка">
       <figcaption class="zoom__caption"></figcaption>
     </figure>
   </section>
 
+  <section class="popup popup_confirm">
+    <form class="popup__form" name="form-confirm" action="#">
+      <button class="popup__close hover-style" type="button"
+      aria-label="Закрыть окно подтверждения без сохранения"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button class="popup__button" type="submit"
+        aria-label="Подтвердить удаление карточки">Да</button>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="popup popup_update-avatar">
+    <form class="popup__form" name="form-are-you-shure" action="#" novalidate>
+      <button class="popup__close hover-style" type="button"
+      aria-label="Закрыть окно без сохранения"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Обновить аватар</h3>
+
+        <div class="popup__label">
+          <input class="popup__input popup__input_update-avatar" 
+              name="avatar"
+              value=""
+            autocomplete="off"
+            placeholder="Ссылка на фотографию пользователя"
+            type="url">
+          <span class="popup__error"></span>
+        </div>
+
+        <button class="popup__button" type="submit"
+        aria-label="Обновить фото пользователя">Сохранить</button>
+      </fieldset>
+    </form>
+  </section>
   <!-- <script type="module" src="./pages/index.js"></script> -->
 </body>
 

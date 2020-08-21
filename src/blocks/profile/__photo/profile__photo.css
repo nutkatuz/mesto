@@ -1,11 +1,30 @@
-.profile__photo{
-    margin: 0;
-    border-radius: 50%;
+.profile__photo {
     width: 120px;
+    height: 120px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
     grid-area: photo;
+    cursor: pointer;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-image: url(../../../images/image.jpg);
+    position: relative;
+    outline: none;
 }
 
-@media screen and (max-width: 882px) { /*мобильные*/
+.profile__photo:hover .profile__photobtn {
+    opacity: 1;
+}
+
+
+
+
+@media screen and (max-width: 882px) {
+
+    /*мобильные*/
     .profile__photo {
         margin: 0 auto 26px;
     }

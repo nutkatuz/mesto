@@ -3,16 +3,16 @@
 @import url(./__recycle-bin/card__recycle-bin.css);
 @import url(./__like/card__like.css);
 @import url(./__like/_active/card__like_active.css);
+@import url(./__like-count/card__like-count.css);
 
 .card {
     display: grid;
-    grid-template-areas: 'image image' 'title like';
-    grid-template-columns: 85% 15%;    
-    grid-template-rows: 282px 80px;
+    grid-template-areas: 'image image' 'title like' 'title count';
+    grid-template-columns: 85% 15%;
+    grid-template-rows: 282px 40px 40px; /*высота ширина карточки */
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
-    position: relative;
     color: #000;
     transition: box-shadow .5s;
 }
@@ -21,9 +21,9 @@
     box-shadow: 0 0 20px #4E52B0;
 }
 
-.card:hover .card__recycle-bin{
+/* .card:hover .card__recycle-bin{
     opacity: 1;
-}
+} */
 
 .card:hover .card__image{
     transform: scale(1.05);

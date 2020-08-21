@@ -5,13 +5,14 @@ export default class PopupWithImage extends Popup {
     super(popup);
   }
 
-  open(data) {
-    const image = this._popup.querySelector('.zoom__image')
-    image.src = data.link;
-    image.alt = data.name;
-    this._popup.querySelector('.zoom__caption').textContent = data.name;
+  open({name, link}) {
     super.open();
+    const image = this._popup.querySelector('.zoom__image')
+    image.src = link;
+    image.alt = name;
+    this._popup.querySelector('.zoom__caption').textContent = name;
   }
+
   setEventListeners() {
     super.setEventListeners()
   }
