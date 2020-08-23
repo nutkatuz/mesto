@@ -15,6 +15,7 @@
     overflow: hidden;
     color: #000;
     transition: box-shadow .5s;
+    position: relative;
 }
 
 .card:hover {

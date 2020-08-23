@@ -73,5 +73,7 @@ export const editButton = document.querySelector('.profile__edit-button')
 export const popupProfile = document.querySelector('.popup_profile-edit')
 export const popupZoom = document.querySelector('.popup_zoom')
 export const popupNewCard = document.querySelector('.popup_new-card')
+export const popupUpdateAvatar = document.querySelector('.popup_update-avatar')
+export const popupConfirm = document.querySelector('.popup_confirm')
 
 export const cardTemplateSelector = '.card-template'

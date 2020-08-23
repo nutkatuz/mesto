@@ -26,9 +26,18 @@ export default class PopupWithForm extends Popup {
         this.close() // при дабл-клике на сохранить форма срабатывает 2p и сохраняет 2 шт, так кнопка остается активной
     }
 
-    open() {
+    open = ()=> {
         this._popup.querySelector('.popup__form').reset()
         super.open()
+    }
+
+    renderLoading = (isLoading) => {
+        currentValue = this._popup.querySelector('.popup__button').textContent;
+        if(isLoading){
+            this._popup.querySelector('.popup__button').textContent = "Сохранение...";
+        }else{
+            this._popup.querySelector('.popup__button').textContent = currentValue;
+        }
     }
 }
 

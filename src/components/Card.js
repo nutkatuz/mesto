@@ -27,9 +27,9 @@ export default class Card {
         this._card.querySelector('.card__like').addEventListener('click', () => this._like())
     }
 
-    _like() {
-        this._card.querySelector('.card__like').classList.toggle('card__like_active')
-    }
+    // _like() {
+    //     this._card.querySelector('.card__like').classList.toggle('card__like_active')
+    // }
 
     _clear() {
         this._card.closest('.card').remove()
@@ -44,8 +44,20 @@ export default class Card {
         this._card.querySelector('.card__title').textContent = this._name;
         return this._card;
     }
+
+
 }
 
 
 
 // Свяжите класс Card (сщздфёт клоны) c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. Эта функция должна открывать попап с картинкой при клике на карточку.
+
+
+// const cardBin = document.querySelector('.card__recycle-bin')
+// if (this._ownerId !== this._userId) {
+//     this._element.querySelector('.card__recycle-bin').style.display = 'none';
+//   }
+// if (this._likes.find(item => item._id === this._userId)) {
+//     this._element.querySelector('.card__like').classList.toggle('card__like_active');
+//   };
+//   return this._element;

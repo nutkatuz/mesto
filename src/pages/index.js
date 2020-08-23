@@ -10,7 +10,9 @@ import {
     popupZoom,
     popupNewCard,
     popupProfile,
+    popupUpdateAvatar,
     cardTemplateSelector,
+    popupConfirm
 } from '../utils/constants.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
@@ -18,47 +20,26 @@ import Section from '../components/Section.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
-
+import Api from '../components/API.js'
+import PopupWithConfirm from '../components/PopupWithConfirm.js'
 const newCardPopupForm = popupNewCard.querySelector('.popup__form')
 const profilePopupForm = popupProfile.querySelector('.popup__form')
-const nameInput = document.querySelector('.popup__input_name')
-const jobInput = document.querySelector('.popup__input_about')
+const avatarPopupForm = popupUpdateAvatar.querySelector('.popup__form')
 
-// GET 
-function getUserData() {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-14/users/me', {
-        headers: {
-            authorization: 'd53467ef-75db-4cf1-9a1c-2d2c544f18c8'
-        }
-    })
-        .then(res => res.json())
-        .then((result) => {
-            let userdataObject = result;
-const serverObjNameInHTML = document.querySelector(profileNameSelector);
-serverObjNameInHTML.textContent = userdataObject.name;
-const serverObjAboutInHTML = document.querySelector(profileJobSelector);
-serverObjAboutInHTML.textContent = userdataObject.about;
-            // {name: "Jacques Cousteau", about: "Sailor, researcher", avatar: "https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg", _id: "f50d2675d6dd50019a3f3568", cohort: "cohort-14"}
-            // about: "Sailor, researcher"
-            // avatar: "https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg"
-            // cohort: "cohort-14"
-            // name: "Jacques Cousteau"
-            // _id: "f50d2675d6dd50019a3f3568"
-            // __proto__: Object
-        })
-        .catch((err) => console.log(`Ошибка запроса ${err}`))
-}
-getUserData()
+
+const profilePhotoBtn = document.querySelector('.profile__photo')
 // Токен: d53467ef-75db-4cf1-9a1c-2d2c544f18c8
 // Идентификатор группы: cohort-14
+// Адрес сервера: https://mesto.nomoreparties.co
 
-
-
-const profileValidation = new FormValidator(config, profilePopupForm);
-profileValidation.enableValidation();
-
-const cardValidation = new FormValidator(config, newCardPopupForm);
-cardValidation.enableValidation();
+// новый класс в котором будет сосредоточена логика для запросов к апи
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co',
+    headers: {
+        authorization: 'd53467ef-75db-4cf1-9a1c-2d2c544f18c8',
+        'Content-Type': 'application/json'
+    }
+})
 
 const userInfo = new UserInfo( //объявление//присваивание ключей к тем же св-вам, что и в конструкторе 
     {
@@ -67,22 +48,110 @@ const userInfo = new UserInfo( //объявление//присваивание 
     }
 );
 
-const popupWithImage = new PopupWithImage(popupZoom);
+api.getUserInfo()
+    .then((res) => {
+        // const serverObjNameInHTML = document.querySelector(profileNameSelector);
+        // serverObjNameInHTML.textContent = res.name;
+        // const serverObjAboutInHTML = document.querySelector(profileJobSelector);
+        // serverObjAboutInHTML.textContent = res.about;
+        userInfo.setUserInfo(res);
+        const userId = res._id;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
-const popupWithFormEdit = new PopupWithForm(popupProfile, {
+
+
+
+
+
+
+// новый экземпляр нового класса для попапа с подтверждением при удалении карточки 
+const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
     handleSubmit: (item) => {
-        userInfo.setUserInfo(item)
+        popupWithConfirm.method(item)
     }
 });
+
+
+// Новый попап для редактирования аватара, 
+const popupWithFormAvatar = new PopupWithForm(popupUpdateAvatar, {
+    handleSubmit: (item) => {
+        // const avatarURL = avatarURLInput.value; - так нельзя, потому что сама ф не здесь, а внутри PopupWithForm
+        // popupWithFormAvatar.renderLoading(true);
+        api.patchUserAvatar(item.thirdInp)
+            .then((res) => {
+                document.querySelector('.profile__photo').style.backgroundImage = `url('${res.avatar}')`
+            })
+            .catch((err) => {
+                console.log(`Ошибка ${err}`)
+            })
+        // .finally(() => {
+        //     popupWithFormAvatar.renderLoading(false)
+        // });
+    }
+});
+popupWithFormAvatar.setEventListeners();
+// const avatarURLInput = document.querySelector('.popup__input_update-avatar')
+const showAvatarPopup = () => {
+    avatarValidation.resetFormState(popupUpdateAvatar);//мы не уверены что так должно быть
+    avatarValidation.disableBtn(popupUpdateAvatar);
+    popupWithFormAvatar.open();
+};
+
+
+
+
+const profileValidation = new FormValidator(config, profilePopupForm);
+profileValidation.enableValidation();
+const cardValidation = new FormValidator(config, newCardPopupForm);
+cardValidation.enableValidation();
+const avatarValidation = new FormValidator(config, avatarPopupForm);
+avatarValidation.enableValidation();
+
+
+const popupWithImage = new PopupWithImage(popupZoom);
+
+popupWithImage.setEventListeners();
+
+
+
+
+
+const popupWithFormEdit = new PopupWithForm(popupProfile, {
+    handleSubmit: (object) => {
+        // renderLoading(true)
+        api.patchUserInfo(object.firstInp, object.secondInp)//нужно передать содержимое инпутов
+            .then((res) => {
+                userInfo.setUserInfo(res)// вместо (item)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        // .finally(() => {
+        //     renderLoading(false);
+        // })
+    }
+});
+popupWithFormEdit.setEventListeners();
+
+const nameInput = document.querySelector('.popup__input_name')
+const jobInput = document.querySelector('.popup__input_about')
 
 const showEditPopup = () => {
     profileValidation.resetFormState(popupProfile);
     profileValidation.ableBtn(popupProfile);
-    popupWithFormEdit.open();   // вначале ресетить форму надо
-    const user = userInfo.getUserInfo();
-    nameInput.value = user.name;
-    jobInput.value = user.job;  //а потом уже  значения из разметки.
+    popupWithFormEdit.open(); // вначале ресетить форму надо
+    const objectForm = userInfo.getUserInfo();
+    nameInput.value = objectForm.name;
+    jobInput.value = objectForm.job; //а потом уже  значения из разметки.
 }
+editButton.addEventListener('mouseup', () => showEditPopup());
+
+profilePhotoBtn.addEventListener('mouseup', () => showAvatarPopup());
+
+
 
 
 const popupWithFormAdd = new PopupWithForm(
@@ -90,112 +159,67 @@ const popupWithFormAdd = new PopupWithForm(
     handleSubmit: (item) => {
         const card = new Card({
             data: item,
-            handleCardClick: () => { popupWithImage.open(item) }
-        }, cardTemplateSelector);
-        const myCard = card.generateCard();
-        section.addItem(myCard);
-    }
-});
-
-const section = new Section({
-    items: initialCards,
-    renderer: (item) => {
-        const card = new Card({
-            data: item,
             handleCardClick: () => {
                 popupWithImage.open(item)
             }
         }, cardTemplateSelector);
         const myCard = card.generateCard();
-        section.addItems(myCard);
+        section.addItem(myCard);
     }
-}, containerSelector);
-section.renderItems(); //запускаем колбэк
-
+});
+popupWithFormAdd.setEventListeners();
 
 const showNewCardPopup = () => {
     cardValidation.resetFormState(popupNewCard);
     cardValidation.disableBtn(popupNewCard);
     popupWithFormAdd.open();
 };
-
-popupWithFormAdd.setEventListeners();
-popupWithFormEdit.setEventListeners();
-popupWithImage.setEventListeners();
-editButton.addEventListener('click', () => showEditPopup());
-addButton.addEventListener('click', () => showNewCardPopup())
-
-// 
-// let initialCards = [];
-// const form = document.forms.search;
-// const content = document.querySelector('.content');
-// const result = document.querySelector('.content__result');
-// const error = document.querySelector('.content__error');
-// const spinner = document.querySelector('.spinner');
-
-// document.addEventListener('click', () => {
-//     // renderLoading(true);
-//   search()
-//     .then((res) => {
-//         if (res.ok) {
-//           return res.json();
-//           console.log(res);
-//         }
-//         return Promise.reject(res.status);
-//       })
-//     .then((res) => {    
-//       renderResult(res.link)//передадим сюда переменные св-в объекта
-//       })
-//     .catch((err) => {
-//       renderError(`Ошибка ${err}`)
-//       })
-//     // .finally(() => {renderLoading(false)})
-// })
-// document.onclick;
-
-// function search () {
-//     return fetch('https://mesto.nomoreparties.co/v1/cohort-14/cards', {
-//         headers: {
-//             authorization: 'd53467ef-75db-4cf1-9a1c-2d2c544f18c8'
-//         }
-//     })
-// }
+addButton.addEventListener('mouseup', () => showNewCardPopup())
 
 
-// const renderPlace = (item) => {
-//     const card = new Card({
-//         data: item,
-//         handleCardClick: () => { popupWithImage.open(item) }
-//     }, cardTemplateSelector);
-//     const myCard = card.generateCard();
-//     section.addItem(myCard);
-// }
 
-// // 
-// api.getInitialCards() 
 
-//         .then((res) => {
-//         return res.json()
-//         })
-//         .then(res => section.addItems(res))
-//         .then(res => {
-//             if (res.ok) {
-//               return res.json();
-//             }
-//           });
 
-// api.getInitialCards() 
-        // .then((res) => {
-        //     // console.log(res);
-        //     // const item = Object.create(res);
-        //     const card = new Card({
-        //         // data: {name: res.name, link: res.link},
-        //         // [{…}, {…}, {…}, {…}, {…}, {…}, {…}]
-        //         data: res,
-        //         handleCardClick: () => { popupWithImage.open(res) }
-        //     }, '.card-template');
-        //     const myCard = card.generateCard();
-        //     section.addItem(myCard);
-        // })
-// }
-// getCards()
+const section = new Section({
+    items: initialCards,
+    renderer: (item) => {
+        const card = new Card({
+            data: item,//данныe карточки включая инфу по лайкам
+            handleCardClick: () => {
+                popupWithImage.open(item)
+            },
+            handleDeleteIconClick: (card) => {
+                const popupConfirm = new PopupWithForm(popupConfirm, {//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                handleSubmit: () => { 
+                                    // renderLoading(true);
+                                    api.deleteCard(card._cardId)
+                                        .then((res) => {
+                                            card._remove(res);
+                                            deleteCard.close();
+                                        })
+                                        // .catch((err) => {
+                                        //     console.log(err);
+                                        // })
+                                        // .finally(() => {
+                                        //     renderLoading(false);
+                                        // })
+                                }
+                            });
+                            deleteCard.open(item);
+            },
+            handleLikeClick: (card) => {
+            if (card) {//если сходится айдишка
+                api.addLikeItem(item._id)
+                .then(
+                    this._card.querySelector('.card__like').classList.toggle('card__like_active')
+                )
+            }else{
+                api.deleteLikeItem(item._id), userId
+            }
+        }
+        }, cardTemplateSelector);
+        const myCard = card.generateCard();
+        section.addItems(myCard);
+    }
+}, containerSelector);
+section.renderItems(); //запускаем колбэк

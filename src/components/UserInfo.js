@@ -6,18 +6,21 @@ export default class UserInfo {
     }) { 
         this._profileName = document.querySelector(profileNameSelector)
         this._profileJob = document.querySelector(profileJobSelector)
+        this._profileAvatar = document.querySelector('.profile__photo')
     }
     
     getUserInfo() {
         this._objectForm = {};
         this._objectForm.name = this._profileName.textContent
         this._objectForm.job = this._profileJob.textContent
+        // this._objectForm.avatar = this._profileAvatar.style.backgroundImage
         return this._objectForm 
     }
 
-    setUserInfo(item) {
-        this._profileName.textContent = (item.firstInp)     //Жак 
-        this._profileJob.textContent = (item.secondInp)     //исследователь
+    setUserInfo(res) {
+        this._profileName.textContent =  res.name //(item.firstInp) // не из инпута, а тиз сервера
+        this._profileJob.textContent = res.about//(item.secondInp)
+        this._profileAvatar.style.backgroundImage = `url('${res.avatar}')`
     }
 }
 
