@@ -9,7 +9,7 @@ export default class Api {
 
 
   // получить список всех карточек в виде массива. Начальные карточки должны подгружаться с сервера. Для этого сделайте GET-запрос: // GET https://mesto.nomoreparties.co/v1/cohortId/cards В ответ придёт JSON с массивом карточек, которые загрузили студенты вашей группы
-  getItems() {
+  getInitialItems() {
     return fetch(`${this.baseUrl}/v1/cohort-14/cards`, {
         headers: this.headers
       })
@@ -26,7 +26,7 @@ export default class Api {
 
   // Чтобы добавить на сервер новую карточку, отправьте POST-запрос:  POST https://mesto.nomoreparties.co/v1/cohortId/cards  В заголовках запроса, кроме токена, необходимо отправить Content-Type, а в теле — JSON с двумя свойствами — name и link. В name должно быть название создаваемой карточки, а в link — ссылка на картинку. Если запрос прошёл успешно, сервер вернёт ответ с объектом новой карточки:
   // добавить карточку
-  createItem(item) { // { name: 'blabla' }
+  postItem(item) { // { name: 'blabla' }
     return fetch(`${this.baseUrl}/v1/cohort-14/cards`, {
         method: 'POST',
         headers: this.headers,
@@ -48,7 +48,7 @@ export default class Api {
 
 
   // удалить карточку   После того, как сделаете так, чтобы иконка удаления была только на созданных вами карточках, реализуйте функциональность удаления карточки. Карточка должна удаляться, если в попапе удаления карточки пользователь нажал «Да». Чтобы удалить карточку, отправьте DELETE-запрос. Вместо cardId в URL нужно подставить параметр карточки, которую нужно удалить. _id каждой карточки есть в её JSON.
-  _deleteItem(_id) {
+  deleteItem(_id) {
     return fetch(`${this.baseUrl}/v1/cohort-14/cards/${_id}`, {
         method: 'DELETE',
         headers: this.headers
@@ -87,7 +87,7 @@ export default class Api {
   }
 
 
-// получить данные пользователя
+// получить данные пользователя (все, вместе с авой)
   getUserInfo() {  
     return fetch(`${this.baseUrl}/v1/cohort-14/users/me`, {
         headers: this.headers
@@ -129,7 +129,7 @@ export default class Api {
 
   // залайкать карточку Чтобы лайкнуть карточку, отправьте PUT-запрос:
 // PUT https://mesto.nomoreparties.co/v1/cohortId/cards/likes/cardId
-  addLikeItem() {
+  addLike(_id) {
     return fetch(`${this.baseUrl}/v1/cohort-14/cards/likes/${_id}`, {
       method: 'PUT',
       headers: this.headers
@@ -147,7 +147,7 @@ export default class Api {
 
 
   // удалить лайк 
-deleteLikeItem() {
+  removeLike(_id) {
     return fetch(`${this.baseUrl}/v1/cohort-14/cards/likes/${_id}`, {
       method: 'DELETE',
       headers: this.headers

@@ -1,27 +1,32 @@
 import Popup from './Popup.js';
 export default class PopupWithConfirm extends Popup {
-    constructor(popup, { handleSubmit }) {
+    constructor(popup) {
         super(popup)
-        this._handleSubmit = handleSubmit
+    }
+    open() { // если нажали на корзину, то переопределим на удаление. а то может мы лай подтвердить хотим
+        super.open()
     }
 
-
-// никаких других методов у этого попапа не будет, так как нечего валидировать. нужен метод который позволяет динамически менять функцию кот вызывается при нажатии на кнопку. должна быть возможность при открытии попапа переопределять через публичный метод то действие, которое нужно выполнить при нажатии на кнопку...............
-
-open() {
-// если нажали на корзину, то переопределим на удаление. а то может мы лай подтвердить хотим
-    super.open()
-}
+    todo(func) {
+        this._handlerDelete = func;
+    }
 
     setEventListeners() {
         super.setEventListeners()
-        this._popup.querySelector('.popup__form').addEventListener('submit', this._formSubmit)
+        this._popup.querySelector('.popup__form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            this.renderLoading(true);
+            this._handlerDelete();
+        })
     }
 
-    
-    _formSubmit = (event) => {
-        event.preventDefault()
-        this._handleSubmit( this._getInputValues() ) 
-        this.close() // при дабл-клике на сохранить форма срабатывает 2p и сохраняет 2 шт, так кнопка остается активной
+    renderLoading (isLoading) {
+        if (isLoading) {
+            this._popup.querySelector('.popup__button').textContent = "Удаление...";
+        } else {
+            this._popup.querySelector('.popup__button').textContent = "Да";
+        };
+            this.close();
     }
 }
+// никаких других методов у этого попапа не будет, так как нечего валидировать. нужен метод который позволяет динамически менять функцию кот вызывается при нажатии на кнопку. должна быть возможность при открытии попапа переопределять через публичный метод то действие, которое нужно выполнить при нажатии на кнопку...............

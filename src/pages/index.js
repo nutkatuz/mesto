@@ -1,6 +1,6 @@
 import './index.css'
 import {
-    initialCards,
+    // initialCards,
     config,
     profileNameSelector,
     profileJobSelector,
@@ -47,7 +47,7 @@ const userInfo = new UserInfo( //объявление//присваивание 
         profileJobSelector: profileJobSelector
     }
 );
-
+let userId;
 api.getUserInfo()
     .then((res) => {
         // const serverObjNameInHTML = document.querySelector(profileNameSelector);
@@ -55,7 +55,66 @@ api.getUserInfo()
         // const serverObjAboutInHTML = document.querySelector(profileJobSelector);
         // serverObjAboutInHTML.textContent = res.about;
         userInfo.setUserInfo(res);
-        const userId = res._id;
+        userId = res._id;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+
+
+const popupWithConfirm = new PopupWithConfirm(popupConfirm); //В конструктор ничего не надо, попап с подтверждением на все случаи жизни
+popupWithConfirm.setEventListeners();
+// index.js:57 Uncaught TypeError: Cannot read property '_id' of undefined
+//     at PopupWithConfirm.handleSubmit [as _handleSubmit] (index.js:57)
+//     at PopupWithConfirm.value [as _formSubmit] (PopupWithConfirm.js:51)
+//     at HTMLFormElement.eval (PopupWithConfirm.js:88)
+
+
+function renderCard(item) {
+    const card = new Card({
+        data: item,
+        handleCardClick: () => {
+            popupWithImage.open(item)
+        },
+        handleDeleteClick: () => {
+            popupWithConfirm.open(item);
+            popupWithConfirm.todo(() => { //здесь можно прописать любую функцию для сабмита popupWithConfirm
+                api.deleteItem(item._id)
+                    .then((res) => {
+                        card.removeCard(res);
+                        popupWithConfirm.close();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    .finally(() => {
+                        popupWithConfirm.renderLoading(false)
+                    });
+            })
+        },
+        templateSelector: cardTemplateSelector,
+        handleAddLike: () => api.addLike(item._id),
+        handleDeleteLike: () => api.removeLike(item._id),
+        userId: userId
+    })
+    const cardElement = card.generateCard();
+    section.addItem(cardElement);
+}
+
+
+
+
+
+const section = new Section({
+    renderer: (item) => {
+        renderCard(item)
+    }
+}, containerSelector);
+
+api.getInitialItems()
+    .then((res) => {
+        section.renderItems(res)
     })
     .catch((err) => {
         console.log(err);
@@ -64,22 +123,9 @@ api.getUserInfo()
 
 
 
-
-
-
-// новый экземпляр нового класса для попапа с подтверждением при удалении карточки 
-const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
-    handleSubmit: (item) => {
-        popupWithConfirm.method(item)
-    }
-});
-
-
 // Новый попап для редактирования аватара, 
 const popupWithFormAvatar = new PopupWithForm(popupUpdateAvatar, {
     handleSubmit: (item) => {
-        // const avatarURL = avatarURLInput.value; - так нельзя, потому что сама ф не здесь, а внутри PopupWithForm
-        // popupWithFormAvatar.renderLoading(true);
         api.patchUserAvatar(item.thirdInp)
             .then((res) => {
                 document.querySelector('.profile__photo').style.backgroundImage = `url('${res.avatar}')`
@@ -87,15 +133,14 @@ const popupWithFormAvatar = new PopupWithForm(popupUpdateAvatar, {
             .catch((err) => {
                 console.log(`Ошибка ${err}`)
             })
-        // .finally(() => {
-        //     popupWithFormAvatar.renderLoading(false)
-        // });
+            .finally(() => {
+                popupWithFormAvatar.renderLoading(false)
+            });
     }
 });
-popupWithFormAvatar.setEventListeners();
-// const avatarURLInput = document.querySelector('.popup__input_update-avatar')
+popupWithFormAvatar.setEventListeners(); // const avatarURLInput = document.querySelector('.popup__input_update-avatar')
 const showAvatarPopup = () => {
-    avatarValidation.resetFormState(popupUpdateAvatar);//мы не уверены что так должно быть
+    avatarValidation.resetFormState(popupUpdateAvatar); //мы не уверены что так должно быть
     avatarValidation.disableBtn(popupUpdateAvatar);
     popupWithFormAvatar.open();
 };
@@ -112,7 +157,6 @@ avatarValidation.enableValidation();
 
 
 const popupWithImage = new PopupWithImage(popupZoom);
-
 popupWithImage.setEventListeners();
 
 
@@ -121,17 +165,16 @@ popupWithImage.setEventListeners();
 
 const popupWithFormEdit = new PopupWithForm(popupProfile, {
     handleSubmit: (object) => {
-        // renderLoading(true)
-        api.patchUserInfo(object.firstInp, object.secondInp)//нужно передать содержимое инпутов
+        api.patchUserInfo(object.firstInp, object.secondInp) //нужно передать содержимое инпутов
             .then((res) => {
-                userInfo.setUserInfo(res)// вместо (item)
+                userInfo.setUserInfo(res) // вместо (item)
             })
             .catch((err) => {
                 console.log(err);
             })
-        // .finally(() => {
-        //     renderLoading(false);
-        // })
+            .finally(() => {
+                popupWithFormEdit.renderLoading(false);
+            })
     }
 });
 popupWithFormEdit.setEventListeners();
@@ -153,18 +196,20 @@ profilePhotoBtn.addEventListener('mouseup', () => showAvatarPopup());
 
 
 
-
 const popupWithFormAdd = new PopupWithForm(
     popupNewCard, {
     handleSubmit: (item) => {
-        const card = new Card({
-            data: item,
-            handleCardClick: () => {
-                popupWithImage.open(item)
-            }
-        }, cardTemplateSelector);
-        const myCard = card.generateCard();
-        section.addItem(myCard);
+        api.postItem(item)
+            .then((res) => {
+                renderCard(res);
+                popupWithFormAdd.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                popupWithFormAdd.renderLoading(false);
+            })
     }
 });
 popupWithFormAdd.setEventListeners();
@@ -180,46 +225,51 @@ addButton.addEventListener('mouseup', () => showNewCardPopup())
 
 
 
-const section = new Section({
-    items: initialCards,
-    renderer: (item) => {
-        const card = new Card({
-            data: item,//данныe карточки включая инфу по лайкам
-            handleCardClick: () => {
-                popupWithImage.open(item)
-            },
-            handleDeleteIconClick: (card) => {
-                const popupConfirm = new PopupWithForm(popupConfirm, {//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                handleSubmit: () => { 
-                                    // renderLoading(true);
-                                    api.deleteCard(card._cardId)
-                                        .then((res) => {
-                                            card._remove(res);
-                                            deleteCard.close();
-                                        })
-                                        // .catch((err) => {
-                                        //     console.log(err);
-                                        // })
-                                        // .finally(() => {
-                                        //     renderLoading(false);
-                                        // })
-                                }
-                            });
-                            deleteCard.open(item);
-            },
-            handleLikeClick: (card) => {
-            if (card) {//если сходится айдишка
-                api.addLikeItem(item._id)
-                .then(
-                    this._card.querySelector('.card__like').classList.toggle('card__like_active')
-                )
-            }else{
-                api.deleteLikeItem(item._id), userId
-            }
-        }
-        }, cardTemplateSelector);
-        const myCard = card.generateCard();
-        section.addItems(myCard);
-    }
-}, containerSelector);
-section.renderItems(); //запускаем колбэк
+// const section = new Section({
+//     items: res,
+//     renderer: (data) => {
+//         const card = new Card({
+//             data: data,//данныe карточки включая инфу по лайкам
+//             handleCardClick: () => {
+//                 popupWithImage.open(item)
+//             },
+//             handleDeleteIconClick: (card) => {
+//                 const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
+//                     handleSubmit: () => {
+//                         // renderLoading(true);
+//                         api.deleteCard(card._cardId)
+//                             .then((res) => {
+//                                 card.clear(res)// this!!! card.closest('.card').remove()
+//                                 popupWithConfirm.close();
+//                             })
+//                         // .catch((err) => {
+//                         //     console.log(err);
+//                         // })
+//                         // .finally(() => {
+//                         //     renderLoading(false);
+//                         // })
+//                     }
+//                 });
+//                 deleteCard.open(item);
+//             },
+//             handleLikeClick: () => {
+//                 if (card.querySelector('.card__like').classList.contains('card__like_active')) {
+//                     api.deleteLikeItem(item._id)
+//                     .then((res) => card.like(res.likes))
+//                     .catch((err) => {
+//                         console.log(err);
+//                     })
+//                 } else {
+//                     api.addLikeItem(item._id)
+//                     .then((res) => card.like(res.likes))
+//                     .catch((err) => {
+//                         console.log(err);
+//                     })
+//                 }
+//             }
+//         }, cardTemplateSelector);
+//         const myCard = card.generateCard();
+//         section.addItems(myCard);
+//     }
+// }, containerSelector);
+// section.renderItems(); //запускаем колбэк

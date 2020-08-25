@@ -22,8 +22,8 @@ export default class PopupWithForm extends Popup {
 
     _formSubmit = (event) => {
         event.preventDefault()
+        this.renderLoading(true)
         this._handleSubmit( this._getInputValues() ) 
-        this.close() // при дабл-клике на сохранить форма срабатывает 2p и сохраняет 2 шт, так кнопка остается активной
     }
 
     open = ()=> {
@@ -31,13 +31,13 @@ export default class PopupWithForm extends Popup {
         super.open()
     }
 
-    renderLoading = (isLoading) => {
-        currentValue = this._popup.querySelector('.popup__button').textContent;
+    renderLoading (isLoading) {
         if(isLoading){
             this._popup.querySelector('.popup__button').textContent = "Сохранение...";
         }else{
-            this._popup.querySelector('.popup__button').textContent = currentValue;
-        }
+            this._popup.querySelector('.popup__button').textContent = "Сохранить";
+        };
+        this.close() // при дабл-клике на сохранить форма срабатывает 2p и сохраняет 2 шт, так кнопка остается активной
     }
 }
 
