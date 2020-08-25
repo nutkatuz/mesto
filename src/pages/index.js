@@ -83,7 +83,6 @@ function renderCard(item) {
                 api.deleteItem(item._id)
                     .then((res) => {
                         card.removeCard(res);
-                        popupWithConfirm.close();
                     })
                     .catch((err) => {
                         console.log(err);
@@ -202,7 +201,6 @@ const popupWithFormAdd = new PopupWithForm(
         api.postItem(item)
             .then((res) => {
                 renderCard(res);
-                popupWithFormAdd.close();
             })
             .catch((err) => {
                 console.log(err);
