@@ -5,8 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="shortcut icon" href="images/ar.ico">
-  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
-  <!-- <link rel="icon" href="images/ar.ico"> -->
   <title>📍 Mesto</title>
 </head>
 
@@ -50,6 +48,28 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
+
+  <section class="popup popup_update-avatar">
+    <form class="popup__form" name="form-are-you-shure" action="#" novalidate>
+      <button class="popup__close hover-style" type="button"
+      aria-label="Закрыть окно без сохранения"></button>
+      <fieldset class="popup__content">
+        <h3 class="popup__title">Обновить аватар</h3>
+
+        <div class="popup__label">
+          <input class="popup__input popup__input_update-avatar" 
+              name="thirdInp"
+              value=""
+            placeholder="Ссылка на фото"
+            type="url">
+          <span class="popup__error"></span>
+        </div>
+
+        <button class="popup__button" type="submit"
+        aria-label="Обновить фото пользователя">Сохранить</button>
+      </fieldset>
+    </form>
+  </section>
 
   <section class="popup popup_profile-edit">
     <form class="popup__form" name="form-profile-edit" action="#" novalidate>
@@ -150,28 +170,7 @@
     </form>
   </section>
 
-  <section class="popup popup_update-avatar">
-    <form class="popup__form" name="form-are-you-shure" action="#" novalidate>
-      <button class="popup__close hover-style" type="button"
-      aria-label="Закрыть окно без сохранения"></button>
-      <fieldset class="popup__content">
-        <h3 class="popup__title">Обновить аватар</h3>
 
-        <div class="popup__label">
-          <input class="popup__input popup__input_update-avatar" 
-              name="thirdInp"
-              value=""
-            placeholder="Ссылка на фото"
-            type="url">
-          <span class="popup__error"></span>
-        </div>
-
-        <button class="popup__button" type="submit"
-        aria-label="Обновить фото пользователя">Сохранить</button>
-      </fieldset>
-    </form>
-  </section>
-  <!-- <script type="module" src="./pages/index.js"></script> -->
 </body>
 
 </html>

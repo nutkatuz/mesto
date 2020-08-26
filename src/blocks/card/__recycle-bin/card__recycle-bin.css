@@ -5,7 +5,6 @@
     background: url(../../../images/trash.svg) 50% no-repeat;
     border: none;
     align-self: center;
-    background-color: transparent;
     position: absolute;
     right: calc(15% - 24px);
     top: 18px;
@@ -14,3 +13,7 @@
     transition: opacity .5s;
     outline: none;
 }
+/* 
+.card__recycle-bin::before {
+    background: radial-gradient(#e66465 0, transparent 90%);
+} */

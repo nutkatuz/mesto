@@ -26,7 +26,6 @@ const newCardPopupForm = popupNewCard.querySelector('.popup__form')
 const profilePopupForm = popupProfile.querySelector('.popup__form')
 const avatarPopupForm = popupUpdateAvatar.querySelector('.popup__form')
 
-
 const profilePhotoBtn = document.querySelector('.profile__photo')
 // Токен: d53467ef-75db-4cf1-9a1c-2d2c544f18c8
 // Идентификатор группы: cohort-14
@@ -46,30 +45,28 @@ const userInfo = new UserInfo( //объявление//присваивание 
         profileNameSelector: profileNameSelector,
         profileJobSelector: profileJobSelector
     }
-);
-let userId;
+)
+let userId
 api.getUserInfo()
     .then((res) => {
-        // const serverObjNameInHTML = document.querySelector(profileNameSelector);
-        // serverObjNameInHTML.textContent = res.name;
-        // const serverObjAboutInHTML = document.querySelector(profileJobSelector);
-        // serverObjAboutInHTML.textContent = res.about;
-        userInfo.setUserInfo(res);
-        userId = res._id;
+        // const serverObjNameInHTML = document.querySelector(profileNameSelector)
+        // serverObjNameInHTML.textContent = res.name
+        // const serverObjAboutInHTML = document.querySelector(profileJobSelector)
+        // serverObjAboutInHTML.textContent = res.about
+        userInfo.setUserInfo(res)
+        userId = res._id
     })
     .catch((err) => {
-        console.log(err);
-    });
+        console.log(`Ошибка ${err}`)
+    })
 
 
-
-const popupWithConfirm = new PopupWithConfirm(popupConfirm); //В конструктор ничего не надо, попап с подтверждением на все случаи жизни
-popupWithConfirm.setEventListeners();
+const popupWithConfirm = new PopupWithConfirm(popupConfirm) //В конструктор ничего не надо, попап с подтверждением на все случаи жизни
+popupWithConfirm.setEventListeners()
 // index.js:57 Uncaught TypeError: Cannot read property '_id' of undefined
 //     at PopupWithConfirm.handleSubmit [as _handleSubmit] (index.js:57)
 //     at PopupWithConfirm.value [as _formSubmit] (PopupWithConfirm.js:51)
 //     at HTMLFormElement.eval (PopupWithConfirm.js:88)
-
 
 function renderCard(item) {
     const card = new Card({
@@ -78,18 +75,19 @@ function renderCard(item) {
             popupWithImage.open(item)
         },
         handleDeleteClick: () => {
-            popupWithConfirm.open(item);
-            popupWithConfirm.todo(() => { //здесь можно прописать любую функцию для сабмита popupWithConfirm
+            popupWithConfirm.open(item)
+            popupWithConfirm.submitHandler(() => { //здесь можно прописать любую функцию для сабмита popupWithConfirm
                 api.deleteItem(item._id)
                     .then((res) => {
-                        card.removeCard(res);
+                        card.removeCard(res)
                     })
                     .catch((err) => {
-                        console.log(err);
+                        console.log(`Ошибка ${err}`)
                     })
                     .finally(() => {
-                        popupWithConfirm.renderLoading(false)
-                    });
+                        // popupWithConfirm.renderLoading(false)
+                        popupWithConfirm.close() //закрытие после катч
+                    })
             })
         },
         templateSelector: cardTemplateSelector,
@@ -97,10 +95,9 @@ function renderCard(item) {
         handleDeleteLike: () => api.removeLike(item._id),
         userId: userId
     })
-    const cardElement = card.generateCard();
-    section.addItem(cardElement);
+    const cardElement = card.generateCard()
+    section.addItem(cardElement)
 }
-
 
 
 
@@ -109,16 +106,15 @@ const section = new Section({
     renderer: (item) => {
         renderCard(item)
     }
-}, containerSelector);
+}, containerSelector)
 
 api.getInitialItems()
     .then((res) => {
         section.renderItems(res)
     })
     .catch((err) => {
-        console.log(err);
-    });
-
+        console.log(`Ошибка ${err}`)
+    })
 
 
 
@@ -133,31 +129,29 @@ const popupWithFormAvatar = new PopupWithForm(popupUpdateAvatar, {
                 console.log(`Ошибка ${err}`)
             })
             .finally(() => {
-                popupWithFormAvatar.renderLoading(false)
-            });
+                // popupWithFormAvatar.renderLoading(false)
+                popupWithFormAvatar.close
+            })
     }
-});
-popupWithFormAvatar.setEventListeners(); // const avatarURLInput = document.querySelector('.popup__input_update-avatar')
+})
+popupWithFormAvatar.setEventListeners() // const avatarURLInput = document.querySelector('.popup__input_update-avatar')
 const showAvatarPopup = () => {
-    avatarValidation.resetFormState(popupUpdateAvatar); //мы не уверены что так должно быть
-    avatarValidation.disableBtn(popupUpdateAvatar);
-    popupWithFormAvatar.open();
-};
+    avatarValidation.resetFormState(popupUpdateAvatar) //мы не уверены что так должно быть
+    avatarValidation.disableBtn(popupUpdateAvatar)
+    popupWithFormAvatar.open()
+}
+profilePhotoBtn.addEventListener('mouseup', () => showAvatarPopup())
 
 
+const profileValidation = new FormValidator(config, profilePopupForm)
+profileValidation.enableValidation()
+const cardValidation = new FormValidator(config, newCardPopupForm)
+cardValidation.enableValidation()
+const avatarValidation = new FormValidator(config, avatarPopupForm)
+avatarValidation.enableValidation()
 
-
-const profileValidation = new FormValidator(config, profilePopupForm);
-profileValidation.enableValidation();
-const cardValidation = new FormValidator(config, newCardPopupForm);
-cardValidation.enableValidation();
-const avatarValidation = new FormValidator(config, avatarPopupForm);
-avatarValidation.enableValidation();
-
-
-const popupWithImage = new PopupWithImage(popupZoom);
-popupWithImage.setEventListeners();
-
+const popupWithImage = new PopupWithImage(popupZoom)
+popupWithImage.setEventListeners()
 
 
 
@@ -169,105 +163,54 @@ const popupWithFormEdit = new PopupWithForm(popupProfile, {
                 userInfo.setUserInfo(res) // вместо (item)
             })
             .catch((err) => {
-                console.log(err);
+                console.log(`Ошибка ${err}`)
             })
             .finally(() => {
-                popupWithFormEdit.renderLoading(false);
+                // popupWithFormEdit.renderLoading(false)
+                popupWithFormEdit.close()
             })
     }
-});
-popupWithFormEdit.setEventListeners();
+})
+popupWithFormEdit.setEventListeners()
 
 const nameInput = document.querySelector('.popup__input_name')
 const jobInput = document.querySelector('.popup__input_about')
 
 const showEditPopup = () => {
-    profileValidation.resetFormState(popupProfile);
-    profileValidation.ableBtn(popupProfile);
-    popupWithFormEdit.open(); // вначале ресетить форму надо
-    const objectForm = userInfo.getUserInfo();
-    nameInput.value = objectForm.name;
-    jobInput.value = objectForm.job; //а потом уже  значения из разметки.
+    profileValidation.resetFormState(popupProfile)
+    profileValidation.ableBtn(popupProfile)
+    popupWithFormEdit.open() // вначале ресетить форму надо
+    const objectForm = userInfo.getUserInfo()
+    nameInput.value = objectForm.name
+    jobInput.value = objectForm.job //а потом уже  значения из разметки.
 }
-editButton.addEventListener('mouseup', () => showEditPopup());
-
-profilePhotoBtn.addEventListener('mouseup', () => showAvatarPopup());
+editButton.addEventListener('mouseup', () => showEditPopup())
 
 
 
 const popupWithFormAdd = new PopupWithForm(
     popupNewCard, {
-    handleSubmit: (item) => {
-        api.postItem(item)
-            .then((res) => {
-                renderCard(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                popupWithFormAdd.renderLoading(false);
-            })
-    }
-});
-popupWithFormAdd.setEventListeners();
+        handleSubmit: (item) => {
+            api.postItem(item)
+                .then((res) => {
+                    renderCard(res)
+                })
+                .catch((err) => {
+                    console.log(`Ошибка ${err}`)
+                })
+                .finally(() => {
+                    // popupWithFormAdd.renderLoading(false)
 
-const showNewCardPopup = () => {
-    cardValidation.resetFormState(popupNewCard);
-    cardValidation.disableBtn(popupNewCard);
-    popupWithFormAdd.open();
-};
-addButton.addEventListener('mouseup', () => showNewCardPopup())
+                    popupWithFormAdd.close()
+                })
+        }
+    })
+popupWithFormAdd.setEventListeners()
 
+const showAddPopup = () => {
+    cardValidation.resetFormState(popupNewCard)
+    cardValidation.disableBtn(popupNewCard)
+    popupWithFormAdd.open()
+}
+addButton.addEventListener('mouseup', () => showAddPopup())
 
-
-
-
-// const section = new Section({
-//     items: res,
-//     renderer: (data) => {
-//         const card = new Card({
-//             data: data,//данныe карточки включая инфу по лайкам
-//             handleCardClick: () => {
-//                 popupWithImage.open(item)
-//             },
-//             handleDeleteIconClick: (card) => {
-//                 const popupWithConfirm = new PopupWithConfirm(popupConfirm, {
-//                     handleSubmit: () => {
-//                         // renderLoading(true);
-//                         api.deleteCard(card._cardId)
-//                             .then((res) => {
-//                                 card.clear(res)// this!!! card.closest('.card').remove()
-//                                 popupWithConfirm.close();
-//                             })
-//                         // .catch((err) => {
-//                         //     console.log(err);
-//                         // })
-//                         // .finally(() => {
-//                         //     renderLoading(false);
-//                         // })
-//                     }
-//                 });
-//                 deleteCard.open(item);
-//             },
-//             handleLikeClick: () => {
-//                 if (card.querySelector('.card__like').classList.contains('card__like_active')) {
-//                     api.deleteLikeItem(item._id)
-//                     .then((res) => card.like(res.likes))
-//                     .catch((err) => {
-//                         console.log(err);
-//                     })
-//                 } else {
-//                     api.addLikeItem(item._id)
-//                     .then((res) => card.like(res.likes))
-//                     .catch((err) => {
-//                         console.log(err);
-//                     })
-//                 }
-//             }
-//         }, cardTemplateSelector);
-//         const myCard = card.generateCard();
-//         section.addItems(myCard);
-//     }
-// }, containerSelector);
-// section.renderItems(); //запускаем колбэк

@@ -53,6 +53,7 @@ export default class FormValidator {
     resetFormState() {
         this._inputList.forEach((item) => {
             this._hideInputError(item)
+            this._buttonElement.textContent = "Сохранить"////////////////
         })
     }
 
