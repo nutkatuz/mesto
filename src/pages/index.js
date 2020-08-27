@@ -23,10 +23,20 @@ const popupZoom = document.querySelector('.popup_zoom')
 const popupNewCard = document.querySelector('.popup_new-card')
 const popupUpdateAvatar = document.querySelector('.popup_update-avatar')
 const popupConfirm = document.querySelector('.popup_confirm')
-
 const newCardPopupForm = popupNewCard.querySelector('.popup__form')
 const profilePopupForm = popupProfile.querySelector('.popup__form')
 const avatarPopupForm = popupUpdateAvatar.querySelector('.popup__form')
+
+
+
+const popupWithImage = new PopupWithImage(popupZoom)
+popupWithImage.setEventListeners()
+
+
+const popupWithConfirm = new PopupWithConfirm(popupConfirm)
+popupWithConfirm.setEventListeners()
+
+
 
 
 const api = new Api({
@@ -52,19 +62,6 @@ api.getUserInfo()
     .catch((err) => {
         console.log(`Ошибка ${err}`)
     })
-
-
-
-
-
-
-const popupWithConfirm = new PopupWithConfirm(popupConfirm)
-popupWithConfirm.setEventListeners()
-
-
-const popupWithImage = new PopupWithImage(popupZoom)
-popupWithImage.setEventListeners()
-
 
 
 
@@ -182,8 +179,14 @@ function renderCardIntoSection(item, prepend) {
                     })
             })
         },
-        handleAddLike: () => api.addLike(item._id),
-        handleDeleteLike: () => api.removeLike(item._id),
+        handleAddLike: () => api.addLike(item._id)
+            .catch((err) => {
+                console.log(`Ошибка ${err}`)
+            }),
+        handleDeleteLike: () => api.removeLike(item._id)
+            .catch((err) => {
+                console.log(`Ошибка ${err}`)
+            }),
         templateSelector: cardTemplateSelector,
         userId: userId
     })
@@ -202,7 +205,6 @@ const section = new Section({
 api.getInitialItems()
     .then((res) => {
         section.renderItems(res)
-        
     })
     .catch((err) => {
         console.log(`Ошибка ${err}`)

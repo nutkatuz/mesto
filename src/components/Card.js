@@ -1,5 +1,13 @@
 export default class Card {
-  constructor({ data, handleCardClick, handleDeleteClick, handleAddLike, handleDeleteLike, templateSelector, userId }) {
+  constructor({
+    data,
+    handleCardClick,
+    handleDeleteClick,
+    handleAddLike,
+    handleDeleteLike,
+    templateSelector,
+    userId
+  }) {
     this._name = data.name
     this._link = data.link
     this._cardId = data._id
@@ -26,7 +34,7 @@ export default class Card {
     return this._card
   }
 
-  _handleLikeClick() { 
+  _handleLikeClick() {
     if (this._card.querySelector('.card__like').classList.contains('card__like_active')) {
       this._handleDeleteLike(this._cardId)
       this._card.querySelector('.card__like-count').textContent = this._likes.length -= 1
@@ -62,7 +70,7 @@ export default class Card {
     this._card.querySelector('.card__like-count').textContent = this._likes.length
 
     //to set black likes or white to card
-    if (this._likes.find(item => item._id === this._userId)) {
+    if (this._likes.find(like => like._id === this._userId)) {
       this._card.querySelector('.card__like').classList.toggle('card__like_active')
     }
 

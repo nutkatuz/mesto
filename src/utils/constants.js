@@ -15,5 +15,5 @@ export const profileNameSelector = '.profile__name'
 export const profileJobSelector = '.profile__job'
 
 // 4. Заполнить селекторы
-export const containerSelector = '.places'
+export const containerSelector = '.gallery'
 export const cardTemplateSelector = '.card-template'
