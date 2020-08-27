@@ -1,18 +1,18 @@
 export default class Card {
-  constructor({ data, handleCardClick, handleDeleteClick, templateSelector, handleAddLike, handleDeleteLike, userId }) {
+  constructor({ data, handleCardClick, handleDeleteClick, handleAddLike, handleDeleteLike, templateSelector, userId }) {
     this._name = data.name
     this._link = data.link
     this._cardId = data._id
     this._ownerId = data.owner._id
-    this._userId = userId
-
     this._likes = data.likes
-    this._addLike = handleAddLike
-    this._removeLike = handleDeleteLike
-    
+
     this._handleCardClick = handleCardClick
     this._handleDeleteClick = handleDeleteClick
+
+    this._handleAddLike = handleAddLike
+    this._handleDeleteLike = handleDeleteLike
     this._templateSelector = templateSelector
+    this._userId = userId
   }
 
   _getTemplate() {
@@ -28,10 +28,10 @@ export default class Card {
 
   _handleLikeClick() { 
     if (this._card.querySelector('.card__like').classList.contains('card__like_active')) {
-      this._removeLike(this._cardId)
+      this._handleDeleteLike(this._cardId)
       this._card.querySelector('.card__like-count').textContent = this._likes.length -= 1
     } else {
-      this._addLike(this._cardId)
+      this._handleAddLike(this._cardId)
       this._card.querySelector('.card__like-count').textContent = this._likes.length += 1
     }
     this._card.querySelector('.card__like').classList.toggle('card__like_active')

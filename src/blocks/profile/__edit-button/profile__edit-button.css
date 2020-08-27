@@ -5,10 +5,8 @@
     padding: 0;
     margin: 10px;
     background: url(../../../images/editbutton.svg) center no-repeat;
-    box-shadow: none;
     border: 1px solid #FFF;
     justify-self: start;
-    outline: none;
 }
 
 @media screen and (max-width: 882px) {

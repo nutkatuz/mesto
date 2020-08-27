@@ -70,13 +70,12 @@ export default class FormValidator {
     enableValidation() {
         this._setEventListeners()
     }
-    ableBtn(popup) {
+    ableBtn() {
         this._buttonElement.classList.remove('popup__button_disabled')
         this._buttonElement.removeAttribute('disabled')
     }
-    disableBtn(popup) {
+    disableBtn() {
         this._buttonElement.classList.add('popup__button_disabled')
         this._buttonElement.setAttribute('disabled', false)
     }
 }
-//Функции, отвечающие на переключение состояния кнопки, должны находиться в классе валидации.

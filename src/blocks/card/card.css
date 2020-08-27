@@ -14,18 +14,14 @@
     border-radius: 10px;
     overflow: hidden;
     color: #000;
-    transition: box-shadow .5s;
+    transition: box-shadow .6s;
     position: relative;
 }
 
 .card:hover {
-    box-shadow: 0 0 20px #4E52B0;
+    box-shadow: 0 0 10px #4E52B0;
 }
-
-/* .card:hover .card__recycle-bin{
-    opacity: 1;
-} */
-
+/* 
 .card:hover .card__image{
     transform: scale(1.05);
-}
+} */

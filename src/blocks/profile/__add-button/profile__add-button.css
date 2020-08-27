@@ -4,14 +4,11 @@
     height: 50px;
     grid-area: addb;
     padding: 0;
-    box-shadow: none;
     border: 2px solid #FFF;
-    background-color: unset;
     font-size: 40px;
     color: #FFF;
     border-radius: 2px;
     background: url(../../../images/plus.svg) center no-repeat;
-    outline: none;
 }
 
 @media screen and (max-width: 882px) { /*мобильные*/

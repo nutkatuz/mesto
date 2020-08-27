@@ -3,6 +3,7 @@
     width: 142.01px;
     max-width: 100%;
     padding: 45px 0 40.6px;
+    transition: opacity .4s;
 }
 
 @media all and (max-width: 882px) {
