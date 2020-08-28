@@ -65,7 +65,7 @@ export default class Api {
       })
   }
 
-  getUserInfo() {
+  getUserData() {
     return fetch(`${this.baseUrl}/v1/cohort-14/users/me`, {
         headers: this.headers
       })
@@ -77,7 +77,7 @@ export default class Api {
       })
   }
 
-  patchUserInfo(name, about) {
+  patchUserData(name, about) {
     return fetch(`${this.baseUrl}/v1/cohort-14/users/me`, {
         method: 'PATCH',
         headers: this.headers,
@@ -94,7 +94,7 @@ export default class Api {
       })
   }
 
-  addLike(_id) {
+  putLike(_id) {
     return fetch(`${this.baseUrl}/v1/cohort-14/cards/likes/${_id}`, {
         method: 'PUT',
         headers: this.headers
@@ -107,7 +107,7 @@ export default class Api {
       })
   }
 
-  removeLike(_id) {
+  deleteLike(_id) {
     return fetch(`${this.baseUrl}/v1/cohort-14/cards/likes/${_id}`, {
         method: 'DELETE',
         headers: this.headers
