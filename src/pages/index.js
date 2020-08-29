@@ -27,8 +27,6 @@ const newCardPopupForm = popupNewCard.querySelector('.popup__form')
 const profilePopupForm = popupProfile.querySelector('.popup__form')
 const avatarPopupForm = popupUpdateAvatar.querySelector('.popup__form')
 
-
-
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co',
     headers: {
@@ -45,7 +43,6 @@ const userInfo = new UserInfo({
 let userId
 
 
-
 const section = new Section({
     renderer: (item) => {
         renderCardIntoSection(item, 'append')
@@ -53,29 +50,18 @@ const section = new Section({
 }, containerSelector)
 
 
-
 Promise.all([api.getUserData(), api.getInitialItems()])
-.then((data) => {
-    userId = data[0]._id
-    userInfo.setUserInfo(data[0])
-
-    section.renderItems(data[1])
-    
-})
-  .catch((err) => {
-    console.log(`Ошибка ${err}`)
-})
-
-
+    .then((data) => {
+        userId = data[0]._id
+        userInfo.setUserInfo(data[0])
+        section.renderItems(data[1])
+    })
+    .catch((err) => {
+        console.log(`Ошибка ${err}`)
+    })
 
 const popupWithImage = new PopupWithImage(popupZoom)
 popupWithImage.setEventListeners()
-
-
-const popupWithConfirm = new PopupWithConfirm(popupConfirm)
-popupWithConfirm.setEventListeners()
-
-
 
 
 const popupWithFormEdit = new PopupWithForm(popupProfile, {
@@ -108,16 +94,12 @@ const showEditPopup = () => {
 editButton.addEventListener('mouseup', () => showEditPopup())
 
 
-
-
-
-
-
 const popupWithFormAvatar = new PopupWithForm(popupUpdateAvatar, {
     handleSubmit: (item) => {
         api.patchUserAvatar(item.thirdInp)
             .then((res) => {
-                document.querySelector('.profile__photobtn').style.backgroundImage = `url('${res.avatar}')`
+                document.querySelector('.profile__photobtn')
+                    .style.backgroundImage = `url('${res.avatar}')`
                 popupWithFormAvatar.close()
             })
             .catch((err) => {
@@ -135,11 +117,6 @@ const showAvatarPopup = () => {
 }
 
 avatarButton.addEventListener('mouseup', () => showAvatarPopup())
-
-
-
-
-
 
 
 const popupWithFormAdd = new PopupWithForm(
@@ -167,10 +144,6 @@ const showAddPopup = () => {
 addButton.addEventListener('mouseup', () => showAddPopup())
 
 
-
-
-
-
 function renderCardIntoSection(item, prepend) {
     const card = new Card({
         data: item,
@@ -178,17 +151,22 @@ function renderCardIntoSection(item, prepend) {
             popupWithImage.open(item)
         },
         handleDeleteClick: () => {
+            const popupWithConfirm = new PopupWithConfirm(popupConfirm,
+                {submitHandler: (item) => {
+                    console.log(item)
+                    api.deleteItem(item._id)
+                        .then((res) => {
+                            card.removeCard(res)
+                            popupWithConfirm.close()
+                        })
+                        .catch((err) => {
+                            console.log(`Ошибка ${err}`)
+                        })
+                }}
+                )
+            // popupWithConfirm.setEventListeners()
             popupWithConfirm.open(item)
-            popupWithConfirm.submitHandler(() => {
-                api.deleteItem(item._id)
-                    .then((res) => {
-                        card.removeCard(res)
-                        popupWithConfirm.close()
-                    })
-                    .catch((err) => {
-                        console.log(`Ошибка ${err}`)
-                    })
-            })
+            // popupWithConfirm.submitHandler()
         },
         handleAddLike: () => api.putLike(item._id)
             .catch((err) => {
@@ -204,12 +182,6 @@ function renderCardIntoSection(item, prepend) {
     const cardElement = card.generateCard()
     section.renderItem(cardElement, prepend)
 }
-
-
-
-
-
-
 
 const profileValidation = new FormValidator(config, profilePopupForm)
 profileValidation.enableValidation()
