@@ -4,9 +4,9 @@ export default class PopupWithConfirm extends Popup {
         super(popup)
     }
     
-    open(item) {
+    open() {
         super.open()
-            this._popup.querySelector('.popup__button').textContent = "Да"
+        this._popup.querySelector('.popup__button').textContent = "Да"
     }
 
     submitHandler(handlerDelete) {
@@ -18,7 +18,7 @@ export default class PopupWithConfirm extends Popup {
         this._popup.querySelector('.popup__form').addEventListener('submit', (event) => {
             event.preventDefault()
             this._popup.querySelector('.popup__button').textContent = "Удаление..."
-            this._handlerDelete(item)
+            this._handlerDelete()
         })
     }
 }
