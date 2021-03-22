@@ -1,4 +1,4 @@
-# [Mesto](https://nutkatuz.github.io/mesto/)
+# [Mesto](https://revidovich.github.io/mesto/)
 
 ### Описание проекта
 
